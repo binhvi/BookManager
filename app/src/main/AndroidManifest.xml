@@ -9,9 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TheLoaiActivity"
+        <activity android:name=".HoaDonChiTietActivity"
+            android:parentActivityName=".HoaDonActivity"
+            android:label="CHI TIẾT HÓA ĐƠN"></activity>
+        <activity
+            android:name=".HoaDonActivity"
+            android:label="THÊM HÓA ĐƠN"
+            android:parentActivityName=".ListHoaDonActivity" />
+        <activity
+            android:name=".TheLoaiActivity"
             android:label="THỂ LOẠI"
-            android:parentActivityName=".ListTheLoaiActivity"></activity>
+            android:parentActivityName=".ListTheLoaiActivity" />
         <activity
             android:name=".ThemSachActivity"
             android:label="THÊM SÁCH"
@@ -28,7 +36,8 @@
             android:label="TOP 10 SÁCH BÁN CHẠY" />
         <activity
             android:name=".ListHoaDonActivity"
-            android:label="HÓA ĐƠN" />
+            android:label="HÓA ĐƠN"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ListBookActivity"
             android:label="QUẢN LÝ SÁCH"
@@ -36,7 +45,7 @@
         <activity
             android:name=".ListTheLoaiActivity"
             android:label="THỂ LOẠI"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ListNguoiDungActivity"
             android:label="NGƯỜI DÙNG"

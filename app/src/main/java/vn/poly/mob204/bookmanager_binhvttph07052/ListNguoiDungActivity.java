@@ -69,7 +69,7 @@ public class ListNguoiDungActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ChangePasswordActivity.class));
                 break;
             case R.id.mnu_log_out:
-                //todo: log out
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
