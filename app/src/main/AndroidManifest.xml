@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HoaDonChiTietActivity"
-            android:parentActivityName=".HoaDonActivity"
-            android:label="CHI TIẾT HÓA ĐƠN"></activity>
+        <activity android:name=".LuotSachBanChayActivity"></activity>
+        <activity
+            android:name=".HoaDonChiTietActivity"
+            android:label="CHI TIẾT HÓA ĐƠN"
+            android:parentActivityName=".HoaDonActivity" />
         <activity
             android:name=".HoaDonActivity"
             android:label="THÊM HÓA ĐƠN"
