@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LuotSachBanChayActivity"></activity>
+        <activity android:name=".LuotSachBanChayActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="TOP 10 SÁCH BÁN CHẠY"></activity>
         <activity
             android:name=".HoaDonChiTietActivity"
             android:label="CHI TIẾT HÓA ĐƠN"
@@ -32,10 +34,8 @@
             android:parentActivityName=".ListNguoiDungActivity" />
         <activity
             android:name=".ThongKeDoanhThuActivity"
-            android:label="DOANH THU" />
-        <activity
-            android:name=".LuotBanSachChayActivity"
-            android:label="TOP 10 SÁCH BÁN CHẠY" />
+            android:label="DOANH THU"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".ListHoaDonActivity"
             android:label="HÓA ĐƠN"

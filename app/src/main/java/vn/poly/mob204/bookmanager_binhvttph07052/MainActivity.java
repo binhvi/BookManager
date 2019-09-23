@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ViewTopSach(View view) {
-        Intent intent=new Intent(this, LuotBanSachChayActivity.class);
+        Intent intent=new Intent(this, LuotSachBanChayActivity.class);
         startActivity(intent);
     }
 

@@ -1,5 +1,6 @@
 package vn.poly.mob204.bookmanager_binhvttph07052;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,9 @@ public class LuotSachBanChayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_luot_sach_ban_chay);
+
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         edThang = (EditText) findViewById(R.id.edThang);
         rvBookTop = (RecyclerView) findViewById(R.id.rvBookTop);
