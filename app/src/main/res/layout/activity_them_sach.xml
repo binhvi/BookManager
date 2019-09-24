@@ -50,7 +50,7 @@
             android:id="@+id/edGiaBia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Giá bìa"/>
+            android:hint="Giá bìa (VNĐ)"/>
         <EditText
             android:id="@+id/edSoLuong"
             android:layout_width="match_parent"
@@ -81,6 +81,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="showBook"
-            android:text="show"/>
+            android:text="Trở về danh sách sách"/>
 
 </LinearLayout>
