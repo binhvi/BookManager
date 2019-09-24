@@ -8,76 +8,76 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
-import vn.poly.mob204.bookmanager_binhvttph07052.model.Sach;
+import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDon;
 
-public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
+public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHolder>
     implements Filterable
 {
-    List<Sach> arrSach;
     Activity context;
+    List<HoaDon> arrHoaDon;
+    SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
 
-    public BookAdapter( Activity context, List<Sach> arrSach) {
-        this.arrSach = arrSach;
+    public HoaDonAdapter(Activity context, List<HoaDon> arrHoaDon) {
         this.context = context;
+        this.arrHoaDon = arrHoaDon;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=LayoutInflater.from(context).inflate(R.layout.item_book, parent, false);
+        View view= LayoutInflater.from(context).inflate(R.layout.item_hoadon, parent, false);
         ViewHolder viewHolder=new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        final Sach sach=arrSach.get(position);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        final HoaDon hoaDon=arrHoaDon.get(position);
 
-        //set thong tin cua doi tuong len view
-        holder.img.setImageResource(R.drawable.bookicon);
-        holder.txtBookName.setText(sach.getTenSach());
-        holder.txtBookPrice.setText("Giá: "+sach.getGiaBia()+" VNĐ");
-        //xu ly su kien nut delete
-        //todo: xu ly su kien nut delete
+        //lay thong tin tu doi tuong len view
+        holder.img.setImageResource(R.drawable.hdicon);
+        holder.txtMaHoaDon.setText(hoaDon.getMaHoaDon()+"");
+        holder.txtNgayMua.setText(sdf.format(hoaDon.getNgayMua()));
+
+        //xu ly su kien nut xoa
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "item "+position, Toast.LENGTH_SHORT).show();
+
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return arrSach.size();
+        return arrHoaDon.size();
     }
 
     @Override
     public Filter getFilter() {
-        //todo: viet ham filter sach
         return null;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView img;
-        TextView txtBookName;
-        TextView txtBookPrice;
-        ImageView imgDelete;
+        private ImageView img;
+        private TextView txtMaHoaDon;
+        private TextView txtNgayMua;
+        private ImageView imgDelete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             img = (ImageView) itemView.findViewById(R.id.ivIcon);
-            txtBookName = (TextView) itemView.findViewById(R.id.tvBookName);
-            txtBookPrice = (TextView) itemView.findViewById(R.id.tvBookPrice);
+            txtMaHoaDon = (TextView) itemView.findViewById(R.id.tvMaHoaDon);
+            txtNgayMua = (TextView) itemView.findViewById(R.id.tvNgayMua);
             imgDelete = (ImageView) itemView.findViewById(R.id.ivDelete);
         }
     }

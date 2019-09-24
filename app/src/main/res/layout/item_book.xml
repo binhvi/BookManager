@@ -24,11 +24,6 @@
             android:singleLine="true"
             android:textStyle="bold"/>
         <TextView
-            android:id="@+id/tvSoLuong"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"/>
-        <TextView
             android:id="@+id/tvBookPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
