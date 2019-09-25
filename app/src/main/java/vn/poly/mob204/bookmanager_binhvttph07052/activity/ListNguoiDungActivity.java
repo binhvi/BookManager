@@ -17,12 +17,14 @@ import java.util.List;
 
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
 import vn.poly.mob204.bookmanager_binhvttph07052.adapter.NguoiDungAdapter;
+import vn.poly.mob204.bookmanager_binhvttph07052.dao.NguoiDungDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.NguoiDung;
 
 public class ListNguoiDungActivity extends AppCompatActivity {
     private RecyclerView rvNguoiDung;
     NguoiDungAdapter nguoiDungAdapter;
     List<NguoiDung> nguoiDungList;
+    NguoiDungDAO nguoiDungDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +37,22 @@ public class ListNguoiDungActivity extends AppCompatActivity {
 
         rvNguoiDung = (RecyclerView) findViewById(R.id.rvNguoiDung);
         nguoiDungList=new ArrayList<>();
-
-        //fake du lieu
-        for (int i=0; i<10; i++) {
-            NguoiDung nguoiDung=new NguoiDung();
-            nguoiDung.setHoTen("Hoang Thuy Linh "+i);
-            nguoiDung.setPhone("1800100"+i);
-            nguoiDungList.add(nguoiDung);
-        }
-
         nguoiDungAdapter=new NguoiDungAdapter(nguoiDungList, this);
         rvNguoiDung.setAdapter(nguoiDungAdapter);
-
         //layout theo chieu doc
         LinearLayoutManager vertical=new LinearLayoutManager(this);
         rvNguoiDung.setLayoutManager(vertical);
+
+        //Lay du lieu tu db ra
+        nguoiDungDAO=new NguoiDungDAO(this);
+        //refresh adapter
+        refreshAdapter();
+    }
+
+    private void refreshAdapter() {
+        nguoiDungList.clear();
+        nguoiDungList.addAll(nguoiDungDAO.getAllNguoiDung());
+        nguoiDungAdapter.notifyDataSetChanged();
     }
 
     @Override
