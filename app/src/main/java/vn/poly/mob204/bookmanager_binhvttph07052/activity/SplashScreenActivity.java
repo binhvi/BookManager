@@ -1,4 +1,4 @@
-package vn.poly.mob204.bookmanager_binhvttph07052;
+package vn.poly.mob204.bookmanager_binhvttph07052.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

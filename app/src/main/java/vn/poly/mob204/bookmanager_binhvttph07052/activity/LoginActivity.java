@@ -1,4 +1,4 @@
-package vn.poly.mob204.bookmanager_binhvttph07052;
+package vn.poly.mob204.bookmanager_binhvttph07052.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+
+import vn.poly.mob204.bookmanager_binhvttph07052.R;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText edUserName;

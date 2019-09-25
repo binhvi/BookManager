@@ -1,4 +1,4 @@
-package vn.poly.mob204.bookmanager_binhvttph07052;
+package vn.poly.mob204.bookmanager_binhvttph07052.activity;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import vn.poly.mob204.bookmanager_binhvttph07052.R;
 
 public class ThemSachActivity extends AppCompatActivity {
     private EditText edMaSach;

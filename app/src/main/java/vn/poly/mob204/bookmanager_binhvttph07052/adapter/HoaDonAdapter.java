@@ -16,9 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import vn.poly.mob204.bookmanager_binhvttph07052.HoaDonActivity;
-import vn.poly.mob204.bookmanager_binhvttph07052.HoaDonChiTietActivity;
-import vn.poly.mob204.bookmanager_binhvttph07052.ListHoaDonActivity;
+import vn.poly.mob204.bookmanager_binhvttph07052.activity.HoaDonChiTietActivity;
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDon;
 

@@ -1,4 +1,4 @@
-package vn.poly.mob204.bookmanager_binhvttph07052;
+package vn.poly.mob204.bookmanager_binhvttph07052.activity;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import vn.poly.mob204.bookmanager_binhvttph07052.R;
 import vn.poly.mob204.bookmanager_binhvttph07052.adapter.CartAdapter;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDon;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDonChiTiet;

@@ -1,10 +1,12 @@
-package vn.poly.mob204.bookmanager_binhvttph07052;
+package vn.poly.mob204.bookmanager_binhvttph07052.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import vn.poly.mob204.bookmanager_binhvttph07052.R;
 
 public class MainActivity extends AppCompatActivity {
 

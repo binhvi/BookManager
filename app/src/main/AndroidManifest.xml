@@ -9,55 +9,55 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LuotSachBanChayActivity"
-            android:parentActivityName=".MainActivity"
+        <activity android:name=".activity.LuotSachBanChayActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:label="TOP 10 SÁCH BÁN CHẠY"></activity>
         <activity
-            android:name=".HoaDonChiTietActivity"
+            android:name=".activity.HoaDonChiTietActivity"
             android:label="CHI TIẾT HÓA ĐƠN"
-            android:parentActivityName=".HoaDonActivity" />
+            android:parentActivityName=".activity.HoaDonActivity" />
         <activity
-            android:name=".HoaDonActivity"
+            android:name=".activity.HoaDonActivity"
             android:label="THÊM HÓA ĐƠN"
-            android:parentActivityName=".ListHoaDonActivity" />
+            android:parentActivityName=".activity.ListHoaDonActivity" />
         <activity
-            android:name=".TheLoaiActivity"
+            android:name=".activity.TheLoaiActivity"
             android:label="THỂ LOẠI"
-            android:parentActivityName=".ListTheLoaiActivity" />
+            android:parentActivityName=".activity.ListTheLoaiActivity" />
         <activity
-            android:name=".ThemSachActivity"
+            android:name=".activity.ThemSachActivity"
             android:label="THÊM SÁCH"
-            android:parentActivityName=".ListBookActivity" />
+            android:parentActivityName=".activity.ListBookActivity" />
         <activity
-            android:name=".NguoiDungActivity"
+            android:name=".activity.NguoiDungActivity"
             android:label="THÊM NGƯỜI DÙNG"
-            android:parentActivityName=".ListNguoiDungActivity" />
+            android:parentActivityName=".activity.ListNguoiDungActivity" />
         <activity
-            android:name=".ThongKeDoanhThuActivity"
+            android:name=".activity.ThongKeDoanhThuActivity"
             android:label="DOANH THU"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".activity.MainActivity"/>
         <activity
-            android:name=".ListHoaDonActivity"
+            android:name=".activity.ListHoaDonActivity"
             android:label="HÓA ĐƠN"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name=".ListBookActivity"
+            android:name=".activity.ListBookActivity"
             android:label="QUẢN LÝ SÁCH"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name=".ListTheLoaiActivity"
+            android:name=".activity.ListTheLoaiActivity"
             android:label="THỂ LOẠI"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name=".ListNguoiDungActivity"
+            android:name=".activity.ListNguoiDungActivity"
             android:label="NGƯỜI DÙNG"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".ChangePasswordActivity" />
+            android:parentActivityName=".activity.MainActivity" />
+        <activity android:name=".activity.ChangePasswordActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="ĐĂNG NHẬP" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".activity.SplashScreenActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -66,7 +66,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="QUẢN LÝ SÁCH" />
     </application>
 

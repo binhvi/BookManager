@@ -1,4 +1,4 @@
-package vn.poly.mob204.bookmanager_binhvttph07052;
+package vn.poly.mob204.bookmanager_binhvttph07052.activity;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import vn.poly.mob204.bookmanager_binhvttph07052.R;
 
 public class LuotSachBanChayActivity extends AppCompatActivity {
     private EditText edThang;
