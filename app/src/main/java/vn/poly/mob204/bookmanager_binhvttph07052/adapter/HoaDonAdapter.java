@@ -1,6 +1,7 @@
 package vn.poly.mob204.bookmanager_binhvttph07052.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import vn.poly.mob204.bookmanager_binhvttph07052.HoaDonActivity;
+import vn.poly.mob204.bookmanager_binhvttph07052.HoaDonChiTietActivity;
+import vn.poly.mob204.bookmanager_binhvttph07052.ListHoaDonActivity;
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDon;
 
 public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHolder>
     implements Filterable
 {
-    Activity context;
+    public Activity context;
     List<HoaDon> arrHoaDon;
     SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
 
@@ -72,13 +76,22 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHolder
         private TextView txtNgayMua;
         private ImageView imgDelete;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             img = (ImageView) itemView.findViewById(R.id.ivIcon);
             txtMaHoaDon = (TextView) itemView.findViewById(R.id.tvMaHoaDon);
             txtNgayMua = (TextView) itemView.findViewById(R.id.tvNgayMua);
             imgDelete = (ImageView) itemView.findViewById(R.id.ivDelete);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //todo: lay theo vi tri
+                    Intent intent=new Intent(itemView.getContext(), HoaDonChiTietActivity.class);
+                    itemView.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }
