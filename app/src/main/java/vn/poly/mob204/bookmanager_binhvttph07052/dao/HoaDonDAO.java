@@ -67,7 +67,49 @@ public class HoaDonDAO {
                 HoaDon hoaDon=new HoaDon();
                 hoaDon.setMaHoaDon(cursor.getInt(cursor.getColumnIndex(COLUMN_MA_HOA_DON)));
                 hoaDon.setNgayMua(sdf.parse(cursor.getString(cursor.getColumnIndex(COLUMN_MA_HOA_DON))));
+
+                dsHoaDon.add(hoaDon);
+                Log.d(TAG, hoaDon.toString());
             } while (cursor.moveToNext());
         }
+        //dong ket noi cursor, db
+        cursor.close();
+        database.close();
+        return dsHoaDon;
+    }
+
+    //update
+    public int updateHoaDon(HoaDon hd) {
+        //xin quyen
+        SQLiteDatabase database=dbHelper.getWritableDatabase();
+        //ghep cap du lieu
+        ContentValues values=new ContentValues();
+        //khong put ma hoa don, de tu sinh
+        values.put(COLUMN_NGAY_MUA, sdf.format(hd.getNgayMua()));
+        //update
+        int result=database.update(
+                TABLE_NAME,
+                values,
+                COLUMN_MA_HOA_DON+"=?",
+                new String[] {String.valueOf(hd.getMaHoaDon())}
+        );
+        //dong ket noi db
+        database.close();
+        return result;
+    }
+
+    //delete
+    public int deleteHoaDonByID(int maHoaDon) {
+        //xin quyen
+        SQLiteDatabase database=dbHelper.getWritableDatabase();
+        //xoa
+        int result=database.delete(
+                TABLE_NAME,
+                COLUMN_MA_HOA_DON+"=?",
+                new String[] {String.valueOf(maHoaDon)}
+        );
+        //dong ket noi db
+        database.close();
+        return result;
     }
 }
