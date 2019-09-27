@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ import vn.poly.mob204.bookmanager_binhvttph07052.model.NguoiDung;
 public class ListNguoiDungActivity extends AppCompatActivity {
     private RecyclerView rvNguoiDung;
     NguoiDungAdapter nguoiDungAdapter;
-    List<NguoiDung> nguoiDungList;
+    public static List<NguoiDung> nguoiDungList;
     NguoiDungDAO nguoiDungDAO;
 
     @Override
@@ -47,6 +48,11 @@ public class ListNguoiDungActivity extends AppCompatActivity {
         nguoiDungDAO=new NguoiDungDAO(this);
         //refresh adapter
         refreshAdapter();
+        
+        addEvents();
+    }
+
+    private void addEvents() {
     }
 
     private void refreshAdapter() {
@@ -77,5 +83,11 @@ public class ListNguoiDungActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshAdapter();
     }
 }

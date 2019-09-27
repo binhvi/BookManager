@@ -9,9 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.LuotSachBanChayActivity"
-            android:parentActivityName=".activity.MainActivity"
-            android:label="TOP 10 SÁCH BÁN CHẠY"></activity>
+        <activity android:name=".activity.NguoiDungDetailActivity"
+            android:label="CHI TIẾT NGƯỜI DÙNG"></activity>
+        <activity
+            android:name=".activity.LuotSachBanChayActivity"
+            android:label="TOP 10 SÁCH BÁN CHẠY"
+            android:parentActivityName=".activity.MainActivity" />
         <activity
             android:name=".activity.HoaDonChiTietActivity"
             android:label="CHI TIẾT HÓA ĐƠN"
@@ -35,7 +38,7 @@
         <activity
             android:name=".activity.ThongKeDoanhThuActivity"
             android:label="DOANH THU"
-            android:parentActivityName=".activity.MainActivity"/>
+            android:parentActivityName=".activity.MainActivity" />
         <activity
             android:name=".activity.ListHoaDonActivity"
             android:label="HÓA ĐƠN"
