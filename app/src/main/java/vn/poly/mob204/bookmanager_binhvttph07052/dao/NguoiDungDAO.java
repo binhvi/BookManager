@@ -151,7 +151,48 @@ public class NguoiDungDAO {
         return result;
     }
 
-    //todo: check login
+    /**
+     * kiểm tra xem trong csdl có cặp tên và pass đó trong DB không
+     * nếu có, return 1
+     * nếu không, return -1
+     * nhưng sửa thành truy vấn, không xóa
+     * @param username
+     * @param password
+     * @return
+     */
+    public boolean checkLogin(String username, String password) {
+        //xin quyen
+        SQLiteDatabase database=dbHelper.getReadableDatabase();
+        //cau lenh truy van
+        String selectQuery="SELECT COUNT(*) FROM "+TABLE_NAME+ " WHERE "+
+                COLUMN_NGUOI_DUNG_USERNAME+"=? AND "+COLUMN_NGUOI_DUNG_PASSWORD+"=?";
+        //su dung cau lenh rawQuery
+        Cursor cursor=database.rawQuery(selectQuery, new String[] {username, password});
+        cursor.moveToFirst();
+        int result=cursor.getInt(0);
+        //dong ket noi cursor va db
+        cursor.close();
+        database.close();
+        if(result>0) {
+            return true;
+        } return false;
+    }
 
-
+    public int changePasswordNguoiDung(NguoiDung nd) {
+        SQLiteDatabase database=dbHelper.getWritableDatabase();
+        ContentValues values=new ContentValues();
+        values.put(COLUMN_NGUOI_DUNG_USERNAME, nd.getUserName());
+        values.put(COLUMN_NGUOI_DUNG_PASSWORD, nd.getPassword());
+        int result=database.update(
+                TABLE_NAME,
+                values,
+                COLUMN_NGUOI_DUNG_USERNAME+"=?",
+                new String[] {nd.getUserName()}
+        );
+        database.close();
+        if (result==0) {
+            return -1;
+        }
+        return 1;
+    }
 }

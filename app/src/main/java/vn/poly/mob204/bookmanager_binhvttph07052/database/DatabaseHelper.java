@@ -18,7 +18,7 @@ import static vn.poly.mob204.bookmanager_binhvttph07052.dao.NguoiDungDAO.SQL_NGU
 import static vn.poly.mob204.bookmanager_binhvttph07052.dao.SachDAO.SQL_SACH;
 import static vn.poly.mob204.bookmanager_binhvttph07052.dao.TheLoaiDAO.SQL_THE_LOAI;
 
-//todo: xem trang 33
+//todo: document trang 33
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 

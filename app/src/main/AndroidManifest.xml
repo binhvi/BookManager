@@ -58,7 +58,8 @@
         <activity android:name=".activity.ChangePasswordActivity" />
         <activity
             android:name=".activity.LoginActivity"
-            android:label="ĐĂNG NHẬP" />
+            android:label="ĐĂNG NHẬP"
+            android:parentActivityName=".activity.MainActivity"/>
         <activity
             android:name=".activity.SplashScreenActivity"
             android:theme="@style/SplashTheme">
