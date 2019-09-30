@@ -115,7 +115,6 @@ public class NguoiDungDAO {
      * để dựa vào đó để update (kiểu như id) chứ không phải để đổi,
      * vì content values có mỗi put phone với hoten thôi.
      */
-
     public int updateInfoNguoiDung(String username, String phone, String name) {
         //b1: xin quyen ghi
         SQLiteDatabase database=dbHelper.getWritableDatabase();

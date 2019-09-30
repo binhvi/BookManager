@@ -21,6 +21,8 @@ import vn.poly.mob204.bookmanager_binhvttph07052.adapter.NguoiDungAdapter;
 import vn.poly.mob204.bookmanager_binhvttph07052.dao.NguoiDungDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.NguoiDung;
 
+import static vn.poly.mob204.bookmanager_binhvttph07052.activity.LoginActivity.username;
+
 public class ListNguoiDungActivity extends AppCompatActivity {
     private RecyclerView rvNguoiDung;
     NguoiDungAdapter nguoiDungAdapter;
@@ -79,6 +81,7 @@ public class ListNguoiDungActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ChangePasswordActivity.class));
                 break;
             case R.id.mnu_log_out:
+                username="";
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
         }

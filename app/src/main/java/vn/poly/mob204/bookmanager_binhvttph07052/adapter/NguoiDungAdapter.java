@@ -22,6 +22,7 @@ import vn.poly.mob204.bookmanager_binhvttph07052.dao.NguoiDungDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.NguoiDung;
 
 import static vn.poly.mob204.bookmanager_binhvttph07052.activity.ListNguoiDungActivity.nguoiDungList;
+import static vn.poly.mob204.bookmanager_binhvttph07052.activity.LoginActivity.username;
 
 public class NguoiDungAdapter extends RecyclerView.Adapter<NguoiDungAdapter.ViewHolder> {
     List<NguoiDung> arrNguoiDung;
@@ -64,6 +65,11 @@ public class NguoiDungAdapter extends RecyclerView.Adapter<NguoiDungAdapter.View
         holder.txtName.setText(nguoiDung.getHoTen());
         //hien thi so dien thoai
         holder.txtPhone.setText(nguoiDung.getPhone());
+
+        //An user cannot delete his own account while he is logging in
+        if (nguoiDung.getUserName().equals(username)) {
+            holder.imgDelete.setVisibility(View.INVISIBLE); // 	INVISIBLE: This view is invisible, but it still takes up space for layout purposes.
+        }
 
         //xoa
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
