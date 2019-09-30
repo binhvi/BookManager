@@ -25,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
     String strUser, strPass;
     NguoiDungDAO nguoiDungDAO;
 
+    public static String username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,9 +56,11 @@ public class LoginActivity extends AppCompatActivity {
             if (nguoiDungDAO.checkLogin(strUser, strPass)) {
                 Toast.makeText(
                         getApplicationContext(),
-                        "Login thành công",
+                        "Đăng nhập thành công",
                         Toast.LENGTH_SHORT
                 ).show();
+                //luu lai username de co gi thay doi duoc password
+                username=strUser;
 //                chuyen sang mh chinh
                 startActivity(new Intent(this, MainActivity.class));
                 return;
@@ -64,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (strUser.equalsIgnoreCase("admin") &&
                         strPass.equalsIgnoreCase("admin")){
                     rememberUser(strUser, strPass, chkRememberPass.isChecked());
+                    username="admin";
                     startActivity(new Intent(this, MainActivity.class));
                     return;
                 } else {

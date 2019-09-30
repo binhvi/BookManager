@@ -55,7 +55,8 @@
             android:name=".activity.ListNguoiDungActivity"
             android:label="NGƯỜI DÙNG"
             android:parentActivityName=".activity.MainActivity" />
-        <activity android:name=".activity.ChangePasswordActivity" />
+        <activity android:name=".activity.ChangePasswordActivity"
+            android:label="ĐỔI MẬT KHẨU"/>
         <activity
             android:name=".activity.LoginActivity"
             android:label="ĐĂNG NHẬP"

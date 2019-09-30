@@ -18,6 +18,11 @@ public class NguoiDung implements Serializable {
         this.hoTen = hoTen;
     }
 
+    public NguoiDung(String username, String password) {
+        this.userName=username;
+        this.password=password;
+    }
+
     public String getUserName() {
         return userName;
     }

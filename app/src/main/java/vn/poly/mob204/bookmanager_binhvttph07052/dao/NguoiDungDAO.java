@@ -153,12 +153,11 @@ public class NguoiDungDAO {
 
     /**
      * kiểm tra xem trong csdl có cặp tên và pass đó trong DB không
-     * nếu có, return 1
-     * nếu không, return -1
-     * nhưng sửa thành truy vấn, không xóa
+     * nếu có, return true
+     * nếu không, return false
      * @param username
      * @param password
-     * @return
+     * @return true if pair username-password is exists in database, else return false
      */
     public boolean checkLogin(String username, String password) {
         //xin quyen
@@ -178,7 +177,15 @@ public class NguoiDungDAO {
         } return false;
     }
 
-    public int changePasswordNguoiDung(NguoiDung nd) {
+    /**
+     * Tạo content values
+     * lấy username và pass của đối tượng người dùng vừa truyền vào cho vào content values
+     * update thông tin người dùng trong database
+     * Thông báo update thành công (trả về true) hay thất bại (false)
+     * @param nd doi tuong NguoiDung lay tu UI (?)
+     * @return thay doi pass thanh cong hay that bai
+     */
+    public boolean changePasswordNguoiDung(NguoiDung nd) {
         SQLiteDatabase database=dbHelper.getWritableDatabase();
         ContentValues values=new ContentValues();
         values.put(COLUMN_NGUOI_DUNG_USERNAME, nd.getUserName());
@@ -190,9 +197,9 @@ public class NguoiDungDAO {
                 new String[] {nd.getUserName()}
         );
         database.close();
-        if (result==0) {
-            return -1;
+        if (result>0) {
+            return true;
         }
-        return 1;
+        return false;
     }
 }
