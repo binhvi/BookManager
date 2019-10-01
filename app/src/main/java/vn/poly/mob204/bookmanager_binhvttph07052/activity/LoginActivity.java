@@ -62,6 +62,8 @@ public class LoginActivity extends AppCompatActivity {
                 //luu lai username de co gi thay doi duoc password
                 username=strUser;
 //                chuyen sang mh chinh
+                //luu lai thong tin dang nhap cho lan dang nhap tiep theo
+                rememberUser(strUser, strPass, chkRememberPass.isChecked());
                 startActivity(new Intent(this, MainActivity.class));
                 return;
             } else {
@@ -105,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
             //luu du lieu
             edit.putString("USERNAME", u);
             edit.putString("PASSWORD", p);
-            edit.putBoolean("REMBMBER", status);
+            edit.putBoolean("REMEMBER", status);
         }
         //luu lai toan bo
         edit.commit();
