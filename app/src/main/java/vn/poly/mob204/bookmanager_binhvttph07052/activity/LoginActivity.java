@@ -43,6 +43,16 @@ public class LoginActivity extends AppCompatActivity {
         btnCancel = (Button) findViewById(R.id.btnCancel);
 
         nguoiDungDAO=new NguoiDungDAO(this);
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //clear form
+                edUserName.setText("");
+                edPassword.setText("");
+                chkRememberPass.setChecked(false);
+            }
+        });
     }
 
 
