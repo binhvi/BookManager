@@ -111,4 +111,29 @@ public class TheLoaiDAO {
         database.close();
         return result;
     }
+
+    /**
+     * check if the loai id exists
+     * @param strPrimaryKey ma the loai
+     * @return true if ma the loai exists in db, else return false
+     */
+    public boolean checkPrimaryKey(String strPrimaryKey) {
+        //xin quyen
+        SQLiteDatabase database=dbHelper.getReadableDatabase();
+        //SELECT
+        String[] columns={COLUMN_MA_THE_LOAI};
+        //WHERE clause argumants
+        String selection=COLUMN_MA_THE_LOAI+"=?";
+        //WHERE clause arguments
+        String[] selectionArgs={strPrimaryKey};
+        Cursor cursor=database.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+        cursor.moveToFirst();
+        int numberOfRecords=cursor.getCount();
+        cursor.close();
+        database.close();
+        if (numberOfRecords>0) {
+            return true;
+        }
+        return false;
+    }
 }

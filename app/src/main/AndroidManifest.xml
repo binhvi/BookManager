@@ -59,8 +59,7 @@
             android:label="ĐỔI MẬT KHẨU"/>
         <activity
             android:name=".activity.LoginActivity"
-            android:label="ĐĂNG NHẬP"
-            android:parentActivityName=".activity.MainActivity"/>
+            android:label="ĐĂNG NHẬP" />
         <activity
             android:name=".activity.SplashScreenActivity"
             android:theme="@style/SplashTheme">

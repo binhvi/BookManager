@@ -26,6 +26,10 @@ public class LoginActivity extends AppCompatActivity {
     NguoiDungDAO nguoiDungDAO;
 
     public static String username;
+    private static final String SHARED_PREFERENCES_NAME="USER_FILE";
+    private static final String KEY_USERNAME="USERNAME";
+    private static final String KEY_PASSWORD="PASSWORD";
+    private static final String KEY_IS_REMEMBER="REMEMBER";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,5 +117,27 @@ public class LoginActivity extends AppCompatActivity {
         edit.commit();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        restoreLoginInfo();
+    }
 
+    private void restoreLoginInfo() {
+        SharedPreferences sharedPreferences=getSharedPreferences(
+                SHARED_PREFERENCES_NAME,
+                MODE_PRIVATE
+        );
+        //lay gia tri checked ra, neu khong thay thi gia tri mac dinh la false
+        boolean isRemember=sharedPreferences.getBoolean(KEY_IS_REMEMBER, false);
+        if (isRemember) {
+            //khoi phuc lai gia tri, set text
+            String userToSetText=sharedPreferences.getString(KEY_USERNAME, "");
+            String pwdToSetText=sharedPreferences.getString(KEY_PASSWORD, "");
+            edUserName.setText(userToSetText);
+            edPassword.setText(pwdToSetText);
+            //khoi phuc trang thai check box
+            chkRememberPass.setChecked(isRemember);
+        }
+    }
 }
