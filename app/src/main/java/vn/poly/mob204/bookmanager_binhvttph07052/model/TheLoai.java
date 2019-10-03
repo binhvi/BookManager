@@ -55,6 +55,6 @@ public class TheLoai implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return getMaTheLoai()+" | "+getTenTheLoai();
+        return getMaTheLoai() + " | " + getTenTheLoai();
     }
 }

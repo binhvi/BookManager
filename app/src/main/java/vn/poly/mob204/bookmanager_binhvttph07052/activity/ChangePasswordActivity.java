@@ -18,6 +18,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private EditText edPass;
     private EditText edRePass;
     NguoiDungDAO nguoiDungDAO;
+    String password, rePassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_change_password);
         edPass = (EditText) findViewById(R.id.edPassword);
         edRePass = (EditText) findViewById(R.id.edRePassword);
-        nguoiDungDAO=new NguoiDungDAO(this);
+        nguoiDungDAO = new NguoiDungDAO(this);
     }
 
     /**
@@ -35,18 +36,19 @@ public class ChangePasswordActivity extends AppCompatActivity {
      * nếu có username đó thì sẽ lưu thành công,
      * nếu là admin hoặc không có username đó trong db thì sẽ lưu thất bại,
      * rồi trở lại màn hình trước đó
+     *
      * @param view
      */
     public void changePassword(View view) {
-        String password, rePassword;
-        password=edPass.getText().toString().trim();
-        rePassword=edRePass.getText().toString().trim();
+
+        password = edPass.getText().toString().trim();
+        rePassword = edRePass.getText().toString().trim();
         //validate
-        if (validateForm()==true) {
+        if (validateForm() == true) {
             //tao doi tuong NguoiDung
-            NguoiDung nguoiDung=new NguoiDung(username, password);
+            NguoiDung nguoiDung = new NguoiDung(username, password);
             try {
-                if (nguoiDungDAO.changePasswordNguoiDung(nguoiDung)==true) {
+                if (nguoiDungDAO.changePasswordNguoiDung(nguoiDung) == true) {
                     Toast.makeText(
                             getApplicationContext(),
                             "Lưu thành công",
@@ -68,8 +70,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     public boolean validateForm() {
-        if (edPass.getText().toString().trim().length()==0 ||
-                edRePass.getText().toString().trim().length()==0) {
+        if (password.isEmpty() || rePassword.isEmpty()) {
             Toast.makeText(
                     getApplicationContext(),
                     "Bạn phải nhập đầy đủ thông tin",
@@ -77,8 +78,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
             ).show();
             return false;
         } else {
-            String pass= edPass.getText().toString().trim();
-            String rePass= edRePass.getText().toString().trim();
+            String pass = edPass.getText().toString().trim();
+            String rePass = edRePass.getText().toString().trim();
             if (!pass.equals(rePass)) {
                 Toast.makeText(
                         getApplicationContext(),

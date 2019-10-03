@@ -19,7 +19,7 @@ public class LuotSachBanChayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_luot_sach_ban_chay);
 
-        ActionBar actionBar=getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         edThang = (EditText) findViewById(R.id.edThang);

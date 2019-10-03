@@ -34,15 +34,15 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater=this.context.getLayoutInflater();
-        View view=inflater.inflate(R.layout.item_theloai, parent, false);
-        ViewHolder viewHolder=new ViewHolder(view);
+        LayoutInflater inflater = this.context.getLayoutInflater();
+        View view = inflater.inflate(R.layout.item_theloai, parent, false);
+        ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TheLoai theLoai=arrTheLoai.get(position);
+        TheLoai theLoai = arrTheLoai.get(position);
 
         holder.img.setImageResource(R.drawable.cateicon);
         holder.txtMaTheLoai.setText(theLoai.getMaTheLoai());

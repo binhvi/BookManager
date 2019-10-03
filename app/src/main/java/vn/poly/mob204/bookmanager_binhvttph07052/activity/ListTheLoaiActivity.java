@@ -29,20 +29,20 @@ public class ListTheLoaiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_the_loai);
         rvTheLoai = (RecyclerView) findViewById(R.id.rvTheLoai);
 
-        ActionBar actionBar=getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         //recycler view configuration
-        dsTheLoai=new ArrayList<>();
-        adapter=new TheLoaiAdapter(this, dsTheLoai);
+        dsTheLoai = new ArrayList<>();
+        adapter = new TheLoaiAdapter(this, dsTheLoai);
         rvTheLoai.setAdapter(adapter);
-        LinearLayoutManager vertical=new LinearLayoutManager(this);
+        LinearLayoutManager vertical = new LinearLayoutManager(this);
         rvTheLoai.setLayoutManager(vertical);
 
         //fake du lieu
-        for (int i=0; i<30; i++) {
+        for (int i = 0; i < 30; i++) {
             //tao doi tuong the loai moi
-            TheLoai theLoai=new TheLoai(String.valueOf(i), "Van hoc "+i,
+            TheLoai theLoai = new TheLoai(String.valueOf(i), "Van hoc " + i,
                     "Khong co mo ta", i);
             //them vao list
             dsTheLoai.add(theLoai);
@@ -59,7 +59,7 @@ public class ListTheLoaiActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add:
-                Intent intent=new Intent(ListTheLoaiActivity.this, TheLoaiActivity.class);
+                Intent intent = new Intent(ListTheLoaiActivity.this, TheLoaiActivity.class);
                 startActivity(intent);
                 return true;
         }

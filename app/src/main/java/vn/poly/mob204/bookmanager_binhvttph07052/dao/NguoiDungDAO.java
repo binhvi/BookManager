@@ -18,34 +18,34 @@ import static vn.poly.mob204.bookmanager_binhvttph07052.ValidateFunctionLibrary.
 public class NguoiDungDAO {
     private DatabaseHelper dbHelper;
 
-    public static final String TABLE_NAME="NguoiDung";
-    public static final String SQL_NGUOI_DUNG="CREATE TABLE NguoiDung (username text primary key, password text, phone text, hoten text);";
-    public static final String TAG="NguoiDungDAO";
+    public static final String TABLE_NAME = "NguoiDung";
+    public static final String SQL_NGUOI_DUNG = "CREATE TABLE NguoiDung (username text primary key, password text, phone text, hoten text);";
+    public static final String TAG = "NguoiDungDAO";
 
     //column
-    public static final String COLUMN_NGUOI_DUNG_USERNAME="username";
-    public static final String COLUMN_NGUOI_DUNG_PASSWORD="password";
-    public static final String COLUMN_NGUOI_DUNG_PHONE="phone";
-    public static final String COLUMN_NGUOI_DUNG_HO_TEN="hoten";
+    public static final String COLUMN_NGUOI_DUNG_USERNAME = "username";
+    public static final String COLUMN_NGUOI_DUNG_PASSWORD = "password";
+    public static final String COLUMN_NGUOI_DUNG_PHONE = "phone";
+    public static final String COLUMN_NGUOI_DUNG_HO_TEN = "hoten";
 
     //error id
 
     public NguoiDungDAO(Context context) {
-        dbHelper=new DatabaseHelper(context);
+        dbHelper = new DatabaseHelper(context);
     }
 
     public long insertNguoiDung(NguoiDung nd) {
         //xin quyen
-        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         //content values
-        ContentValues values=new ContentValues();
+        ContentValues values = new ContentValues();
         values.put(COLUMN_NGUOI_DUNG_USERNAME, nd.getUserName());
         values.put(COLUMN_NGUOI_DUNG_PASSWORD, nd.getPassword());
         values.put(COLUMN_NGUOI_DUNG_PHONE, nd.getPhone());
         values.put(COLUMN_NGUOI_DUNG_HO_TEN, nd.getHoTen());
         //cau lenh insert
         try {
-            long result=db.insert(TABLE_NAME, null, values);
+            long result = db.insert(TABLE_NAME, null, values);
             return result;
         } catch (Exception exc) {
             Log.e(TAG, exc.toString());
@@ -57,17 +57,17 @@ public class NguoiDungDAO {
 
     //get All
     public List<NguoiDung> getAllNguoiDung() {
-        List<NguoiDung> dsNguoiDung=new ArrayList<>();
+        List<NguoiDung> dsNguoiDung = new ArrayList<>();
         //xin quyen
-        SQLiteDatabase database=dbHelper.getReadableDatabase();
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
         //cau lenh select
-        String selectQuery="SELECT * FROM "+TABLE_NAME;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME;
         //su dung cau lenh rawQuery
-        Cursor cursor=database.rawQuery(selectQuery, null);
+        Cursor cursor = database.rawQuery(selectQuery, null);
         //lay het thong tin ra cho vao doi tuong, them vao dsNguoiDung, in doi tuong ra
         if (cursor.moveToFirst()) {
             do {
-                NguoiDung nguoiDung=new NguoiDung();
+                NguoiDung nguoiDung = new NguoiDung();
                 nguoiDung.setUserName(cursor.getString(cursor.getColumnIndex(COLUMN_NGUOI_DUNG_USERNAME)));
                 nguoiDung.setPassword(cursor.getString(cursor.getColumnIndex(COLUMN_NGUOI_DUNG_PASSWORD)));
                 nguoiDung.setPhone(cursor.getString(cursor.getColumnIndex(COLUMN_NGUOI_DUNG_PHONE)));
@@ -89,21 +89,21 @@ public class NguoiDungDAO {
     public int updateNguoiDung(NguoiDung nd) {
         int result;
         //xin quyen
-        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         //content values
-        ContentValues values=new ContentValues();
+        ContentValues values = new ContentValues();
         values.put(COLUMN_NGUOI_DUNG_USERNAME, nd.getUserName());
         values.put(COLUMN_NGUOI_DUNG_PASSWORD, nd.getPassword());
         values.put(COLUMN_NGUOI_DUNG_PHONE, nd.getPhone());
         values.put(COLUMN_NGUOI_DUNG_HO_TEN, nd.getHoTen());
         //cau lenh update
-        result=db.update(
-                    TABLE_NAME,
-                    values,
-                    COLUMN_NGUOI_DUNG_USERNAME+"=?",
-                    new String[] {nd.getUserName()}
-                    );
-         //dong ket noi db
+        result = db.update(
+                TABLE_NAME,
+                values,
+                COLUMN_NGUOI_DUNG_USERNAME + "=?",
+                new String[]{nd.getUserName()}
+        );
+        //dong ket noi db
         db.close();
         return result;
     }
@@ -117,17 +117,17 @@ public class NguoiDungDAO {
      */
     public int updateInfoNguoiDung(String username, String phone, String name) {
         //b1: xin quyen ghi
-        SQLiteDatabase database=dbHelper.getWritableDatabase();
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
         //ghep cap du lieu
-        ContentValues values=new ContentValues();
+        ContentValues values = new ContentValues();
         values.put(COLUMN_NGUOI_DUNG_PHONE, phone);
         values.put(COLUMN_NGUOI_DUNG_HO_TEN, name);
         //cau lenh update
-        int result=database.update(
+        int result = database.update(
                 TABLE_NAME,
                 values,
-                COLUMN_NGUOI_DUNG_USERNAME+"=?",
-                new String[] {username}
+                COLUMN_NGUOI_DUNG_USERNAME + "=?",
+                new String[]{username}
         );
         //dong ket noi db
         database.close();
@@ -138,12 +138,12 @@ public class NguoiDungDAO {
     public int deleteNguoiDungByID(String username) {
         int result;
         //xin quyen
-        SQLiteDatabase database=dbHelper.getWritableDatabase();
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
         //xoa
-        result=database.delete(
+        result = database.delete(
                 TABLE_NAME,
-                COLUMN_NGUOI_DUNG_USERNAME+"=?",
-                new String[] {username}
+                COLUMN_NGUOI_DUNG_USERNAME + "=?",
+                new String[]{username}
         );
         //dong ket noi db
         database.close();
@@ -154,26 +154,28 @@ public class NguoiDungDAO {
      * kiểm tra xem trong csdl có cặp tên và pass đó trong DB không
      * nếu có, return true
      * nếu không, return false
+     *
      * @param username
      * @param password
      * @return true if pair username-password is exists in database, else return false
      */
     public boolean checkLogin(String username, String password) {
         //xin quyen
-        SQLiteDatabase database=dbHelper.getReadableDatabase();
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
         //cau lenh truy van
-        String selectQuery="SELECT COUNT(*) FROM "+TABLE_NAME+ " WHERE "+
-                COLUMN_NGUOI_DUNG_USERNAME+"=? AND "+COLUMN_NGUOI_DUNG_PASSWORD+"=?";
+        String selectQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " +
+                COLUMN_NGUOI_DUNG_USERNAME + "=? AND " + COLUMN_NGUOI_DUNG_PASSWORD + "=?";
         //su dung cau lenh rawQuery
-        Cursor cursor=database.rawQuery(selectQuery, new String[] {username, password});
+        Cursor cursor = database.rawQuery(selectQuery, new String[]{username, password});
         cursor.moveToFirst();
-        int result=cursor.getInt(0);
+        int result = cursor.getInt(0);
         //dong ket noi cursor va db
         cursor.close();
         database.close();
-        if(result>0) {
+        if (result > 0) {
             return true;
-        } return false;
+        }
+        return false;
     }
 
     /**
@@ -181,22 +183,23 @@ public class NguoiDungDAO {
      * lấy username và pass của đối tượng người dùng vừa truyền vào cho vào content values
      * update thông tin người dùng trong database
      * Thông báo update thành công (trả về true) hay thất bại (false)
+     *
      * @param nd doi tuong NguoiDung lay tu UI (?)
      * @return thay doi pass thanh cong hay that bai
      */
     public boolean changePasswordNguoiDung(NguoiDung nd) {
-        SQLiteDatabase database=dbHelper.getWritableDatabase();
-        ContentValues values=new ContentValues();
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
         values.put(COLUMN_NGUOI_DUNG_USERNAME, nd.getUserName());
         values.put(COLUMN_NGUOI_DUNG_PASSWORD, nd.getPassword());
-        int result=database.update(
+        int result = database.update(
                 TABLE_NAME,
                 values,
-                COLUMN_NGUOI_DUNG_USERNAME+"=?",
-                new String[] {nd.getUserName()}
+                COLUMN_NGUOI_DUNG_USERNAME + "=?",
+                new String[]{nd.getUserName()}
         );
         database.close();
-        if (result>0) {
+        if (result > 0) {
             return true;
         }
         return false;

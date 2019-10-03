@@ -35,22 +35,22 @@ public class ListNguoiDungActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_nguoi_dung);
 
         //up button
-        ActionBar actionBar=getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         rvNguoiDung = (RecyclerView) findViewById(R.id.rvNguoiDung);
-        nguoiDungList=new ArrayList<>();
-        nguoiDungAdapter=new NguoiDungAdapter(nguoiDungList, this);
+        nguoiDungList = new ArrayList<>();
+        nguoiDungAdapter = new NguoiDungAdapter(nguoiDungList, this);
         rvNguoiDung.setAdapter(nguoiDungAdapter);
         //layout theo chieu doc
-        LinearLayoutManager vertical=new LinearLayoutManager(this);
+        LinearLayoutManager vertical = new LinearLayoutManager(this);
         rvNguoiDung.setLayoutManager(vertical);
 
         //Lay du lieu tu db ra
-        nguoiDungDAO=new NguoiDungDAO(this);
+        nguoiDungDAO = new NguoiDungDAO(this);
         //refresh adapter
         refreshAdapter();
-        
+
         addEvents();
     }
 
@@ -65,7 +65,7 @@ public class ListNguoiDungActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater=getMenuInflater();
+        MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_user, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -74,14 +74,14 @@ public class ListNguoiDungActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mnu_them_nguoi_dung:
-                Intent intent=new Intent(this, NguoiDungActivity.class);
+                Intent intent = new Intent(this, NguoiDungActivity.class);
                 startActivity(intent);
                 break;
             case R.id.mnu_doi_mat_khau:
                 startActivity(new Intent(this, ChangePasswordActivity.class));
                 break;
             case R.id.mnu_log_out:
-                username="";
+                username = "";
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
         }

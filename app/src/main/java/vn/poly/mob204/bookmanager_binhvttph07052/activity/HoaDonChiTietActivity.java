@@ -29,7 +29,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
     private RecyclerView rvCart;
     public static List<HoaDonChiTiet> dsHDCT;
     CartAdapter adapter;
-    
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,20 +37,20 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hoa_don_chi_tiet);
         addControls();
 
-        ActionBar actionBar=getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         //recycler view configuration
-        dsHDCT=new ArrayList<>();
-        adapter=new CartAdapter(this, dsHDCT);
+        dsHDCT = new ArrayList<>();
+        adapter = new CartAdapter(this, dsHDCT);
         rvCart.setAdapter(adapter);
-        LinearLayoutManager vertical=new LinearLayoutManager(this);
+        LinearLayoutManager vertical = new LinearLayoutManager(this);
         rvCart.setLayoutManager(vertical);
 
         //fake du lieu
-        for(int i=0; i<30; i++) {
+        for (int i = 0; i < 30; i++) {
             //tao doi tuong hoa don chi tiet moi
-            HoaDonChiTiet hoaDonChiTiet=new HoaDonChiTiet(
+            HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet(
                     i,
                     new HoaDon(i, new Date(System.currentTimeMillis())),
                     new Sach(String.valueOf(i), "", "", "", "", 50000, 1),

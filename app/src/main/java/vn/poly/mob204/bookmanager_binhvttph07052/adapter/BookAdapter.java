@@ -19,12 +19,11 @@ import vn.poly.mob204.bookmanager_binhvttph07052.R;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.Sach;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
-    implements Filterable
-{
+        implements Filterable {
     List<Sach> arrSach;
     Activity context;
 
-    public BookAdapter( Activity context, List<Sach> arrSach) {
+    public BookAdapter(Activity context, List<Sach> arrSach) {
         this.arrSach = arrSach;
         this.context = context;
     }
@@ -32,25 +31,25 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=LayoutInflater.from(context).inflate(R.layout.item_book, parent, false);
-        ViewHolder viewHolder=new ViewHolder(view);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_book, parent, false);
+        ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        final Sach sach=arrSach.get(position);
+        final Sach sach = arrSach.get(position);
 
         //set thong tin cua doi tuong len view
         holder.img.setImageResource(R.drawable.bookicon);
         holder.txtBookName.setText(sach.getTenSach());
-        holder.txtBookPrice.setText("Giá: "+sach.getGiaBia()+" VNĐ");
+        holder.txtBookPrice.setText("Giá: " + sach.getGiaBia() + " VNĐ");
         //xu ly su kien nut delete
         //todo: xu ly su kien nut delete
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "item "+position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "item " + position, Toast.LENGTH_SHORT).show();
             }
         });
     }

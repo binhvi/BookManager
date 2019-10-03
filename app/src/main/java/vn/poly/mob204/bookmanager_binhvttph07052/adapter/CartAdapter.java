@@ -34,25 +34,25 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> im
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater=this.context.getLayoutInflater();
-        View view=inflater.inflate(R.layout.item_cart, parent, false);
-        ViewHolder viewHolder=new ViewHolder(view);
+        LayoutInflater inflater = this.context.getLayoutInflater();
+        View view = inflater.inflate(R.layout.item_cart, parent, false);
+        ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //lay doi tuong tai vi tri position
-        HoaDonChiTiet hoaDonChiTiet=arrHoaDonChiTiet.get(position);
+        HoaDonChiTiet hoaDonChiTiet = arrHoaDonChiTiet.get(position);
 
         //set len view
         //todo: khong hieu cai getSach().getMaSach() nay la nhu nao
-        holder.txtMaSach.setText("Mã sách: "+hoaDonChiTiet.getSach().getMaSach());
-        holder.txtSoLuong.setText("Số lượng: "+hoaDonChiTiet.getSoLuongMua());
-        holder.txtGiaBia.setText("Giá bìa: "+hoaDonChiTiet.getSach().getGiaBia()+ "VNĐ");
+        holder.txtMaSach.setText("Mã sách: " + hoaDonChiTiet.getSach().getMaSach());
+        holder.txtSoLuong.setText("Số lượng: " + hoaDonChiTiet.getSoLuongMua());
+        holder.txtGiaBia.setText("Giá bìa: " + hoaDonChiTiet.getSach().getGiaBia() + "VNĐ");
         holder.txtThanhTien.setText(
-                "Thành tiền: "+
-                hoaDonChiTiet.getSoLuongMua()*hoaDonChiTiet.getSach().getGiaBia()+ "VNĐ");
+                "Thành tiền: " +
+                        hoaDonChiTiet.getSoLuongMua() * hoaDonChiTiet.getSach().getGiaBia() + "VNĐ");
         //xu ly su kien nut xoa
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +73,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> im
         TextView txtGiaBia;
         TextView txtThanhTien;
         ImageView imgDelete;
-
 
 
         public ViewHolder(@NonNull View itemView) {

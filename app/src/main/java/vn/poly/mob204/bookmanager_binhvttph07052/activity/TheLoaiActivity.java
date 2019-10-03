@@ -15,7 +15,7 @@ public class TheLoaiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_the_loai);
 
         //up button
-        ActionBar actionBar=getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 }

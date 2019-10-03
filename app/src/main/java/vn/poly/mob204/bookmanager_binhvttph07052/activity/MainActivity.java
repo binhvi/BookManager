@@ -17,32 +17,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void viewNguoiDung(View view) {
-        Intent intent=new Intent(this, ListNguoiDungActivity.class);
+        Intent intent = new Intent(this, ListNguoiDungActivity.class);
         startActivity(intent);
     }
 
     public void viewTheLoai(View view) {
-        Intent intent=new Intent(this, ListTheLoaiActivity.class);
+        Intent intent = new Intent(this, ListTheLoaiActivity.class);
         startActivity(intent);
     }
 
     public void viewListBookActivity(View view) {
-        Intent intent=new Intent(this, ListBookActivity.class);
+        Intent intent = new Intent(this, ListBookActivity.class);
         startActivity(intent);
     }
 
     public void ViewListHoaDonActivity(View view) {
-        Intent intent=new Intent(this, ListHoaDonActivity.class);
+        Intent intent = new Intent(this, ListHoaDonActivity.class);
         startActivity(intent);
     }
 
     public void ViewTopSach(View view) {
-        Intent intent=new Intent(this, LuotSachBanChayActivity.class);
+        Intent intent = new Intent(this, LuotSachBanChayActivity.class);
         startActivity(intent);
     }
 
     public void ViewThongKeActivity(View view) {
-        Intent intent=new Intent(this, ThongKeDoanhThuActivity.class);
+        Intent intent = new Intent(this, ThongKeDoanhThuActivity.class);
         startActivity(intent);
     }
 }

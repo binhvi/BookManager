@@ -26,10 +26,10 @@ public class LoginActivity extends AppCompatActivity {
     NguoiDungDAO nguoiDungDAO;
 
     public static String username;
-    private static final String SHARED_PREFERENCES_NAME="USER_FILE";
-    private static final String KEY_USERNAME="USERNAME";
-    private static final String KEY_PASSWORD="PASSWORD";
-    private static final String KEY_IS_REMEMBER="REMEMBER";
+    private static final String SHARED_PREFERENCES_NAME = "USER_FILE";
+    private static final String KEY_USERNAME = "USERNAME";
+    private static final String KEY_PASSWORD = "PASSWORD";
+    private static final String KEY_IS_REMEMBER = "REMEMBER";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnCancel = (Button) findViewById(R.id.btnCancel);
 
-        nguoiDungDAO=new NguoiDungDAO(this);
+        nguoiDungDAO = new NguoiDungDAO(this);
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,9 +57,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void checkLogin(View view) {
-        strUser=edUserName.getText().toString().trim();
-        strPass=edPassword.getText().toString().trim();
-        if (strUser.isEmpty()||strPass.isEmpty()) {
+        strUser = edUserName.getText().toString().trim();
+        strPass = edPassword.getText().toString().trim();
+        if (strUser.isEmpty() || strPass.isEmpty()) {
             Toast.makeText(
                     getApplicationContext(),
                     "Tên đăng nhập và mật khẩu không được bỏ trống",
@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT
                 ).show();
                 //luu lai username de co gi thay doi duoc password
-                username=strUser;
+                username = strUser;
 //                chuyen sang mh chinh
                 //luu lai thong tin dang nhap cho lan dang nhap tiep theo
                 rememberUser(strUser, strPass, chkRememberPass.isChecked());
@@ -82,9 +82,9 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             } else {
                 if (strUser.equalsIgnoreCase("admin") &&
-                        strPass.equalsIgnoreCase("admin")){
+                        strPass.equalsIgnoreCase("admin")) {
                     rememberUser(strUser, strPass, chkRememberPass.isChecked());
-                    username="admin";
+                    username = "admin";
                     startActivity(new Intent(this, MainActivity.class));
                     return;
                 } else {
@@ -102,17 +102,18 @@ public class LoginActivity extends AppCompatActivity {
      * Truyền vào username, password, trạng thái checkbox xem có tích hay không
      * Tạo đối tượng SharedPreference, lưu vào file có tên là "USER_FILE", MODE_PRIVATE là gì không nhớ
      * Nếu checkbox không tích
-     * 	xóa dữ liệu đã lưu trong file trước đó
+     * xóa dữ liệu đã lưu trong file trước đó
      * Nếu checkbox tích
-     * 	lấy dữ liệu truyền vào (username, password, trạng thái remember (checkbox có tích hay không) lưu vào file có tên là "USER_FILE"
-     * @param u username
-     * @param p password
+     * lấy dữ liệu truyền vào (username, password, trạng thái remember (checkbox có tích hay không) lưu vào file có tên là "USER_FILE"
+     *
+     * @param u      username
+     * @param p      password
      * @param status trang thai tick hay khong tick cua checkbox rememberPassword
      */
     private void rememberUser(String u, String p, boolean status) {
         //khong hieu MODE_PRIVATE la gi todo:search
-        SharedPreferences pref=getSharedPreferences("USER_FILE", MODE_PRIVATE);
-        SharedPreferences.Editor edit=pref.edit();
+        SharedPreferences pref = getSharedPreferences("USER_FILE", MODE_PRIVATE);
+        SharedPreferences.Editor edit = pref.edit();
         if (!status) {
             //J: neu trang thai check la false
             //xoa tinh trang luu truoc do
@@ -134,16 +135,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void restoreLoginInfo() {
-        SharedPreferences sharedPreferences=getSharedPreferences(
+        SharedPreferences sharedPreferences = getSharedPreferences(
                 SHARED_PREFERENCES_NAME,
                 MODE_PRIVATE
         );
         //lay gia tri checked ra, neu khong thay thi gia tri mac dinh la false
-        boolean isRemember=sharedPreferences.getBoolean(KEY_IS_REMEMBER, false);
+        boolean isRemember = sharedPreferences.getBoolean(KEY_IS_REMEMBER, false);
         if (isRemember) {
             //khoi phuc lai gia tri, set text
-            String userToSetText=sharedPreferences.getString(KEY_USERNAME, "");
-            String pwdToSetText=sharedPreferences.getString(KEY_PASSWORD, "");
+            String userToSetText = sharedPreferences.getString(KEY_USERNAME, "");
+            String pwdToSetText = sharedPreferences.getString(KEY_PASSWORD, "");
             edUserName.setText(userToSetText);
             edPassword.setText(pwdToSetText);
             //khoi phuc trang thai check box

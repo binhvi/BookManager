@@ -18,7 +18,7 @@ public class ThongKeDoanhThuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_ke_doanh_thu);
 
-        ActionBar actionBar=getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         tvThongKeNgay = (TextView) findViewById(R.id.tvThongKeNgay);

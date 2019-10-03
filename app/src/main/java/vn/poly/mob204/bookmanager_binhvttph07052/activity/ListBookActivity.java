@@ -33,31 +33,31 @@ public class ListBookActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_book);
         addControls();
 
-        ActionBar actionBar=getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         //recycler view configuration
-        dsSach=new ArrayList<>();
-        adapter=new BookAdapter(this, dsSach);
+        dsSach = new ArrayList<>();
+        adapter = new BookAdapter(this, dsSach);
         rvBook.setAdapter(adapter);
-        LinearLayoutManager vertical=new LinearLayoutManager(this);
+        LinearLayoutManager vertical = new LinearLayoutManager(this);
         rvBook.setLayoutManager(vertical);
 
         //fake du lieu
-        for (int i=0; i<30; i++) {
+        for (int i = 0; i < 30; i++) {
             //tao doi tuong sach moi
-            Sach sach=new Sach(
+            Sach sach = new Sach(
                     String.valueOf(i),
                     String.valueOf(i),
-                "Toi thay hoa vang tren co xanh "+i,
-                    "Nguyen Nhat Anh "+i,
-            "NXB Kim Dong "+i,
-            50000.0,
+                    "Toi thay hoa vang tren co xanh " + i,
+                    "Nguyen Nhat Anh " + i,
+                    "NXB Kim Dong " + i,
+                    50000.0,
                     5);
             //them vao list
             dsSach.add(sach);
         }
-        
+
     }
 
     private void addControls() {
@@ -76,7 +76,7 @@ public class ListBookActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add:
-                Intent intent=new Intent(ListBookActivity.this, ThemSachActivity.class);
+                Intent intent = new Intent(ListBookActivity.this, ThemSachActivity.class);
                 startActivity(intent);
                 return true;
         }

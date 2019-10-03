@@ -31,14 +31,14 @@ public class ThemSachActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_them_sach);
 
-        ActionBar actionBar=getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         addControls();
 
-        String arr[]={
+        String arr[] = {
                 "Văn học", "Lịch sử", "Chính trị", "CNTT"};
-        adapterTheLoai=new ArrayAdapter<>(
+        adapterTheLoai = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,
                 arr

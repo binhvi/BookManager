@@ -32,21 +32,21 @@ public class ListHoaDonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_hoa_don);
         addControls();
 
-        ActionBar actionBar=getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         //recycler view configuration
-        dsHoaDon=new ArrayList<>();
-        adapter=new HoaDonAdapter(this, dsHoaDon);
+        dsHoaDon = new ArrayList<>();
+        adapter = new HoaDonAdapter(this, dsHoaDon);
         rvHoaDon.setAdapter(adapter);
-        LinearLayoutManager vertical=new LinearLayoutManager(this);
+        LinearLayoutManager vertical = new LinearLayoutManager(this);
         rvHoaDon.setLayoutManager(vertical);
 
         //fake du lieu
-        for (int i=0; i<30; i++) {
+        for (int i = 0; i < 30; i++) {
             //tao doi tuong hoa don moi
             //System.currentTimeMillis()): lay thoi gian hien tai theo milisecond
-            HoaDon hoaDon=new HoaDon(i, new Date(System.currentTimeMillis()));
+            HoaDon hoaDon = new HoaDon(i, new Date(System.currentTimeMillis()));
             //them vao list
             dsHoaDon.add(hoaDon);
         }
@@ -67,7 +67,7 @@ public class ListHoaDonActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add:
-                Intent intent=new Intent(this, HoaDonActivity.class);
+                Intent intent = new Intent(this, HoaDonActivity.class);
                 startActivity(intent);
                 return true;
         }

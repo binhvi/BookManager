@@ -22,8 +22,8 @@ import static vn.poly.mob204.bookmanager_binhvttph07052.dao.TheLoaiDAO.SQL_THE_L
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME="dbBookManager.db";
-    public static final int VERSION=1;
+    public static final String DATABASE_NAME = "dbBookManager.db";
+    public static final int VERSION = 1;
 
 
     public DatabaseHelper(@Nullable Context context) {

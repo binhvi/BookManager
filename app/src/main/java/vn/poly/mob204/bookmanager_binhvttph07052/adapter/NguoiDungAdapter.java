@@ -29,21 +29,21 @@ public class NguoiDungAdapter extends RecyclerView.Adapter<NguoiDungAdapter.View
     public Activity context;
     NguoiDungDAO nguoiDungDAO;
 
-    public static final String USERNAME="USERNAME";
-    public static final String PHONE="PHONE";
-    public static final String FULLNAME="FULLNAME";
+    public static final String USERNAME = "USERNAME";
+    public static final String PHONE = "PHONE";
+    public static final String FULLNAME = "FULLNAME";
 
     public NguoiDungAdapter(List<NguoiDung> arrNguoiDung, Activity context) {
         this.arrNguoiDung = arrNguoiDung;
         this.context = context;
-        nguoiDungDAO=new NguoiDungDAO(context);
+        nguoiDungDAO = new NguoiDungDAO(context);
     }
 
     @NonNull
     @Override
     public NguoiDungAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.item_nguoi_dung, parent, false);
-        ViewHolder viewHolder=new ViewHolder(view, context);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_nguoi_dung, parent, false);
+        ViewHolder viewHolder = new ViewHolder(view, context);
         return viewHolder;
     }
 
@@ -51,12 +51,12 @@ public class NguoiDungAdapter extends RecyclerView.Adapter<NguoiDungAdapter.View
     //truyen du lieu vao layout
     @Override
     public void onBindViewHolder(@NonNull NguoiDungAdapter.ViewHolder holder, int position) {
-        final NguoiDung nguoiDung=arrNguoiDung.get(position);
-        final int pos=position;
+        final NguoiDung nguoiDung = arrNguoiDung.get(position);
+        final int pos = position;
         //icon
-        if (position%3==0) {
+        if (position % 3 == 0) {
             holder.img.setImageResource(R.drawable.emone);
-        } else if (position%3==1) {
+        } else if (position % 3 == 1) {
             holder.img.setImageResource(R.drawable.emtwo);
         } else {
             holder.img.setImageResource(R.drawable.emthree);
@@ -76,9 +76,9 @@ public class NguoiDungAdapter extends RecyclerView.Adapter<NguoiDungAdapter.View
             @Override
             public void onClick(View view) {
                 //xoa trong db
-                int result=nguoiDungDAO.deleteNguoiDungByID(nguoiDung.getUserName());
+                int result = nguoiDungDAO.deleteNguoiDungByID(nguoiDung.getUserName());
                 //neu thanh cong thi refresh adapter
-                if (result>0) {
+                if (result > 0) {
                     refreshAdapter();
                 } else {
                     Toast.makeText(
@@ -121,14 +121,14 @@ public class NguoiDungAdapter extends RecyclerView.Adapter<NguoiDungAdapter.View
                 @Override
                 public void onClick(View view) {
                     //lay doi tuong hien tai
-                    int itemPosition=getAdapterPosition();
-                    NguoiDung nguoiDung=nguoiDungList.get(itemPosition);
+                    int itemPosition = getAdapterPosition();
+                    NguoiDung nguoiDung = nguoiDungList.get(itemPosition);
                     //lay ten, phone
-                    String username=nguoiDung.getUserName();
-                    String fullName=nguoiDung.getHoTen();
-                    String phone=nguoiDung.getPhone();
+                    String username = nguoiDung.getUserName();
+                    String fullName = nguoiDung.getHoTen();
+                    String phone = nguoiDung.getPhone();
 
-                    Intent intent=new Intent(context, NguoiDungDetailActivity.class);
+                    Intent intent = new Intent(context, NguoiDungDetailActivity.class);
                     intent.putExtra(USERNAME, username);
                     intent.putExtra(PHONE, phone);
                     intent.putExtra(FULLNAME, fullName);

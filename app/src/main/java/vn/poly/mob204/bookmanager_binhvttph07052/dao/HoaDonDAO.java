@@ -17,33 +17,33 @@ import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDon;
 public class HoaDonDAO {
     private DatabaseHelper dbHelper;
 
-    public static final String TABLE_NAME="HoaDon";
+    public static final String TABLE_NAME = "HoaDon";
 
     //todo: da sua lai mahoadon thanh integer
-    public static final String SQL_HOA_DON="CREATE TABLE HoaDon (mahoadon integer primary key, ngaymua date);";
-    public static final String TAG="HoaDonDAO";
+    public static final String SQL_HOA_DON = "CREATE TABLE HoaDon (mahoadon integer primary key, ngaymua date);";
+    public static final String TAG = "HoaDonDAO";
 
-    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     //column
-    public static final String COLUMN_MA_HOA_DON="mahoadon";
-    public static final String COLUMN_NGAY_MUA="ngaymua";
+    public static final String COLUMN_MA_HOA_DON = "mahoadon";
+    public static final String COLUMN_NGAY_MUA = "ngaymua";
 
     public HoaDonDAO(Context context) {
-        dbHelper=new DatabaseHelper(context);
+        dbHelper = new DatabaseHelper(context);
     }
 
     //insert
     public long insertHoaDon(HoaDon hoaDon) {
         //xin quyen
-        SQLiteDatabase database=dbHelper.getWritableDatabase();
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
         //ghep cap du lieu
-        ContentValues values=new ContentValues();
+        ContentValues values = new ContentValues();
         //khong put ma hoa don, de tu sinh
         values.put(COLUMN_NGAY_MUA, sdf.format(hoaDon.getNgayMua()));
         //insert
         try {
-            long result=database.insert(TABLE_NAME, null, values);
+            long result = database.insert(TABLE_NAME, null, values);
             return result;
         } catch (Exception exc) {
             Log.e(TAG, exc.toString());
@@ -55,16 +55,16 @@ public class HoaDonDAO {
 
     //khong xu ly exception ma throw de bao loi tren he thong thoi
     public List<HoaDon> getAllHoaDon() throws ParseException {
-        List<HoaDon> dsHoaDon=new ArrayList<>();
+        List<HoaDon> dsHoaDon = new ArrayList<>();
         //xin quyen
-        SQLiteDatabase database=dbHelper.getReadableDatabase();
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
         //cau lenh select
-        String selectQuery="SELECT * FROM "+TABLE_NAME;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME;
         //su dung cau lenh rawQuery
-        Cursor cursor=database.rawQuery(selectQuery, null);
+        Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                HoaDon hoaDon=new HoaDon();
+                HoaDon hoaDon = new HoaDon();
                 hoaDon.setMaHoaDon(cursor.getInt(cursor.getColumnIndex(COLUMN_MA_HOA_DON)));
                 hoaDon.setNgayMua(sdf.parse(cursor.getString(cursor.getColumnIndex(COLUMN_MA_HOA_DON))));
 
@@ -81,17 +81,17 @@ public class HoaDonDAO {
     //update
     public int updateHoaDon(HoaDon hd) {
         //xin quyen
-        SQLiteDatabase database=dbHelper.getWritableDatabase();
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
         //ghep cap du lieu
-        ContentValues values=new ContentValues();
+        ContentValues values = new ContentValues();
         //khong put ma hoa don, de tu sinh
         values.put(COLUMN_NGAY_MUA, sdf.format(hd.getNgayMua()));
         //update
-        int result=database.update(
+        int result = database.update(
                 TABLE_NAME,
                 values,
-                COLUMN_MA_HOA_DON+"=?",
-                new String[] {String.valueOf(hd.getMaHoaDon())}
+                COLUMN_MA_HOA_DON + "=?",
+                new String[]{String.valueOf(hd.getMaHoaDon())}
         );
         //dong ket noi db
         database.close();
@@ -101,12 +101,12 @@ public class HoaDonDAO {
     //delete
     public int deleteHoaDonByID(int maHoaDon) {
         //xin quyen
-        SQLiteDatabase database=dbHelper.getWritableDatabase();
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
         //xoa
-        int result=database.delete(
+        int result = database.delete(
                 TABLE_NAME,
-                COLUMN_MA_HOA_DON+"=?",
-                new String[] {String.valueOf(maHoaDon)}
+                COLUMN_MA_HOA_DON + "=?",
+                new String[]{String.valueOf(maHoaDon)}
         );
         //dong ket noi db
         database.close();

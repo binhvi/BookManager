@@ -45,7 +45,7 @@ public class NguoiDungDetailActivity extends AppCompatActivity {
         validateFunctionLibrary = new ValidateFunctionLibrary(this);
 
         //database
-        nguoiDungDAO=new NguoiDungDAO(this);
+        nguoiDungDAO = new NguoiDungDAO(this);
     }
 
     private void addControls() {
@@ -67,8 +67,8 @@ public class NguoiDungDetailActivity extends AppCompatActivity {
             return;
         }
         //update, thong bao
-        int result=nguoiDungDAO.updateInfoNguoiDung(username, phone, fullName);
-        if (result>0) {
+        int result = nguoiDungDAO.updateInfoNguoiDung(username, phone, fullName);
+        if (result > 0) {
             Toast.makeText(
                     this,
                     R.string.update_successfully,

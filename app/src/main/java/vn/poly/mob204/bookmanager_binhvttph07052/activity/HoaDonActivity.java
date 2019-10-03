@@ -16,7 +16,7 @@ public class HoaDonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hoa_don);
 
-        ActionBar actionBar=getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
@@ -24,7 +24,7 @@ public class HoaDonActivity extends AppCompatActivity {
     }
 
     public void AddHoaDon(View view) {
-        Intent intent=new Intent(this, HoaDonChiTietActivity.class);
+        Intent intent = new Intent(this, HoaDonChiTietActivity.class);
         startActivity(intent);
     }
 }
