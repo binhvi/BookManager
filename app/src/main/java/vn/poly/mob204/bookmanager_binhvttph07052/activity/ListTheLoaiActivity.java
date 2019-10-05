@@ -16,12 +16,14 @@ import java.util.List;
 
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
 import vn.poly.mob204.bookmanager_binhvttph07052.adapter.TheLoaiAdapter;
+import vn.poly.mob204.bookmanager_binhvttph07052.dao.TheLoaiDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.TheLoai;
 
 public class ListTheLoaiActivity extends AppCompatActivity {
     private RecyclerView rvTheLoai;
-    List<TheLoai> dsTheLoai;
+    public static List<TheLoai> dsTheLoai;
     TheLoaiAdapter adapter;
+    TheLoaiDAO theLoaiDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +41,8 @@ public class ListTheLoaiActivity extends AppCompatActivity {
         LinearLayoutManager vertical = new LinearLayoutManager(this);
         rvTheLoai.setLayoutManager(vertical);
 
-        //fake du lieu
-        for (int i = 0; i < 30; i++) {
-            //tao doi tuong the loai moi
-            TheLoai theLoai = new TheLoai(String.valueOf(i), "Van hoc " + i,
-                    "Khong co mo ta", i);
-            //them vao list
-            dsTheLoai.add(theLoai);
-        }
+        //database
+        theLoaiDAO=new TheLoaiDAO(this);
     }
 
     @Override
@@ -64,5 +60,17 @@ public class ListTheLoaiActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshAdapter();
+    }
+
+    private void refreshAdapter() {
+        dsTheLoai.clear();
+        dsTheLoai.addAll(theLoaiDAO.getAllTheLoai());
+        adapter.notifyDataSetChanged();
     }
 }

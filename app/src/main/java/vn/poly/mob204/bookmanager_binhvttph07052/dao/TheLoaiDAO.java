@@ -29,6 +29,11 @@ public class TheLoaiDAO {
         dbHelper = new DatabaseHelper(context);
     }
 
+    /**
+     *
+     * @param theLoai
+     * @return id (long) cua hang vua insert
+     */
     //insert
     public long insertTheLoai(TheLoai theLoai) {
         //xin quyen
@@ -113,9 +118,10 @@ public class TheLoaiDAO {
     }
 
     /**
-     * check if the loai id exists
-     *
-     * @param strPrimaryKey ma the loai
+     * Kiểm tra xem trong db đã tồn tại mã thể loại cần kiểm tra chưa.
+     * Truy vấn các bản ghi có mã thể loại là mã truyền vào,
+     * nếu số bản ghi > 0 thì mã thể loại đó đã tồn tại.
+     * @param strPrimaryKey ma the loai muon kiem tra xem da ton tai chua
      * @return true if ma the loai exists in db, else return false
      */
     public boolean checkPrimaryKey(String strPrimaryKey) {

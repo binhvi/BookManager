@@ -1,14 +1,28 @@
 <resources>
     <string name="app_name">BookManager_binhvttph07052</string>
+
+    <!--LoginActivity-->
     <string name="user_name">Tên đăng nhập</string>
     <string name="password">Mật khẩu</string>
     <string name="re_password">Mật khẩu nhắc lại</string>
     <string name="phone_number">Số điện thoại</string>
     <string name="full_name">Họ và tên</string>
+    <string name="error_duplicate_user_name">Trùng tên đăng nhập</string>
+
+    <!--Them sua xoa-->
     <string name="add_successfully">Thêm thành công</string>
     <string name="add_fail">Thêm thất bại</string>
-    <string name="error_duplicate_user_name">Trùng tên đăng nhập</string>
     <string name="delete_failed">Xóa không thành công</string>
     <string name="update_successfully">Cập nhật thành công</string>
     <string name="update_failed">Cập nhật thất bại</string>
+
+    <!--TheLoaiActivity-->
+    <string name="ma_the_loai">Mã thể loại</string>
+    <string name="ten_the_loai">Tên thể loại</string>
+    <string name="mo_ta">Mô tả</string>
+    <string name="vi_tri">Vị trí</string>
+    <string name="error_duplicate_category_id">Trùng mã thể loại</string>
+
+
+
 </resources>

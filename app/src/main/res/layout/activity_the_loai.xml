@@ -41,20 +41,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
+            android:onClick="addTheLoai"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Thêm"
+            android:text="Lưu"
             />
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Hủy"
+            android:onClick="clearForm"
             />
     </LinearLayout>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Show"/>
+        android:text="Xem danh sách thể loại"
+        android:onClick="returnListTheLoaiActivity"/>
 </LinearLayout>

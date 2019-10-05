@@ -188,16 +188,20 @@ public class NguoiDungDAO {
      * @return thay doi pass thanh cong hay that bai
      */
     public boolean changePasswordNguoiDung(NguoiDung nd) {
+        //xin quyen
         SQLiteDatabase database = dbHelper.getWritableDatabase();
+        //ghep cap du lieu
         ContentValues values = new ContentValues();
         values.put(COLUMN_NGUOI_DUNG_USERNAME, nd.getUserName());
         values.put(COLUMN_NGUOI_DUNG_PASSWORD, nd.getPassword());
+        //update
         int result = database.update(
                 TABLE_NAME,
                 values,
                 COLUMN_NGUOI_DUNG_USERNAME + "=?",
                 new String[]{nd.getUserName()}
         );
+        //dong ket noi db
         database.close();
         if (result > 0) {
             return true;

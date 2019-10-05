@@ -59,6 +59,11 @@ public class LoginActivity extends AppCompatActivity {
     public void checkLogin(View view) {
         strUser = edUserName.getText().toString().trim();
         strPass = edPassword.getText().toString().trim();
+
+        //chuyen lower case de tim trong db khong bi loi neu db phan biet hoa thuong
+        strUser=strUser.toLowerCase();
+        edUserName.setText(strUser);
+
         if (strUser.isEmpty() || strPass.isEmpty()) {
             Toast.makeText(
                     getApplicationContext(),

@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +17,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
+import vn.poly.mob204.bookmanager_binhvttph07052.activity.TheLoaiActivity;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.TheLoai;
+
+import static vn.poly.mob204.bookmanager_binhvttph07052.activity.ListTheLoaiActivity.dsTheLoai;
 
 public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHolder> implements Filterable {
     List<TheLoai> arrTheLoai;
@@ -36,7 +41,7 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = this.context.getLayoutInflater();
         View view = inflater.inflate(R.layout.item_theloai, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view, context);
         return viewHolder;
     }
 
@@ -62,18 +67,40 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        public static final String KEY_MA_THE_LOAI = "MATHELOAI";
+        public static final String KEY_TEN_THE_LOAI = "TENTHELOAI";
+        public static final String KEY_MO_TA = "MOTA";
+        public static final String KEY_VI_TRI = "VITRI";
         private ImageView img;
         private TextView txtMaTheLoai;
         private TextView txtTenTheLoai;
         private ImageView imgDelete;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, final Activity context) {
             super(itemView);
 
             img = (ImageView) itemView.findViewById(R.id.ivIcon);
             txtMaTheLoai = (TextView) itemView.findViewById(R.id.tvMaTheLoai);
             txtTenTheLoai = (TextView) itemView.findViewById(R.id.tvTenTheLoai);
             imgDelete = (ImageView) itemView.findViewById(R.id.ivDelete);
+
+            //gui thong tin TheLoai sang TheLoaiActivity
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //lay doi tuong
+                    TheLoai theLoai=dsTheLoai.get(getAdapterPosition());
+                    Intent intent = new Intent(context, TheLoaiActivity.class);
+                    //them vao Bundle
+                    Bundle bundle=new Bundle();
+                    bundle.putString(KEY_MA_THE_LOAI, theLoai.getMaTheLoai());
+                    bundle.putString(KEY_TEN_THE_LOAI, theLoai.getTenTheLoai());
+                    bundle.putInt(KEY_VI_TRI, theLoai.getViTri());
+                    bundle.putString(KEY_MO_TA, theLoai.getMoTa());
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }

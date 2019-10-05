@@ -127,7 +127,7 @@ public class NguoiDungAdapter extends RecyclerView.Adapter<NguoiDungAdapter.View
                     String username = nguoiDung.getUserName();
                     String fullName = nguoiDung.getHoTen();
                     String phone = nguoiDung.getPhone();
-
+                    //gui thong tin nguoi dung sang NguoiDungDetailActivity
                     Intent intent = new Intent(context, NguoiDungDetailActivity.class);
                     intent.putExtra(USERNAME, username);
                     intent.putExtra(PHONE, phone);

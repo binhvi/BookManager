@@ -23,4 +23,19 @@ public class ValidateFunctionLibrary {
         }
         return true;
     }
+
+    public boolean canParseToInt(String text, String field) {
+        try {
+            Integer.parseInt(text);
+            return true;
+        } catch (NumberFormatException exc) {
+            exc.printStackTrace();
+            Toast.makeText(
+                    context,
+                    field+" phải là số nguyên",
+                    Toast.LENGTH_SHORT
+            ).show();
+            return false;
+        }
+    }
 }

@@ -63,6 +63,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 }
                 finish();
             } catch (Exception exc) {
+                //de phong xay ra loi khi thao tac voi db
                 Log.e("Error", exc.toString());
                 exc.printStackTrace();
             }

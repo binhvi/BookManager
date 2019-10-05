@@ -109,6 +109,7 @@ public class NguoiDungActivity extends AppCompatActivity {
         }
 
         //chuyen username thanh lower case
+        //de luc so sanh khong bi nham
         username = username.toLowerCase();
 
         //tao doi tuong
