@@ -22,8 +22,8 @@ import vn.poly.mob204.bookmanager_binhvttph07052.model.TheLoai;
 public class ListTheLoaiActivity extends AppCompatActivity {
     private RecyclerView rvTheLoai;
     public static List<TheLoai> dsTheLoai;
-    TheLoaiAdapter adapter;
-    TheLoaiDAO theLoaiDAO;
+    public static TheLoaiAdapter adapter;
+    public static TheLoaiDAO theLoaiDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class ListTheLoaiActivity extends AppCompatActivity {
         refreshAdapter();
     }
 
-    private void refreshAdapter() {
+    public static void refreshAdapter() {
         dsTheLoai.clear();
         dsTheLoai.addAll(theLoaiDAO.getAllTheLoai());
         adapter.notifyDataSetChanged();

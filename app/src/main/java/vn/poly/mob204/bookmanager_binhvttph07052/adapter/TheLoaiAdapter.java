@@ -13,14 +13,17 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
+import vn.poly.mob204.bookmanager_binhvttph07052.activity.ListTheLoaiActivity;
 import vn.poly.mob204.bookmanager_binhvttph07052.activity.TheLoaiActivity;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.TheLoai;
 
 import static vn.poly.mob204.bookmanager_binhvttph07052.activity.ListTheLoaiActivity.dsTheLoai;
+import static vn.poly.mob204.bookmanager_binhvttph07052.activity.ListTheLoaiActivity.theLoaiDAO;
 
 public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHolder> implements Filterable {
     List<TheLoai> arrTheLoai;
@@ -47,7 +50,8 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TheLoai theLoai = arrTheLoai.get(position);
+        final int pos=position; //de cho tham so position khong bi final khi truyen vao ham bat su kien
+        TheLoai theLoai = arrTheLoai.get(pos);
 
         holder.img.setImageResource(R.drawable.cateicon);
         holder.txtMaTheLoai.setText(theLoai.getMaTheLoai());
@@ -56,7 +60,18 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHold
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //xoa trong db
+                int result=theLoaiDAO.deleteTheLoaiByID(dsTheLoai.get(pos).getMaTheLoai());
+                if (result>0) {
+                    //refresh adapter
+                    ListTheLoaiActivity.refreshAdapter();
+                } else {
+                    Toast.makeText(
+                            context,
+                            R.string.delete_failed,
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
             }
         });
     }
