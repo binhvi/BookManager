@@ -82,7 +82,7 @@
             android:id="@+id/btnShowBook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="showBook"
+            android:onClick="returnPreviousScreen"
             android:text="@string/returnPreviousScreen"/>
 
 </LinearLayout>

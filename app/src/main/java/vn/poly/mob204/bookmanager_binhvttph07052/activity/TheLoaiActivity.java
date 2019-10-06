@@ -144,13 +144,13 @@ public class TheLoaiActivity extends AppCompatActivity {
         if (result>-1) {
             Toast.makeText(
                     this,
-                    R.string.add_successfully,
+                    R.string.insert_successfully,
                     Toast.LENGTH_SHORT
             ).show();
         } else {
             Toast.makeText(
                     this,
-                    R.string.add_fail,
+                    R.string.insert_fail,
                     Toast.LENGTH_SHORT
             ).show();
         }
@@ -162,45 +162,37 @@ public class TheLoaiActivity extends AppCompatActivity {
      */
     private boolean allValidate() {
         if (
-                validateFunctionLibrary.isNotEmpty(
+                validateFunctionLibrary.isTextEmpty(
                         maTheLoai,
-                        getResources().getString(R.string.ma_the_loai))
-                        == ValidateFunctionLibrary.FAIL) {
+                        getResources().getString(R.string.ma_the_loai))) {
             return false;
         }
 
         if (
-                validateFunctionLibrary.isNotEmpty(
+                validateFunctionLibrary.isTextEmpty(
                         tenTheLoai,
-                        getResources().getString(R.string.ten_the_loai))
-                        == ValidateFunctionLibrary.FAIL) {
+                        getResources().getString(R.string.ten_the_loai))) {
             return false;
         }
 
         if (
-                validateFunctionLibrary.isNotEmpty(
+                validateFunctionLibrary.isTextEmpty(
                         viTriText,
-                        getResources().getString(R.string.vi_tri))
-                        == ValidateFunctionLibrary.FAIL
-        ) {
+                        getResources().getString(R.string.vi_tri))) {
             return false;
         }
 
         //kiem tra xem viTri co chuyen sang so nguyen duoc khong
         if (
-                validateFunctionLibrary.canParseToInt(
-                        viTriText, getResources().getString(R.string.vi_tri))
-                ==ValidateFunctionLibrary.FAIL
-        ) {
+                validateFunctionLibrary.canNotParseToInt(
+                        viTriText, getResources().getString(R.string.vi_tri))) {
             return false;
         }
 
         if (
-                validateFunctionLibrary.isNotEmpty(
+                validateFunctionLibrary.isTextEmpty(
                         moTa,
-                        getResources().getString(R.string.mo_ta))
-                        == ValidateFunctionLibrary.FAIL
-        ) {
+                        getResources().getString(R.string.mo_ta))) {
             return false;
         }
         return true;

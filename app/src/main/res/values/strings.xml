@@ -10,8 +10,8 @@
     <string name="error_duplicate_user_name">Trùng tên đăng nhập</string>
 
     <!--Them sua xoa-->
-    <string name="add_successfully">Thêm thành công</string>
-    <string name="add_fail">Thêm thất bại</string>
+    <string name="insert_successfully">Thêm thành công</string>
+    <string name="insert_fail">Thêm thất bại</string>
     <string name="delete_failed">Xóa không thành công</string>
     <string name="update_successfully">Cập nhật thành công</string>
     <string name="update_failed">Cập nhật thất bại</string>
@@ -24,7 +24,14 @@
     <string name="error_duplicate_category_id">Trùng mã thể loại</string>
     <string name="returnPreviousScreen">Trở về</string>
     <string name="ma_sach">Mã sách</string>
+
+    <!--ThemSachActivity-->
     <string name="pls_create_at_least_one_category">Hãy tạo ít nhất một thể loại</string>
+    <string name="ten_sach">Tên sách</string>
+    <string name="tac_gia">Tác giả</string>
+    <string name="nha_xuat_ban">Nhà xuất bản</string>
+    <string name="gia_bia">Giá bìa</string>
+    <string name="so_luong">Số lượng</string>
 
 
 </resources>

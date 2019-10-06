@@ -18,14 +18,16 @@ import java.util.List;
 
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
 import vn.poly.mob204.bookmanager_binhvttph07052.adapter.BookAdapter;
+import vn.poly.mob204.bookmanager_binhvttph07052.dao.SachDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.Sach;
 
 public class ListBookActivity extends AppCompatActivity {
     private EditText edSearchBook;
     private Button btnTim;
     private RecyclerView rvBook;
-    BookAdapter adapter;
+    public static BookAdapter adapter;
     public static List<Sach> dsSach;
+    public static SachDAO sachDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,28 +38,17 @@ public class ListBookActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        init();
+    }
+
+    private void init() {
         //recycler view configuration
         dsSach = new ArrayList<>();
         adapter = new BookAdapter(this, dsSach);
         rvBook.setAdapter(adapter);
         LinearLayoutManager vertical = new LinearLayoutManager(this);
         rvBook.setLayoutManager(vertical);
-
-        //fake du lieu
-        for (int i = 0; i < 30; i++) {
-            //tao doi tuong sach moi
-            Sach sach = new Sach(
-                    String.valueOf(i),
-                    String.valueOf(i),
-                    "Toi thay hoa vang tren co xanh " + i,
-                    "Nguyen Nhat Anh " + i,
-                    "NXB Kim Dong " + i,
-                    50000.0,
-                    5);
-            //them vao list
-            dsSach.add(sach);
-        }
-
+        sachDAO=new SachDAO(this);
     }
 
     private void addControls() {
@@ -81,5 +72,17 @@ public class ListBookActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshSachAdapter();
+    }
+
+    public static void refreshSachAdapter() {
+        dsSach.clear();
+        dsSach.addAll(sachDAO.getAllSach());
+        adapter.notifyDataSetChanged();
     }
 }

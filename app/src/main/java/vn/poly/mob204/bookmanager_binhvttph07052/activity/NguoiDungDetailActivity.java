@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -58,12 +57,10 @@ public class NguoiDungDetailActivity extends AppCompatActivity {
         phone = edPhone.getText().toString().trim();
         fullName = edFullName.getText().toString().trim();
         //validate
-        if (validateFunctionLibrary.isNotEmpty(phone, "Số điện thoại") ==
-                ValidateFunctionLibrary.FAIL) {
+        if (validateFunctionLibrary.isTextEmpty(phone, "Số điện thoại")) {
             return;
         }
-        if (validateFunctionLibrary.isNotEmpty(phone, "Tên đầy đủ") ==
-                ValidateFunctionLibrary.FAIL) {
+        if (validateFunctionLibrary.isTextEmpty(fullName, "Tên đầy đủ")) {
             return;
         }
         //update, thong bao

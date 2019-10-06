@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -69,20 +68,15 @@ public class NguoiDungActivity extends AppCompatActivity {
     }
 
     private boolean validateTrong() {
-        if (validateFunctionLibrary.isNotEmpty(username, getResources().getString(R.string.user_name))
-                == ValidateFunctionLibrary.FAIL)
+        if (validateFunctionLibrary.isTextEmpty(username, getResources().getString(R.string.user_name)))
             return false;
-        if (validateFunctionLibrary.isNotEmpty(password, getResources().getString(R.string.password))
-                == ValidateFunctionLibrary.FAIL)
+        if (validateFunctionLibrary.isTextEmpty(password, getResources().getString(R.string.password)))
             return false;
-        if (validateFunctionLibrary.isNotEmpty(rePass, getResources().getString(R.string.re_password))
-                == ValidateFunctionLibrary.FAIL)
+        if (validateFunctionLibrary.isTextEmpty(rePass, getResources().getString(R.string.re_password)))
             return false;
-        if (validateFunctionLibrary.isNotEmpty(phone, getResources().getString(R.string.phone_number))
-                == ValidateFunctionLibrary.FAIL)
+        if (validateFunctionLibrary.isTextEmpty(phone, getResources().getString(R.string.phone_number)))
             return false;
-        if (validateFunctionLibrary.isNotEmpty(hoTen, getResources().getString(R.string.full_name))
-                == ValidateFunctionLibrary.FAIL)
+        if (validateFunctionLibrary.isTextEmpty(hoTen, getResources().getString(R.string.full_name)))
             return false;
         return true;
     }
@@ -125,13 +119,13 @@ public class NguoiDungActivity extends AppCompatActivity {
         if (result > -1) {
             Toast.makeText(
                     NguoiDungActivity.this,
-                    R.string.add_successfully,
+                    R.string.insert_successfully,
                     Toast.LENGTH_SHORT
             ).show();
         } else {
             Toast.makeText(
                     NguoiDungActivity.this,
-                    R.string.add_fail,
+                    R.string.insert_fail,
                     Toast.LENGTH_SHORT
             ).show();
         }

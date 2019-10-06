@@ -45,7 +45,7 @@ public class SachDAO {
         values.put(COLUMN_NXB, sach.getNXB());
         values.put(COLUMN_GIA_BIA, sach.getGiaBia());
         values.put(COLUMN_SO_LUONG, sach.getSoLuong());
-
+        values.put(COLUMN_TAC_GIA, sach.getTacGia());
         //insert
         try {
             long result = database.insert(TABLE_NAME, null, values);
@@ -76,6 +76,7 @@ public class SachDAO {
                 sach.setNXB(cursor.getString(cursor.getColumnIndex(COLUMN_NXB)));
                 sach.setGiaBia(cursor.getDouble(cursor.getColumnIndex(COLUMN_GIA_BIA)));
                 sach.setSoLuong(cursor.getInt(cursor.getColumnIndex(COLUMN_SO_LUONG)));
+                sach.setMaTheLoai(cursor.getString(cursor.getColumnIndex(COLUMN_MA_THE_LOAI)));
 
                 dsSach.add(sach);
                 Log.d(TAG, sach.toString());
@@ -92,12 +93,12 @@ public class SachDAO {
         SQLiteDatabase database = dbHelper.getWritableDatabase();
         //ghep cap du lieu
         ContentValues values = new ContentValues();
-        values.put(COLUMN_MA_SACH, sach.getMaSach());
         values.put(COLUMN_MA_THE_LOAI, sach.getMaTheLoai());
         values.put(COLUMN_TEN_SACH, sach.getTenSach());
         values.put(COLUMN_NXB, sach.getNXB());
         values.put(COLUMN_GIA_BIA, sach.getGiaBia());
         values.put(COLUMN_SO_LUONG, sach.getSoLuong());
+        values.put(COLUMN_TAC_GIA, sach.getTacGia());
         //update
         int result = database.update(
                 TABLE_NAME,

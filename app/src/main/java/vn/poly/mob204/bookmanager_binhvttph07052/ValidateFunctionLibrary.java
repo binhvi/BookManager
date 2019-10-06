@@ -12,22 +12,22 @@ public class ValidateFunctionLibrary {
         this.context = context;
     }
 
-    public boolean isNotEmpty(String text, String field) {
+    public boolean isTextEmpty(String text, String field) {
         if (text.isEmpty()) {
             Toast.makeText(
                     context,
                     field + " không được để trống",
                     Toast.LENGTH_SHORT
             ).show();
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
-    public boolean canParseToInt(String text, String field) {
+    public boolean canNotParseToInt(String text, String field) {
         try {
             Integer.parseInt(text);
-            return true;
+            return false;
         } catch (NumberFormatException exc) {
             exc.printStackTrace();
             Toast.makeText(
@@ -35,14 +35,14 @@ public class ValidateFunctionLibrary {
                     field+" phải là số nguyên",
                     Toast.LENGTH_SHORT
             ).show();
-            return false;
+            return true;
         }
     }
 
-    public boolean canParseToDouble(String text, String field) {
+    public boolean canNotParseToDouble(String text, String field) {
         try {
             Double.parseDouble(text);
-            return true;
+            return false;
         } catch (NumberFormatException exc) {
             exc.printStackTrace();
             Toast.makeText(
@@ -50,7 +50,7 @@ public class ValidateFunctionLibrary {
                     field+ " phải là một số",
                     Toast.LENGTH_SHORT
             ).show();
-            return false;
+            return true;
         }
     }
 }
