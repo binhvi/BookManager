@@ -32,6 +32,7 @@
     <string name="nha_xuat_ban">Nhà xuất bản</string>
     <string name="gia_bia">Giá bìa</string>
     <string name="so_luong">Số lượng</string>
+    <string name="pls_pick_date">Bạn chưa chọn ngày tạo hóa đơn</string>
 
 
 </resources>

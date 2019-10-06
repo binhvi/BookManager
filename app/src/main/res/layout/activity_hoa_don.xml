@@ -34,6 +34,6 @@
         android:id="@+id/btnADDHoaDon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chọn"
+        android:text="Lưu"
         android:onClick="AddHoaDon"/>
 </LinearLayout>
