@@ -38,4 +38,19 @@ public class ValidateFunctionLibrary {
             return false;
         }
     }
+
+    public boolean canParseToDouble(String text, String field) {
+        try {
+            Double.parseDouble(text);
+            return true;
+        } catch (NumberFormatException exc) {
+            exc.printStackTrace();
+            Toast.makeText(
+                    context,
+                    field+ " phải là một số",
+                    Toast.LENGTH_SHORT
+            ).show();
+            return false;
+        }
+    }
 }

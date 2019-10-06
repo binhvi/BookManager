@@ -29,7 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/button_plus_green"/>
+            android:src="@drawable/button_plus_green"
+            android:onClick="toTheLoaiActivity"/>
     </LinearLayout>
         <EditText
             android:id="@+id/edTenSach"
@@ -66,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="addBook"
+                android:onClick="saveBook"
                 android:text="Lưu"/>
 
             <Button
@@ -74,13 +75,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Huỷ"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:onClick="clearForm"/>
         </LinearLayout>
         <Button
             android:id="@+id/btnShowBook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="showBook"
-            android:text="Trở về danh sách sách"/>
+            android:text="@string/returnPreviousScreen"/>
 
 </LinearLayout>

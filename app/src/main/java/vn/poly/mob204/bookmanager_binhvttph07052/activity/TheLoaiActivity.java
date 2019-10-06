@@ -39,9 +39,9 @@ public class TheLoaiActivity extends AppCompatActivity {
     //intent from item the loai
     Intent intent;
     Bundle bundle;
-    private static final int STATUS_INSERT=0;
-    private static final int STATUS_UPDATE=1;
-    int status;
+    public static final int STATUS_INSERT=0;
+    public static final int STATUS_UPDATE=1;
+    private int status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

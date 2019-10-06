@@ -22,7 +22,9 @@
     <string name="mo_ta">Mô tả</string>
     <string name="vi_tri">Vị trí</string>
     <string name="error_duplicate_category_id">Trùng mã thể loại</string>
-
+    <string name="returnPreviousScreen">Trở về</string>
+    <string name="ma_sach">Mã sách</string>
+    <string name="pls_create_at_least_one_category">Hãy tạo ít nhất một thể loại</string>
 
 
 </resources>
