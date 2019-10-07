@@ -66,7 +66,7 @@ public class HoaDonDAO {
             do {
                 HoaDon hoaDon = new HoaDon();
                 hoaDon.setMaHoaDon(cursor.getInt(cursor.getColumnIndex(COLUMN_MA_HOA_DON)));
-                hoaDon.setNgayMua(sdf.parse(cursor.getString(cursor.getColumnIndex(COLUMN_MA_HOA_DON))));
+                hoaDon.setNgayMua(sdf.parse(cursor.getString(cursor.getColumnIndex(COLUMN_NGAY_MUA))));
 
                 dsHoaDon.add(hoaDon);
                 Log.d(TAG, hoaDon.toString());

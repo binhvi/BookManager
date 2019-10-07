@@ -8,16 +8,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
 import vn.poly.mob204.bookmanager_binhvttph07052.adapter.HoaDonAdapter;
+import vn.poly.mob204.bookmanager_binhvttph07052.dao.HoaDonDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDon;
 
 public class ListHoaDonActivity extends AppCompatActivity {
@@ -25,6 +28,10 @@ public class ListHoaDonActivity extends AppCompatActivity {
     private RecyclerView rvHoaDon;
     public static List<HoaDon> dsHoaDon;
     HoaDonAdapter adapter;
+    HoaDonDAO hoaDonDAO;
+
+    //debug
+    private static final String TAG="ListHoaDonActivityLog";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +42,37 @@ public class ListHoaDonActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        try {
+            init();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void init() throws ParseException {
         //recycler view configuration
         dsHoaDon = new ArrayList<>();
         adapter = new HoaDonAdapter(this, dsHoaDon);
         rvHoaDon.setAdapter(adapter);
         LinearLayoutManager vertical = new LinearLayoutManager(this);
         rvHoaDon.setLayoutManager(vertical);
+        hoaDonDAO=new HoaDonDAO(this);
 
-        //fake du lieu
-        for (int i = 0; i < 30; i++) {
-            //tao doi tuong hoa don moi
-            //System.currentTimeMillis()): lay thoi gian hien tai theo milisecond
-            HoaDon hoaDon = new HoaDon(i, new Date(System.currentTimeMillis()));
-            //them vao list
-            dsHoaDon.add(hoaDon);
+        refreshHoaDonAdapter();
+    }
+
+    private void refreshHoaDonAdapter() {
+        dsHoaDon.clear();
+        try {
+            dsHoaDon.addAll(hoaDonDAO.getAllHoaDon()); //dong nay ban ra ParseException
+        } catch (ParseException exc) {
+            exc.printStackTrace();
+            Log.e(TAG, exc.toString());
+        } catch (Exception exc) {
+            exc.printStackTrace();
+            Log.e(TAG, exc.toString());
         }
+        adapter.notifyDataSetChanged();
     }
 
     private void addControls() {
@@ -74,4 +97,9 @@ public class ListHoaDonActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+            refreshHoaDonAdapter();
+    }
 }

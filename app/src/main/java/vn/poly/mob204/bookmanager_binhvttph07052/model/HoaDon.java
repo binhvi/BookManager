@@ -15,6 +15,10 @@ public class HoaDon implements Serializable {
         this.ngayMua = ngayMua;
     }
 
+    public HoaDon(Date ngayMua) {
+        this.ngayMua = ngayMua;
+    }
+
     public int getMaHoaDon() {
         return maHoaDon;
     }
