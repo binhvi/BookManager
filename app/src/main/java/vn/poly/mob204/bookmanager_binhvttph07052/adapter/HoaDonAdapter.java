@@ -44,17 +44,10 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHolder
         final HoaDon hoaDon = arrHoaDon.get(position);
 
         //lay thong tin tu doi tuong len view
-        holder.img.setImageResource(R.drawable.hdicon);
-        holder.txtMaHoaDon.setText(hoaDon.getMaHoaDon() + "");
-        holder.txtNgayMua.setText(sdf.format(hoaDon.getNgayMua()));
+//        holder.txtMaHoaDon.setText(hoaDon.getMaHoaDon() + "");
+//        holder.txtNgayMua.setText(sdf.format(hoaDon.getNgayMua()));
 
-        //xu ly su kien nut xoa
-        holder.imgDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
     }
 
     @Override
@@ -68,27 +61,11 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView img;
-        private TextView txtMaHoaDon;
-        private TextView txtNgayMua;
-        private ImageView imgDelete;
+
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
-            img = (ImageView) itemView.findViewById(R.id.ivIcon);
-            txtMaHoaDon = (TextView) itemView.findViewById(R.id.tvMaHoaDon);
-            txtNgayMua = (TextView) itemView.findViewById(R.id.tvNgayMua);
-            imgDelete = (ImageView) itemView.findViewById(R.id.ivDelete);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //todo: lay theo vi tri
-                    Intent intent = new Intent(itemView.getContext(), HoaDonChiTietActivity.class);
-                    itemView.getContext().startActivity(intent);
-                }
-            });
         }
     }
 }

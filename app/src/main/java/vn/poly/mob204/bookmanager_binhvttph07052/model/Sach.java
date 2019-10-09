@@ -83,14 +83,6 @@ public class Sach implements Serializable {
 
     @Override
     public String toString() {
-        return "Sach{" +
-                "maSach='" + maSach + '\'' +
-                ", maTheLoai='" + maTheLoai + '\'' +
-                ", tenSach='" + tenSach + '\'' +
-                ", tacGia='" + tacGia + '\'' +
-                ", NXB='" + NXB + '\'' +
-                ", giaBia=" + giaBia +
-                ", soLuong=" + soLuong +
-                '}';
+        return tenSach+" - "+maSach;
     }
 }

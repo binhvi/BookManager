@@ -46,20 +46,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> im
         HoaDonChiTiet hoaDonChiTiet = arrHoaDonChiTiet.get(position);
 
         //set len view
-        //todo: khong hieu cai getSach().getMaSach() nay la nhu nao
-        holder.txtMaSach.setText("Mã sách: " + hoaDonChiTiet.getSach().getMaSach());
-        holder.txtSoLuong.setText("Số lượng: " + hoaDonChiTiet.getSoLuongMua());
-        holder.txtGiaBia.setText("Giá bìa: " + hoaDonChiTiet.getSach().getGiaBia() + "VNĐ");
-        holder.txtThanhTien.setText(
-                "Thành tiền: " +
-                        hoaDonChiTiet.getSoLuongMua() * hoaDonChiTiet.getSach().getGiaBia() + "VNĐ");
-        //xu ly su kien nut xoa
-        holder.imgDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
     }
 
     @Override
@@ -68,21 +55,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> im
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtMaSach;
-        TextView txtSoLuong;
-        TextView txtGiaBia;
-        TextView txtThanhTien;
-        ImageView imgDelete;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            txtMaSach = (TextView) itemView.findViewById(R.id.tvMaSach);
-            txtSoLuong = (TextView) itemView.findViewById(R.id.tvSoLuong);
-            txtGiaBia = (TextView) itemView.findViewById(R.id.tvGiaBia);
-            txtThanhTien = (TextView) itemView.findViewById(R.id.tvThanhTien);
-            imgDelete = (ImageView) itemView.findViewById(R.id.ivDelete);
         }
     }
 }
