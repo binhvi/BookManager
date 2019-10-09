@@ -24,8 +24,6 @@ import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDon;
 public class HoaDonActivity extends AppCompatActivity {
     private static final String TAG = "HoaDonActivityLog";
     private EditText edNgayMua;
-    private Button picDate;
-    private Button btnADDHoaDon;
 
     //thong tin
     private String dateString;
@@ -54,11 +52,9 @@ public class HoaDonActivity extends AppCompatActivity {
 
     private void addControls() {
         edNgayMua = (EditText) findViewById(R.id.edNgayMua);
-        picDate = (Button) findViewById(R.id.picDate);
-        btnADDHoaDon = (Button) findViewById(R.id.btnADDHoaDon);
     }
 
-    public void datePicker(View view) {
+    public void openDatePicker(View view) {
         DatePickerDialog.OnDateSetListener callBack = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -116,6 +112,11 @@ public class HoaDonActivity extends AppCompatActivity {
             ).show();
         }
 
-        //todo: start activity detail
+    }
+
+    public void addBookToCart(View view) {
+    }
+
+    public void AddBillAndDetailsToDatabase(View view) {
     }
 }

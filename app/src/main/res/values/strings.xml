@@ -34,5 +34,15 @@
     <string name="so_luong">Số lượng</string>
     <string name="pls_pick_date">Bạn chưa chọn ngày tạo hóa đơn</string>
 
+    <!--HoaDonActivity-->
+    <string name="products">Hàng hóa</string>
+    <string name="book_name">Tên hàng</string>
+    <string name="find_book_name">Tìm tên sách</string>
+    <string name="add_to_cart">Thêm vào giỏ hàng</string>
+    <string name="book_name_id">Tên sách - Mã sách</string>
+    <string name="gia_bia_vnd">Giá bìa (VNĐ)</string>
+    <string name="total_of_cart">Tổng tiền:</string>
+    <string name="check_out">Thanh toán</string>
+
 
 </resources>

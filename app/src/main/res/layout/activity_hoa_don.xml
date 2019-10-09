@@ -10,14 +10,16 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
+    <!--Hoa don-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="DD-MM-YYYY"
+            android:hint="dd-MM-yyyy"
             android:id="@+id/edNgayMua"
             android:layout_weight="4"
             android:textSize="18dp"
@@ -28,12 +30,98 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Chọn"
-            android:onClick="datePicker"/>
+            android:onClick="openDatePicker"/>
     </LinearLayout>
-    <Button
-        android:id="@+id/btnADDHoaDon"
+
+    <!--Hoa don chi tiet-->
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lưu"
-        android:onClick="saveHoaDon"/>
+        android:text="@string/products"
+        android:textAllCaps="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/book_name"/>
+        <AutoCompleteTextView
+            android:id="@+id/auBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/find_book_name"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/so_luong"/>
+        <EditText
+            android:id="@+id/edSoLuongMua"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+    </LinearLayout>
+    <Button
+        android:text="@string/add_to_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:onClick="addBookToCart"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:text="@string/book_name_id"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="@string/so_luong"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="@string/gia_bia_vnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@android:color/darker_gray"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCart"
+        android:layout_width="match_parent"
+        android:layout_height="380dp"/>
+
+    <!--Tong tien-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/total_of_cart"/>
+        <TextView
+            android:id="@+id/tvTotalOfCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text=""/>
+    </LinearLayout>
+
+    <Button
+        android:text="@string/check_out"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="AddBillAndDetailsToDatabase"/>
+
+
 </LinearLayout>

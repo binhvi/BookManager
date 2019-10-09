@@ -24,7 +24,6 @@ import vn.poly.mob204.bookmanager_binhvttph07052.dao.HoaDonDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDon;
 
 public class ListHoaDonActivity extends AppCompatActivity {
-    private EditText edSearch;
     private RecyclerView rvHoaDon;
     public static List<HoaDon> dsHoaDon;
     HoaDonAdapter adapter;
@@ -76,7 +75,6 @@ public class ListHoaDonActivity extends AppCompatActivity {
     }
 
     private void addControls() {
-        edSearch = (EditText) findViewById(R.id.edSearch);
         rvHoaDon = (RecyclerView) findViewById(R.id.rvHoaDon);
     }
 
