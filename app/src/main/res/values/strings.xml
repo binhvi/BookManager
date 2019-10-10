@@ -36,13 +36,15 @@
 
     <!--HoaDonActivity-->
     <string name="products">Hàng hóa</string>
-    <string name="book_name">Tên hàng</string>
-    <string name="find_book_name">Tìm tên sách</string>
+    <string name="search_book_id">Tìm mã sách</string>
     <string name="add_to_cart">Thêm vào giỏ hàng</string>
     <string name="book_name_id">Tên sách - Mã sách</string>
     <string name="gia_bia_vnd">Giá bìa (VNĐ)</string>
     <string name="total_of_cart">Tổng tiền:</string>
     <string name="check_out">Thanh toán</string>
+    <string name="so_luong_can_mua">Số lượng cần mua</string>
+    <string name="book_id_is_not_exist">Mã sách không tồn tại</string>
+    <string name="number_book_to_buy_is_over_number_of_archived_book">Số lượng sách cần mua vượt quá số lượng sách trong kho</string>
 
 
 </resources>

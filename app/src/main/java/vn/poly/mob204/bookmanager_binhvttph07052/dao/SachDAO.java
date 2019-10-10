@@ -125,4 +125,53 @@ public class SachDAO {
         database.close();
         return result;
     }
+
+    /**
+     * Kiểm tra xem trong db đã tồn tại mã sach cần kiểm tra chưa.
+     * Truy vấn các bản ghi có mã sach là mã truyền vào,
+     * nếu số bản ghi > 0 thì mã sach đó co tồn tại.
+     * @param bookId
+     * @return true if ma sach exists in db, else return false
+     */
+    public boolean isBookIdExists(String bookId) {
+        boolean isBookIdExists = false;
+        //xin quyen
+        SQLiteDatabase database=dbHelper.getReadableDatabase();
+        //select
+        String selectQuery = "SELECT COUNT("+COLUMN_MA_SACH+") FROM "+TABLE_NAME+
+                " WHERE "+COLUMN_MA_SACH+"=?";
+        //rawQuery
+        Cursor cursor=database.rawQuery(selectQuery, new String[] {bookId});
+        if (cursor.moveToFirst()) {
+            //lay so truy van duoc
+            int numberOfRecords = cursor.getInt(0);
+            if (numberOfRecords>0) {
+                isBookIdExists=true;
+            } else {
+                isBookIdExists=false;
+            }
+        }
+        cursor.close();
+        database.close();
+        return isBookIdExists;
+    }
+
+    //lay so luong sach luu tru
+    public int getNumberOfArchivedBook(String bookId) {
+        int numberOfArchiveBook=0;
+        //xin quyen
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        //select query
+        String selectQuery = "SELECT "+COLUMN_SO_LUONG+" FROM "+TABLE_NAME+
+                " WHERE "+COLUMN_MA_SACH+"=?";
+        //rawQuery
+        Cursor cursor = database.rawQuery(selectQuery, new String[] {bookId});
+        if (cursor.moveToFirst()) {
+            numberOfArchiveBook=cursor.getInt(0);
+        }
+        //dong ket noi cursor, db
+        cursor.close();
+        database.close();
+        return numberOfArchiveBook;
+    }
 }

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -17,18 +16,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
+import vn.poly.mob204.bookmanager_binhvttph07052.ValidateFunctionLibrary;
 import vn.poly.mob204.bookmanager_binhvttph07052.adapter.BookForCartAdapter;
 import vn.poly.mob204.bookmanager_binhvttph07052.dao.HoaDonDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.dao.SachDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDon;
-import vn.poly.mob204.bookmanager_binhvttph07052.model.Sach;
 
 public class HoaDonActivity extends AppCompatActivity {
+    //debug
     private static final String TAG = "HoaDonActivityLog";
 
     //view
@@ -40,6 +38,9 @@ public class HoaDonActivity extends AppCompatActivity {
 
     //thong tin
     private String dateString;
+    String bookId;
+    String numberOfBookToBuyText;
+    int numberOfBookToBuy;
 
     //dd-MM-yyyy
     Calendar calendarDate=Calendar.getInstance();
@@ -51,6 +52,11 @@ public class HoaDonActivity extends AppCompatActivity {
     //get book list from database
     BookForCartAdapter bookForCartAdapter;
     SachDAO sachDAO;
+
+    //get selected book id from autocompleteTextView
+
+    //validate
+    ValidateFunctionLibrary validateFunctionLibrary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +77,7 @@ public class HoaDonActivity extends AppCompatActivity {
         auBook.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                bookId =bookForCartAdapter.getItem(position).toString();
             }
         });
     }
@@ -84,6 +90,9 @@ public class HoaDonActivity extends AppCompatActivity {
         bookForCartAdapter = new BookForCartAdapter(this, R.layout.item_book_for_cart);
         bookForCartAdapter.addAll(sachDAO.getAllSach());
         auBook.setAdapter(bookForCartAdapter);
+
+        //validate
+        validateFunctionLibrary=new ValidateFunctionLibrary(this);
     }
 
     private void addControls() {
@@ -154,7 +163,103 @@ public class HoaDonActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Lấy thông tin
+     * - Lấy mã sách từ auTv (mã sách đã lấy từ khi người dùng chọn một mặt hàng
+     * trên autoTv rồi)
+     * - Lấy số lượng text
+     * @param view
+     */
     public void addBookToCart(View view) {
+        //lay thong tin
+        bookId = auBook.getText().toString().trim();
+        numberOfBookToBuyText = edSoLuongMua.getText().toString().trim();
+
+        //validate
+        if (validateAddBookToCart()==ValidateFunctionLibrary.FAIL) {
+            return;
+        }
+
+
+    }
+
+    private boolean validateAddBookToCart() {
+//        Khi người dùng chưa nhap ma sach trong auTv
+        if (validateFunctionLibrary.isTextEmpty(
+                bookId, getResources().getString(R.string.ma_sach))
+        ) {
+            return false;
+        }
+
+        //neu ma sach khong ton tai trong db
+        if (!isBookIdExists()) {
+            return false;
+        }
+
+        if(validateFunctionLibrary.isTextEmpty(
+                numberOfBookToBuyText, getResources().getString(R.string.so_luong_can_mua))
+        ) {
+            return false;
+        }
+
+        //if enter too big number in quantity
+        //use anonymous class
+        if (validateFunctionLibraryCustom.canNotParseToInt(
+                numberOfBookToBuyText, getResources().getString(R.string.so_luong_can_mua))
+
+        ) {
+            return false;
+        }
+
+        if (isNumberOfBookWantToBuyOverNumberArchived(bookId)) {
+            return false;
+        }
+
+
+
+
+        return true;
+    }
+
+    /**
+     * Kiểm tra xem số lượng sách cần mua có vượt quá số lượng có trong kho không.
+     * Nếu có, trả về true, ngược lại trả về false.
+     * Lấy số lượng sách cần mua
+     * Lấy số lượng sách có trong kho của mã sách cần tìm
+     * Nếu số lượng sách trong cần mua > số lượng sách có trong kho return true,
+     * ngược lại return false
+     * @param bookId
+     * @return
+     */
+    private boolean isNumberOfBookWantToBuyOverNumberArchived(String bookId) {
+        int numberBookArchived;
+        numberOfBookToBuy = Integer.parseInt(numberOfBookToBuyText);
+        numberBookArchived=sachDAO.getNumberOfArchivedBook(bookId);
+        Log.i(TAG, numberBookArchived+"");
+        if (numberOfBookToBuy>numberBookArchived) {
+            Toast.makeText(
+                    this,
+                    R.string.number_book_to_buy_is_over_number_of_archived_book,
+                    Toast.LENGTH_SHORT
+            ).show();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isBookIdExists() {
+        //test: kiem tra xem ma sach co ton tai khong
+        boolean isBookIdExist=sachDAO.isBookIdExists(bookId);
+        if (isBookIdExist) {
+            return true;
+        } else {
+            Toast.makeText(
+                    this,
+                    R.string.book_id_is_not_exist,
+                    Toast.LENGTH_SHORT
+            ).show();
+            return false;
+        }
     }
 
     public void AddBillAndDetailsToDatabase(View view) {
@@ -171,4 +276,22 @@ public class HoaDonActivity extends AppCompatActivity {
         bookForCartAdapter.addAll(sachDAO.getAllSach());
         bookForCartAdapter.notifyDataSetChanged();
     }
+
+    ValidateFunctionLibrary validateFunctionLibraryCustom=new ValidateFunctionLibrary(this) {
+        @Override
+        public boolean canNotParseToInt(String text, String field) {
+            try {
+                Integer.parseInt(text);
+                return false;
+            } catch (NumberFormatException exc) {
+                exc.printStackTrace();
+                Toast.makeText(
+                        HoaDonActivity.this,
+                        field+" vượt quá giới hạn",
+                        Toast.LENGTH_SHORT
+                ).show();
+                return true;
+            }
+        }
+    };
 }

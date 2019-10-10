@@ -83,6 +83,6 @@ public class Sach implements Serializable {
 
     @Override
     public String toString() {
-        return tenSach+" - "+maSach;
+        return maSach;
     }
 }
