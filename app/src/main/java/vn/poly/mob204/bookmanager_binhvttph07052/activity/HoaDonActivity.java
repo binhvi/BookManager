@@ -144,24 +144,6 @@ public class HoaDonActivity extends AppCompatActivity {
     }
 
     //todo: chep code xong roi xoa ham nay di
-    public void saveHoaDon(View view) {
-        //lay thong tin
-        dateString=edNgayMua.getText().toString().trim();
-        //validate: neu chua chon ngay -> dateString empty --> thong bao sphai chon ngay
-        if (dateString.isEmpty()) {
-            Toast.makeText(
-                    this,
-                    R.string.pls_pick_date,
-                    Toast.LENGTH_SHORT
-            ).show();
-            return;
-        }
-
-        addHoaDon();
-
-    }
-
-    //todo: chep code xong roi xoa ham nay di
     private void addHoaDon() {
         //tao doi tuong
         HoaDon hoaDon=new HoaDon(calendarDate.getTime());
@@ -299,6 +281,50 @@ public class HoaDonActivity extends AppCompatActivity {
     }
 
     public void AddBillAndDetailsToDatabase(View view) {
+        //lay thong tin hoa don
+        //lay thong tin
+        dateString=edNgayMua.getText().toString().trim();
+        if (validateCheckout()==ValidateFunctionLibrary.FAIL) {
+            return;
+        }
+        //tao doi tuong
+        HoaDon hoaDon=new HoaDon(calendarDate.getTime());
+        //luu vao db
+        long result=hoaDonDAO.insertHoaDon(hoaDon);
+        if (result>-1) {
+            //todo: cau lenh sau khi insert thanh cong
+
+        } else {
+            Toast.makeText(
+                    this,
+                    R.string.insert_bill_fail,
+                    Toast.LENGTH_SHORT
+            ).show();
+            return;
+        }
+
+    }
+
+    private boolean validateCheckout() {
+        //validate: neu chua chon ngay -> dateString empty --> thong bao sphai chon ngay
+        if (dateString.isEmpty()) {
+            Toast.makeText(
+                    this,
+                    R.string.pls_pick_date,
+                    Toast.LENGTH_SHORT
+            ).show();
+            return false;
+        }
+
+        if (cartAdapter.getItemCount()==0) {
+            Toast.makeText(
+                    this,
+                    R.string.cart_is_empty,
+                    Toast.LENGTH_SHORT
+            ).show();
+            return false;
+        }
+        return true;
     }
 
     @Override

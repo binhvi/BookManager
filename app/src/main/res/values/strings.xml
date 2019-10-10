@@ -45,6 +45,8 @@
     <string name="so_luong_can_mua">Số lượng cần mua</string>
     <string name="book_id_is_not_exist">Mã sách không tồn tại</string>
     <string name="number_book_to_buy_is_over_number_of_archived_book">Số lượng sách cần mua vượt quá số lượng sách trong kho</string>
+    <string name="cart_is_empty">Giỏ hàng đang trống</string>
+    <string name="insert_bill_fail">Thêm hóa đơn thất bại</string>
 
 
 </resources>
