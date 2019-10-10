@@ -18,6 +18,17 @@ public class HoaDonChiTiet implements Serializable {
         this.soLuongMua = soLuongMua;
     }
 
+    public HoaDonChiTiet(HoaDon hoaDon, Sach sach, int soLuongMua) {
+        this.hoaDon = hoaDon;
+        this.sach = sach;
+        this.soLuongMua = soLuongMua;
+    }
+
+    public HoaDonChiTiet(Sach sach, int soLuongMua) {
+        this.sach = sach;
+        this.soLuongMua = soLuongMua;
+    }
+
     public int getMaHDCT() {
         return maHDCT;
     }

@@ -7,8 +7,6 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,7 +15,9 @@ import java.util.List;
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDonChiTiet;
 
-public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> implements Filterable {
+import static vn.poly.mob204.bookmanager_binhvttph07052.activity.HoaDonActivity.booksInCartList;
+
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     Activity context;
     List<HoaDonChiTiet> arrHoaDonChiTiet;
 
@@ -26,10 +26,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> im
         this.arrHoaDonChiTiet = arrHoaDonChiTiet;
     }
 
-    @Override
-    public Filter getFilter() {
-        return null;
-    }
 
     @NonNull
     @Override
@@ -42,10 +38,32 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> im
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        final int pos=position; //de position khong bi final khi su dung trong ham xu ly su kien
         //lay doi tuong tai vi tri position
         HoaDonChiTiet hoaDonChiTiet = arrHoaDonChiTiet.get(position);
 
         //set len view
+        //ten hang - id
+        holder.tvIdNameBook.setText(
+                String.format(
+                        "%s - %s",
+                        hoaDonChiTiet.getSach().getMaSach(),
+                        hoaDonChiTiet.getSach().getTenSach()
+                )
+        );
+        //so luong
+        holder.tvQuantity.setText(String.valueOf(hoaDonChiTiet.getSoLuongMua()));
+        //gia
+        holder.tvPrice.setText(String.valueOf(hoaDonChiTiet.getSach().getGiaBia()));
+        //xu ly su kien xoa
+        holder.ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //xoa khoi lish
+                booksInCartList.remove(pos);
+                notifyDataSetChanged();
+            }
+        });
 
     }
 
@@ -55,10 +73,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> im
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
+        TextView tvIdNameBook;
+        TextView tvQuantity;
+        TextView tvPrice;
+        ImageView ivDelete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            tvIdNameBook = (TextView) itemView.findViewById(R.id.tvIdNameBook);
+            tvQuantity = (TextView) itemView.findViewById(R.id.tvQuantity);
+            tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
+            ivDelete = (ImageView) itemView.findViewById(R.id.ivDelete);
 
         }
     }

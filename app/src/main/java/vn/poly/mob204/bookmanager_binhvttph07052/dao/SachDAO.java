@@ -174,4 +174,28 @@ public class SachDAO {
         database.close();
         return numberOfArchiveBook;
     }
+
+    //lay sach theo id
+    public Sach getSachById(String bookId) {
+        Sach sach = new Sach();
+        //xin quyen
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        //cau lenh select
+        String selectQuery = "SELECT * FROM "+TABLE_NAME+" WHERE "+COLUMN_MA_SACH+"=?";
+        //su dung cau lenh rawQuery
+        Cursor cursor = database.rawQuery(selectQuery, new String[] {bookId});
+        if (cursor.moveToFirst()){
+            sach.setMaSach(cursor.getString(cursor.getColumnIndex(COLUMN_MA_SACH)));
+            sach.setTenSach(cursor.getString(cursor.getColumnIndex(COLUMN_TEN_SACH)));
+            sach.setTacGia(cursor.getString(cursor.getColumnIndex(COLUMN_TAC_GIA)));
+            sach.setNXB(cursor.getString(cursor.getColumnIndex(COLUMN_NXB)));
+            sach.setGiaBia(cursor.getDouble(cursor.getColumnIndex(COLUMN_GIA_BIA)));
+            sach.setSoLuong(cursor.getInt(cursor.getColumnIndex(COLUMN_SO_LUONG)));
+            sach.setMaTheLoai(cursor.getString(cursor.getColumnIndex(COLUMN_MA_THE_LOAI)));
+        }
+        //dong ket noi cursor va db
+        cursor.close();
+        database.close();
+        return sach;
+    }
 }

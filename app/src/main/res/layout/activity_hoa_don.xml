@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:text="@string/book_name_id"
+            android:text="@string/book_id_name"
             android:layout_width="220dp"
             android:layout_height="wrap_content" />
         <TextView

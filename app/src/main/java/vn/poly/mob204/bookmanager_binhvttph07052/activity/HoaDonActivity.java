@@ -2,6 +2,7 @@ package vn.poly.mob204.bookmanager_binhvttph07052.activity;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
@@ -16,14 +17,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
 import vn.poly.mob204.bookmanager_binhvttph07052.ValidateFunctionLibrary;
 import vn.poly.mob204.bookmanager_binhvttph07052.adapter.BookForCartAdapter;
+import vn.poly.mob204.bookmanager_binhvttph07052.adapter.CartAdapter;
 import vn.poly.mob204.bookmanager_binhvttph07052.dao.HoaDonDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.dao.SachDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDon;
+import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDonChiTiet;
+import vn.poly.mob204.bookmanager_binhvttph07052.model.Sach;
 
 public class HoaDonActivity extends AppCompatActivity {
     //debug
@@ -57,6 +63,13 @@ public class HoaDonActivity extends AppCompatActivity {
 
     //validate
     ValidateFunctionLibrary validateFunctionLibrary;
+
+    //hoa don chi tiet
+    public static List<HoaDonChiTiet> booksInCartList;
+    CartAdapter cartAdapter;
+
+    //tong tien
+    double totalOfCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +106,13 @@ public class HoaDonActivity extends AppCompatActivity {
 
         //validate
         validateFunctionLibrary=new ValidateFunctionLibrary(this);
+
+        //hoa don chi tiet
+        booksInCartList = new ArrayList<>();
+        cartAdapter = new CartAdapter(this, booksInCartList);
+        rvCart.setAdapter(cartAdapter);
+        LinearLayoutManager vertical = new LinearLayoutManager(this);
+        rvCart.setLayoutManager(vertical);
     }
 
     private void addControls() {
@@ -127,7 +147,7 @@ public class HoaDonActivity extends AppCompatActivity {
     public void saveHoaDon(View view) {
         //lay thong tin
         dateString=edNgayMua.getText().toString().trim();
-        //validate: neu chua chon ngay -> dateString empty --> thong bao phai chon ngay
+        //validate: neu chua chon ngay -> dateString empty --> thong bao sphai chon ngay
         if (dateString.isEmpty()) {
             Toast.makeText(
                     this,
@@ -180,7 +200,23 @@ public class HoaDonActivity extends AppCompatActivity {
             return;
         }
 
+        //test
+        //lay doi tuong sach tu db theo ma sach
+        Sach sach = sachDAO.getSachById(bookId);
 
+//        //tao doi tuong
+        HoaDonChiTiet hdct = new HoaDonChiTiet(
+                sach,
+                numberOfBookToBuy
+        );
+
+        //them vao list
+        booksInCartList.add(hdct);
+        //refresh adapter
+        cartAdapter.notifyDataSetChanged();
+        //tong tien=gia*so luong
+        totalOfCart+=sach.getGiaBia()*numberOfBookToBuy;
+        tvTotalOfCart.setText(String.format("%.0f VNĐ", totalOfCart));
     }
 
     private boolean validateAddBookToCart() {
