@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
+import vn.poly.mob204.bookmanager_binhvttph07052.dao.HoaDonChiTietDAO;
+import vn.poly.mob204.bookmanager_binhvttph07052.dao.HoaDonDAO;
 
 public class MainActivity extends AppCompatActivity {
 

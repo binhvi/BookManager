@@ -19,7 +19,7 @@ public class HoaDonDAO {
 
     public static final String TABLE_NAME = "HoaDon";
 
-    //todo: da sua lai mahoadon thanh integer
+    //da sua lai mahoadon thanh integer
     public static final String SQL_HOA_DON = "CREATE TABLE HoaDon (mahoadon integer primary key, ngaymua date);";
     public static final String TAG = "HoaDonDAO";
 
@@ -133,5 +133,15 @@ public class HoaDonDAO {
         cursor.close();
         database.close();
         return hoaDon;
+    }
+
+    //delete all records
+    public int deleteAllHoaDon() {
+        //xin quyen
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
+        //xoa
+        int result=database.delete(TABLE_NAME, null, null);
+        //dong ket noi db
+        return result;
     }
 }

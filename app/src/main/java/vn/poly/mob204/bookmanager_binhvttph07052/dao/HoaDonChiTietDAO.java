@@ -68,7 +68,7 @@ public class HoaDonChiTietDAO {
     }
 
     //getAll
-    public List<HoaDonChiTiet> getAllHoaDon() throws ParseException {
+    public List<HoaDonChiTiet> getAllHoaDonChiTiet() throws ParseException {
         List<HoaDonChiTiet> dsHoaDonChiTiet = new ArrayList<>();
         //xin quyen
         SQLiteDatabase database = dbHelper.getReadableDatabase();
@@ -116,41 +116,6 @@ public class HoaDonChiTietDAO {
         return dsHoaDonChiTiet;
     }
 
-    public List<HoaDonChiTiet> getAllHoaDonChiTietByID(int maHoaDon) throws ParseException {
-        List<HoaDonChiTiet> dsHoaDonChiTiet = new ArrayList<>();
-        //xin quyen
-        SQLiteDatabase database = dbHelper.getReadableDatabase();
-        //cau lenh select
-        String selectQuery = "SELECT maHDCT, HoaDon.maHoaDon,HoaDon.ngayMua, Sach.maSach, Sach.maTheLoai, Sach.tenSach, Sach.tacGia, Sach.NXB, Sach.giaBia, " +
-                "Sach.soLuong,HoaDonChiTiet.soLuong FROM HoaDonChiTiet INNER JOIN HoaDon " +
-                "on HoaDonChiTiet.maHoaDon = HoaDon.maHoaDon INNER JOIN Sach on Sach.maSach = HoaDonChiTiet.maSach where HoaDonChiTiet.maHoaDon=" + maHoaDon;
-        //su dung cau lenh rawQuery
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                HoaDonChiTiet hdct = new HoaDonChiTiet();
-                hdct.setMaHDCT(cursor.getInt(0));
-                hdct.setHoaDon(new HoaDon(cursor.getInt(1), sdf.parse(cursor.getString(2))));
-                hdct.setSach(new
-                        Sach(cursor.getString(3),
-                        cursor.getString(4),
-                        cursor.getString(5),
-                        cursor.getString(6),
-                        cursor.getString(7),
-                        cursor.getDouble(8),
-                        cursor.getInt(9)));
-                hdct.setSoLuongMua(cursor.getInt(10));
-
-                dsHoaDonChiTiet.add(hdct);
-                Log.d(TAG, hdct.toString());
-            } while (cursor.moveToNext());
-        }
-        //dong ket noi cursor va database
-        cursor.close();
-        database.close();
-        return dsHoaDonChiTiet;
-    }
-
     //update
     public int updateHoaDonChiTiet(HoaDonChiTiet hdct) {
         //xin quyen
@@ -185,5 +150,84 @@ public class HoaDonChiTietDAO {
         //dong ket noi db
         database.close();
         return result;
+    }
+
+    //truy van hoa don chi tiet theo ma hoa don
+    public List<HoaDonChiTiet> getAllHoaDonChiTiet(int maHoaDon) throws ParseException {
+        List<HoaDonChiTiet> dsHoaDonChiTiet = new ArrayList<>();
+        //xin quyen
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        //cau lenh select
+        String selectScript = "SELECT maHDCT, HoaDon.maHoaDon,HoaDon.ngayMua, " +
+                "Sach.maSach, Sach.maTheLoai, Sach.tenSach, Sach.tacGia, Sach.NXB, Sach.giaBia, " +
+                "Sach.soLuong, HoaDonChiTiet.soLuong FROM HoaDonChiTiet INNER JOIN HoaDon " +
+                "on HoaDonChiTiet.maHoaDon = HoaDon.maHoaDon INNER JOIN Sach on Sach.maSach = HoaDonChiTiet.maSach " +
+                "WHERE HoaDonChiTiet.maHoaDon=?";
+        //su dung cau lenh rawQuery
+        Cursor cursor = database.rawQuery(selectScript, new String[]{String.valueOf(maHoaDon)});
+
+//        0 maHDCT,
+//        1 HoaDon.maHoaDon,
+//        2 HoaDon.ngayMua,
+//        3 Sach.maSach,
+//        4 Sach.maTheLoai,
+//        5 Sach.tenSach,
+//        6 Sach.tacGia,
+//        7 Sach.NXB,
+//        8 Sach.giaBia,
+//        9 Sach.soLuong,
+//        10 HoaDonChiTiet.soLuong
+
+        if (cursor.moveToFirst()) {
+            do {
+                HoaDonChiTiet hdct = new HoaDonChiTiet();
+                hdct.setMaHDCT(cursor.getInt(0));
+                hdct.setHoaDon(new HoaDon(cursor.getInt(1), sdf.parse(cursor.getString(2))));
+                hdct.setSach(new
+                        Sach(cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5),
+                        cursor.getString(6),
+                        cursor.getString(7),
+                        cursor.getDouble(8),
+                        cursor.getInt(9)));
+                hdct.setSoLuongMua(cursor.getInt(10));
+
+                dsHoaDonChiTiet.add(hdct);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return dsHoaDonChiTiet;
+    }
+
+    //delete all records
+    public int deleteAllHoaDonChiTiet() {
+        //xin quyen
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
+        //xoa
+        int result=database.delete(TABLE_NAME, null, null);
+        //dong ket noi db
+        return result;
+    }
+
+    //tinh tong tien cua mot hoa don
+    public double getTotalOfCart(int maHoaDon) {
+        double totalOfCart = 0.0;
+        //xin quyen
+        SQLiteDatabase database=dbHelper.getReadableDatabase();
+        //cau lenh select
+        String selectQuery = "SELECT SUM(HoaDonChiTiet.soLuong*giaBia)" +
+                " FROM HoaDonChiTiet INNER JOIN Sach ON HoaDonChiTiet.maSach=Sach.maSach " +
+                "WHERE maHoaDon=?";
+        //su dung cau lenh rawQuery
+        Cursor cursor = database.rawQuery(selectQuery, new String[] {String.valueOf(maHoaDon)});
+        if (cursor.moveToFirst()) {
+            totalOfCart = cursor.getDouble(0);
+        }
+        //dong ket noi cursor va db
+        cursor.close();
+        database.close();
+        return totalOfCart;
     }
 }

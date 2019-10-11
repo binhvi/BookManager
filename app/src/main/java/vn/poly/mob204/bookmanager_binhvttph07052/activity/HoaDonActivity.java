@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +29,7 @@ import vn.poly.mob204.bookmanager_binhvttph07052.adapter.CartAdapter;
 import vn.poly.mob204.bookmanager_binhvttph07052.dao.HoaDonChiTietDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.dao.HoaDonDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.dao.SachDAO;
+import vn.poly.mob204.bookmanager_binhvttph07052.database.DatabaseHelper;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDon;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDonChiTiet;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.Sach;
@@ -146,28 +148,6 @@ public class HoaDonActivity extends AppCompatActivity {
                 calendarDate.get(Calendar.DAY_OF_MONTH)
         );
         dialog.show();
-    }
-
-    //todo: chep code xong roi xoa ham nay di
-    private void addHoaDon() {
-        //tao doi tuong
-        HoaDon hoaDon=new HoaDon(calendarDate.getTime());
-        //luu vao db
-        long result=hoaDonDAO.insertHoaDon(hoaDon);
-        if (result>-1) {
-            Toast.makeText(
-                    this,
-                    R.string.insert_successfully,
-                    Toast.LENGTH_SHORT
-            ).show();
-        } else {
-            Toast.makeText(
-                    this,
-                    R.string.insert_fail,
-                    Toast.LENGTH_SHORT
-            ).show();
-        }
-
     }
 
     /**
