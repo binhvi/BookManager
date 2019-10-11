@@ -25,6 +25,7 @@ import vn.poly.mob204.bookmanager_binhvttph07052.R;
 import vn.poly.mob204.bookmanager_binhvttph07052.ValidateFunctionLibrary;
 import vn.poly.mob204.bookmanager_binhvttph07052.adapter.BookForCartAdapter;
 import vn.poly.mob204.bookmanager_binhvttph07052.adapter.CartAdapter;
+import vn.poly.mob204.bookmanager_binhvttph07052.dao.HoaDonChiTietDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.dao.HoaDonDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.dao.SachDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDon;
@@ -54,6 +55,7 @@ public class HoaDonActivity extends AppCompatActivity {
 
     //database
     HoaDonDAO hoaDonDAO;
+    HoaDonChiTietDAO hoaDonChiTietDAO;
 
     //get book list from database
     BookForCartAdapter bookForCartAdapter;
@@ -113,6 +115,9 @@ public class HoaDonActivity extends AppCompatActivity {
         rvCart.setAdapter(cartAdapter);
         LinearLayoutManager vertical = new LinearLayoutManager(this);
         rvCart.setLayoutManager(vertical);
+
+        //insert vao hoa don chi tiet
+        hoaDonChiTietDAO = new HoaDonChiTietDAO(this);
     }
 
     private void addControls() {
@@ -232,10 +237,6 @@ public class HoaDonActivity extends AppCompatActivity {
         if (isNumberOfBookWantToBuyOverNumberArchived(bookId)) {
             return false;
         }
-
-
-
-
         return true;
     }
 
@@ -253,7 +254,6 @@ public class HoaDonActivity extends AppCompatActivity {
         int numberBookArchived;
         numberOfBookToBuy = Integer.parseInt(numberOfBookToBuyText);
         numberBookArchived=sachDAO.getNumberOfArchivedBook(bookId);
-        Log.i(TAG, numberBookArchived+"");
         if (numberOfBookToBuy>numberBookArchived) {
             Toast.makeText(
                     this,
@@ -280,7 +280,7 @@ public class HoaDonActivity extends AppCompatActivity {
         }
     }
 
-    public void AddBillAndDetailsToDatabase(View view) {
+    public void addBillAndDetailsToDatabase(View view) {
         //lay thong tin hoa don
         //lay thong tin
         dateString=edNgayMua.getText().toString().trim();
@@ -289,11 +289,11 @@ public class HoaDonActivity extends AppCompatActivity {
         }
         //tao doi tuong
         HoaDon hoaDon=new HoaDon(calendarDate.getTime());
-        //luu vao db
+        //luu hoa don
         long result=hoaDonDAO.insertHoaDon(hoaDon);
         if (result>-1) {
-            //todo: cau lenh sau khi insert thanh cong
-
+            //luu hoa don chi tiet
+            insertBillDetailToDatabase(hoaDonDAO.getHoaDonFromRowId(result));
         } else {
             Toast.makeText(
                     this,
@@ -303,6 +303,49 @@ public class HoaDonActivity extends AppCompatActivity {
             return;
         }
 
+    }
+
+    /**
+     * Luu hoa don chi tiet sau khi da luu xong 1 hoa don
+     * Duyệt một vòng list sách trong giỏ hàng, lần lượt thêm thuộc tính hoaDon
+     * vào trong từng đối tượng HDCT
+     * Xong rồi thì insert đối tượng đó vào db
+     * Nếu thành công: do nothing (nhưng vẫn có câu lệnh if>-1 để tất cả các lỗi rơi vào trường hợp kia)
+     * Nếu thất bại: tạo một biến đếm lỗi (khai báo trước khi chạy vòng for),
+     * nếu thất bại thì biến đếm ++
+     * Chạy xong vòng for thì kiểm tra xem biến đếm có >0 không,
+     * nếu có thì báo là thêm hàng hóa vào bộ nhớ bị lỗi
+     * @param hoaDon doi tuong hoaDon vua tao ra tu form
+     */
+    private void insertBillDetailToDatabase(HoaDon hoaDon) {
+        int countNumberOfInsertError=0; //biến đếm lỗi
+        //Duyệt một vòng list sách trong giỏ hàng
+        for (int i=0; i<booksInCartList.size(); i++) {
+            //Lay ra doi tuong
+            HoaDonChiTiet hdct=booksInCartList.get(i);
+//          lần lượt thêm thuộc tính hoaDon
+            hdct.setHoaDon(hoaDon);
+            //insert vao db
+            long resultInsertHdct=hoaDonChiTietDAO.insertHoaDonChiTiet(hdct);
+            if (resultInsertHdct>-1) {
+                //do nothing
+            } else {
+                countNumberOfInsertError++;
+            }
+        }
+        //xem xem tat ca hoa don chi tiet da duoc insert vao db chua
+        if (countNumberOfInsertError>0) {
+            //thong bao loi
+            Toast.makeText(
+                    this,
+                    R.string.insert_book_to_bill_detail_fail,
+                    Toast.LENGTH_SHORT
+            ).show();
+        } else {
+            Toast.makeText(this,
+                    R.string.insert_successfully,
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     private boolean validateCheckout() {
@@ -356,4 +399,5 @@ public class HoaDonActivity extends AppCompatActivity {
             }
         }
     };
+
 }

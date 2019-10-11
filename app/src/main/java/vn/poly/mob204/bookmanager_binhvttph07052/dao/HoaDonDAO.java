@@ -112,4 +112,26 @@ public class HoaDonDAO {
         database.close();
         return result;
     }
+
+    public HoaDon getHoaDonFromRowId(long rowId) {
+        HoaDon hoaDon = new HoaDon();
+        //xin quyen
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        //cau lenh select
+        String selectQuery = "SELECT * FROM "+TABLE_NAME+" WHERE rowid=?";
+        //su dung cau lenh rawQuery
+        Cursor cursor = database.rawQuery(selectQuery, new String[] {String.valueOf(rowId)});
+        if (cursor.moveToFirst()) {
+            hoaDon.setMaHoaDon(cursor.getInt(cursor.getColumnIndex(COLUMN_MA_HOA_DON)));
+            try {
+                hoaDon.setNgayMua(sdf.parse(cursor.getString(cursor.getColumnIndex(COLUMN_NGAY_MUA))));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        //dong ket noi cursor, db
+        cursor.close();
+        database.close();
+        return hoaDon;
+    }
 }
