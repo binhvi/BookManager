@@ -198,4 +198,40 @@ public class SachDAO {
         database.close();
         return sach;
     }
+
+    //select 10 sach ban chay cua thang nay (nam nay)
+    public List<Sach> getSachTop10() {
+        //xin quyen
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        List<Sach> dsSach = new ArrayList<>();
+        //cau lenh select
+        String selectQuery = "SELECT HoaDonChiTiet.maSach, tensach, SUM(HoaDonChiTiet.soLuong) AS TONG_SO_LUONG_SACH_BAN_DUOC_TRONG_THANG_X " +
+                "FROM HoaDonChiTiet INNER JOIN Sach ON HoaDonChiTiet.maSach = Sach.maSach " +
+                "                   INNER JOIN HoaDon ON HoaDonChiTiet.maHoaDon = HoaDon.mahoadon " +
+                "WHERE strftime('%m', HoaDon.ngaymua) = (SELECT strftime('%m','now')) " +
+                "GROUP BY HoaDonChiTiet.maSach " +
+                "ORDER BY SUM(HoaDonChiTiet.soLuong) DESC " +
+                "LIMIT 10;";
+        //su dung cau lenh rawQuery
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        //0: ma sach
+        //1: ten sach
+        //2: so luong ban duoc trong thang x
+        if (cursor.moveToFirst()) {
+            do {
+                Sach sach = new Sach();
+                sach.setMaSach(cursor.getString(cursor.getColumnIndex(COLUMN_MA_SACH)));
+                sach.setTenSach(cursor.getString(cursor.getColumnIndex(COLUMN_TEN_SACH)));
+                sach.setSoLuong(cursor.getInt(cursor.getColumnIndex("TONG_SO_LUONG_SACH_BAN_DUOC_TRONG_THANG_X")));
+
+                dsSach.add(sach);
+            } while (cursor.moveToNext());
+        }
+        //dong ket noi cursor, db
+        cursor.close();
+        database.close();
+        return dsSach;
+    }
+
+
 }

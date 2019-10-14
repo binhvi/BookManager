@@ -25,6 +25,12 @@ public class Sach implements Serializable {
         this.soLuong = soLuong;
     }
 
+    public Sach(String maSach, String tenSach, int soLuong) {
+        this.maSach = maSach;
+        this.tenSach = tenSach;
+        this.soLuong = soLuong;
+    }
+
     public String getMaSach() {
         return maSach;
     }
