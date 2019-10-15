@@ -49,5 +49,7 @@
     <string name="insert_bill_fail">Thêm hóa đơn thất bại</string>
     <string name="insert_book_to_bill_detail_fail">Thêm hàng hóa vào bộ nhớ bị lỗi</string>
 
+    <string name="vnd">VNĐ</string>
+
 
 </resources>

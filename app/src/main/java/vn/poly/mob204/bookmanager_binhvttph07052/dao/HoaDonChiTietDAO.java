@@ -201,6 +201,7 @@ public class HoaDonChiTietDAO {
         return dsHoaDonChiTiet;
     }
 
+    //khong duoc xoa ham nay
     //delete all records
     public int deleteAllHoaDonChiTiet() {
         //xin quyen
@@ -229,5 +230,119 @@ public class HoaDonChiTietDAO {
         cursor.close();
         database.close();
         return totalOfCart;
+    }
+
+
+    /**
+     * Truy vấn số tiền bán sách trong ngày.
+     * CÂU LỆNH TRUY VẤN SỐ TIỀN BÁN ĐƯỢC TRONG NGÀY:
+     * Đầu tiên là truy vấn ra số tiền bán được trong mỗi hóa đơn chi tiết
+     * ('tongtien') = giá bìa*số lượng bán được trong 1 hdct
+     * -> ra một cột 'tongtien' chứa số tiền bán được trong mỗi hóa đơn chi tiết
+     * FROM bảng HoaDon
+     *     inner join với bảng HoaDonChiTiet với mã hóa đơn ở hai bảng khớp với nhau
+     *     inner join với bảng Sach với mã sách của bảng HoaDonChiTiet khớp với mã sách ở trong bảng Sach
+     * WHERE ngày mua là ngày hiện tại
+     * Sau đó cộng tất cả các hàng của cột đó lại (SUM(tongtien)) là ra tổng số
+     * tiền bán được trong các hóa đơn chi tiết
+     * @return số tiền bán sách trong ngày
+     */
+    public double getDoanhThuTrongNgay() {
+        double doanhThu = -1; //neu truy van bi loi thi tra ve -1
+        //xin quyen
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        //cau lenh select
+        String selectQuery =
+                "SELECT SUM(SO_TIEN_CUA_MOT_HDCT) " +
+                        "FROM ( " +
+                        "     SELECT(HoaDonChiTiet.soLuong * Sach.giaBia) AS SO_TIEN_CUA_MOT_HDCT " +
+                        "     FROM HoaDonChiTiet INNER JOIN Sach ON HoaDonChiTiet.maSach = Sach.maSach " +
+                        "                        INNER JOIN HoaDon ON HoaDonChiTiet.maHoaDon = HoaDon.mahoadon " +
+                        "     WHERE ngaymua = date('now') " +
+                        ")";
+        //su dung cau lenh rawQuery
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            doanhThu = cursor.getDouble(0);
+        }
+        //dong ket noi cursor va db
+        cursor.close();
+        database.close();
+        return doanhThu;
+    }
+
+    /**
+     * Truy vấn số tiền bán sách trong tháng
+     * CÂU LỆNH TRUY VẤN SỐ TIỀN BÁN ĐƯỢC TRONG THÁNG:
+     * Đầu tiên là truy vấn ra số tiền bán được trong mỗi hóa đơn chi tiết
+     * ('tongtien') = giá bìa*số lượng bán được trong 1 hdct
+     * -> ra một cột 'tongtien' chứa số tiền bán được trong mỗi hóa đơn chi tiết
+     * FROM bảng HoaDon
+     *     inner join với bảng HoaDonChiTiet với mã hóa đơn ở hai bảng khớp với nhau
+     *     inner join với bảng Sach với mã sách của bảng HoaDonChiTiet khớp với mã sách ở trong bảng Sach
+     * WHERE tháng lấy ra trong cột ngayMua của bảng hóa đơn = tháng của thời điểm hiện tại
+     * và năm của hóa đơn bằng năm hiện tại (tránh cộng cùng một tháng của tất cả các năm)
+     * @return
+     */
+    public double getDoanhThuTrongThang() {
+        double doanhThu = -1; //neu truy van bi loi thi tra ve -1
+        //xin quyen
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        //cau lenh select
+        String selectQuery =
+                "SELECT SUM(SO_TIEN_CUA_MOT_HDCT) " +
+                        "FROM ( " +
+                        "     SELECT(HoaDonChiTiet.soLuong * Sach.giaBia) AS SO_TIEN_CUA_MOT_HDCT " +
+                        "     FROM HoaDonChiTiet INNER JOIN Sach ON HoaDonChiTiet.maSach = Sach.maSach " +
+                        "                        INNER JOIN HoaDon ON HoaDonChiTiet.maHoaDon = HoaDon.mahoadon " +
+                        "     WHERE strftime('%m', ngaymua) = strftime('%m', 'now') " +
+                        "           AND strftime('%Y', ngaymua) = strftime('%Y', 'now') " +
+                        ")";
+        //su dung cau lenh rawQuery
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            doanhThu = cursor.getDouble(0);
+        }
+        //dong ket noi cursor va db
+        cursor.close();
+        database.close();
+        return doanhThu;
+    }
+
+    /**
+     * Truy vấn số tiền bán sách trong năm
+     * CÂU LỆNH TRUY VẤN SỐ TIỀN BÁN ĐƯỢC TRONG NĂM:
+     * Đầu tiên là truy vấn ra số tiền bán được trong mỗi hóa đơn chi tiết
+     * ('tongtien') = giá bìa*số lượng bán được trong 1 hdct
+     * -> ra một cột 'tongtien' chứa số tiền bán được trong mỗi hóa đơn chi tiết
+     * FROM bảng HoaDon
+     *     inner join với bảng HoaDonChiTiet với mã hóa đơn ở hai bảng khớp với nhau
+     *     inner join với bảng Sach với mã sách của bảng HoaDonChiTiet khớp với mã sách ở trong bảng Sach
+     * WHERE năm của ngày mua = năm của thời điểm hiện tại
+     * (năm phải là %Y (y hoa) mới được)
+     * @return
+     */
+    public double getDoanhThuTrongNam() {
+        double doanhThu = -1; //neu truy van bi loi thi tra ve -1
+        //xin quyen
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        //cau lenh select
+        String selectQuery =
+                "SELECT SUM(SO_TIEN_CUA_MOT_HDCT) " +
+                        "FROM ( " +
+                        "     SELECT(HoaDonChiTiet.soLuong * Sach.giaBia) AS SO_TIEN_CUA_MOT_HDCT " +
+                        "     FROM HoaDonChiTiet INNER JOIN Sach ON HoaDonChiTiet.maSach = Sach.maSach " +
+                        "                        INNER JOIN HoaDon ON HoaDonChiTiet.maHoaDon = HoaDon.mahoadon " +
+                        "     WHERE strftime('%Y', ngaymua) = strftime('%Y', 'now') " +
+                        ")";
+        //su dung cau lenh rawQuery
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            doanhThu = cursor.getDouble(0);
+        }
+        //dong ket noi cursor va db
+        cursor.close();
+        database.close();
+        return doanhThu;
     }
 }
