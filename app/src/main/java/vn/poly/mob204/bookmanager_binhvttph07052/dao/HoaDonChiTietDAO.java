@@ -282,7 +282,7 @@ public class HoaDonChiTietDAO {
      *     inner join với bảng Sach với mã sách của bảng HoaDonChiTiet khớp với mã sách ở trong bảng Sach
      * WHERE tháng lấy ra trong cột ngayMua của bảng hóa đơn = tháng của thời điểm hiện tại
      * và năm của hóa đơn bằng năm hiện tại (tránh cộng cùng một tháng của tất cả các năm)
-     * @return
+     * @return số tiền bán sách trong tháng
      */
     public double getDoanhThuTrongThang() {
         double doanhThu = -1; //neu truy van bi loi thi tra ve -1
@@ -320,7 +320,7 @@ public class HoaDonChiTietDAO {
      *     inner join với bảng Sach với mã sách của bảng HoaDonChiTiet khớp với mã sách ở trong bảng Sach
      * WHERE năm của ngày mua = năm của thời điểm hiện tại
      * (năm phải là %Y (y hoa) mới được)
-     * @return
+     * @return số tiền bán sách trong năm
      */
     public double getDoanhThuTrongNam() {
         double doanhThu = -1; //neu truy van bi loi thi tra ve -1
