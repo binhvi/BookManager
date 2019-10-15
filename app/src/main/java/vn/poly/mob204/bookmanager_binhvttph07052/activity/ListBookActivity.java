@@ -22,8 +22,6 @@ import vn.poly.mob204.bookmanager_binhvttph07052.dao.SachDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.Sach;
 
 public class ListBookActivity extends AppCompatActivity {
-    private EditText edSearchBook;
-    private Button btnTim;
     private RecyclerView rvBook;
     public static BookAdapter adapter;
     public static List<Sach> dsSach;
@@ -52,8 +50,6 @@ public class ListBookActivity extends AppCompatActivity {
     }
 
     private void addControls() {
-        edSearchBook = (EditText) findViewById(R.id.edSearchBook);
-        btnTim = (Button) findViewById(R.id.btnTim);
         rvBook = (RecyclerView) findViewById(R.id.rvBook);
     }
 

@@ -65,7 +65,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHolder
                 int soLuongMua = hdct.getSoLuongMua();
                 //cho vao string
                 allDetailsOfThisBill += String.format(
-                        "%s - %.0fVNĐ - %d\n",
+                        "%s - %.0f VNĐ - %d\n",
                         tenSach, giaBia, soLuongMua);
             }
             //Bỏ dấu \n ở dòng cuối

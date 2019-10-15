@@ -20,6 +20,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
@@ -81,8 +82,13 @@ public class HoaDonActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         refreshBookForCartAdapter();
-
+        setCurrentDateForEdtNgayMua();
         addEvents();
+    }
+
+    private void setCurrentDateForEdtNgayMua() {
+        Date currentDate = new Date(System.currentTimeMillis());
+        edNgayMua.setText(sdfDate.format(currentDate));
     }
 
     private void addEvents() {
@@ -322,20 +328,24 @@ public class HoaDonActivity extends AppCompatActivity {
             Toast.makeText(this,
                     R.string.insert_successfully,
                     Toast.LENGTH_SHORT).show();
+            //xoa het thong tin tren form de tao hoa don moi
+            clearHoaDonChiTietForm();
+            clearCart();
+            refreshTotalOfCart();
         }
     }
 
-    private boolean validateCheckout() {
-        //validate: neu chua chon ngay -> dateString empty --> thong bao sphai chon ngay
-        if (dateString.isEmpty()) {
-            Toast.makeText(
-                    this,
-                    R.string.pls_pick_date,
-                    Toast.LENGTH_SHORT
-            ).show();
-            return false;
-        }
+    private void clearCart() {
+        booksInCartList.clear();
+        cartAdapter.notifyDataSetChanged();
+    }
 
+    private void clearHoaDonChiTietForm() {
+        auBook.setText("");
+        edSoLuongMua.setText("");
+    }
+
+    private boolean validateCheckout() {
         if (cartAdapter.getItemCount() == 0) {
             Toast.makeText(
                     this,
@@ -392,6 +402,6 @@ public class HoaDonActivity extends AppCompatActivity {
             double thanhTienCuaMotHoaDon = hdct.getSach().getGiaBia() * hdct.getSoLuongMua();
             totalOfCart += thanhTienCuaMotHoaDon;
         }
-        tvTotalOfCart.setText(String.valueOf(totalOfCart));
+        tvTotalOfCart.setText(String.format("%.0f VNĐ", totalOfCart));
     }
 }
