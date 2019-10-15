@@ -16,10 +16,6 @@
             android:label="TOP 10 SÁCH BÁN CHẠY"
             android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name=".activity.HoaDonChiTietActivity"
-            android:label="CHI TIẾT HÓA ĐƠN"
-            android:parentActivityName=".activity.HoaDonActivity" />
-        <activity
             android:name=".activity.HoaDonActivity"
             android:label="THÊM HÓA ĐƠN"
             android:parentActivityName=".activity.ListHoaDonActivity" />

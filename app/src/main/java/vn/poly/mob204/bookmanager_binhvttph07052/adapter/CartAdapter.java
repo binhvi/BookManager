@@ -16,6 +16,7 @@ import vn.poly.mob204.bookmanager_binhvttph07052.R;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDonChiTiet;
 
 import static vn.poly.mob204.bookmanager_binhvttph07052.activity.HoaDonActivity.booksInCartList;
+import static vn.poly.mob204.bookmanager_binhvttph07052.activity.HoaDonActivity.refreshTotalOfCart;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     Activity context;
@@ -62,6 +63,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 //xoa khoi lish
                 booksInCartList.remove(pos);
                 notifyDataSetChanged();
+                refreshTotalOfCart();
             }
         });
 

@@ -43,7 +43,7 @@ public class HoaDonActivity extends AppCompatActivity {
     private AutoCompleteTextView auBook;
     private EditText edSoLuongMua;
     private RecyclerView rvCart;
-    private TextView tvTotalOfCart;
+    public static TextView tvTotalOfCart;
 
     //thong tin
     private String dateString;
@@ -52,8 +52,8 @@ public class HoaDonActivity extends AppCompatActivity {
     int numberOfBookToBuy;
 
     //dd-MM-yyyy
-    Calendar calendarDate=Calendar.getInstance();
-    SimpleDateFormat sdfDate=new SimpleDateFormat("dd-MM-yyyy");
+    Calendar calendarDate = Calendar.getInstance();
+    SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
 
     //database
     HoaDonDAO hoaDonDAO;
@@ -63,17 +63,12 @@ public class HoaDonActivity extends AppCompatActivity {
     BookForCartAdapter bookForCartAdapter;
     SachDAO sachDAO;
 
-    //get selected book id from autocompleteTextView
-
     //validate
     ValidateFunctionLibrary validateFunctionLibrary;
 
     //hoa don chi tiet
     public static List<HoaDonChiTiet> booksInCartList;
     CartAdapter cartAdapter;
-
-    //tong tien
-    double totalOfCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +81,7 @@ public class HoaDonActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         refreshBookForCartAdapter();
-        
+
         addEvents();
     }
 
@@ -94,22 +89,22 @@ public class HoaDonActivity extends AppCompatActivity {
         auBook.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                bookId =bookForCartAdapter.getItem(position).toString();
+                bookId = bookForCartAdapter.getItem(position).toString();
             }
         });
     }
 
     private void init() {
-        hoaDonDAO=new HoaDonDAO(this);
+        hoaDonDAO = new HoaDonDAO(this);
 
         //Đổ dữ liệu sách từ db vào adapter của autocompleteTextView
-        sachDAO=new SachDAO(this);
+        sachDAO = new SachDAO(this);
         bookForCartAdapter = new BookForCartAdapter(this, R.layout.item_book_for_cart);
         bookForCartAdapter.addAll(sachDAO.getAllSach());
         auBook.setAdapter(bookForCartAdapter);
 
         //validate
-        validateFunctionLibrary=new ValidateFunctionLibrary(this);
+        validateFunctionLibrary = new ValidateFunctionLibrary(this);
 
         //hoa don chi tiet
         booksInCartList = new ArrayList<>();
@@ -155,6 +150,7 @@ public class HoaDonActivity extends AppCompatActivity {
      * - Lấy mã sách từ auTv (mã sách đã lấy từ khi người dùng chọn một mặt hàng
      * trên autoTv rồi)
      * - Lấy số lượng text
+     *
      * @param view
      */
     public void addBookToCart(View view) {
@@ -163,7 +159,7 @@ public class HoaDonActivity extends AppCompatActivity {
         numberOfBookToBuyText = edSoLuongMua.getText().toString().trim();
 
         //validate
-        if (validateAddBookToCart()==ValidateFunctionLibrary.FAIL) {
+        if (validateAddBookToCart() == ValidateFunctionLibrary.FAIL) {
             return;
         }
 
@@ -181,9 +177,8 @@ public class HoaDonActivity extends AppCompatActivity {
         booksInCartList.add(hdct);
         //refresh adapter
         cartAdapter.notifyDataSetChanged();
-        //tong tien=gia*so luong
-        totalOfCart+=sach.getGiaBia()*numberOfBookToBuy;
-        tvTotalOfCart.setText(String.format("%.0f VNĐ", totalOfCart));
+        // refresh tong tien (totalOfCart)
+        refreshTotalOfCart();
     }
 
     private boolean validateAddBookToCart() {
@@ -199,7 +194,7 @@ public class HoaDonActivity extends AppCompatActivity {
             return false;
         }
 
-        if(validateFunctionLibrary.isTextEmpty(
+        if (validateFunctionLibrary.isTextEmpty(
                 numberOfBookToBuyText, getResources().getString(R.string.so_luong_can_mua))
         ) {
             return false;
@@ -227,14 +222,15 @@ public class HoaDonActivity extends AppCompatActivity {
      * Lấy số lượng sách có trong kho của mã sách cần tìm
      * Nếu số lượng sách trong cần mua > số lượng sách có trong kho return true,
      * ngược lại return false
+     *
      * @param bookId
      * @return
      */
     private boolean isNumberOfBookWantToBuyOverNumberArchived(String bookId) {
         int numberBookArchived;
         numberOfBookToBuy = Integer.parseInt(numberOfBookToBuyText);
-        numberBookArchived=sachDAO.getNumberOfArchivedBook(bookId);
-        if (numberOfBookToBuy>numberBookArchived) {
+        numberBookArchived = sachDAO.getNumberOfArchivedBook(bookId);
+        if (numberOfBookToBuy > numberBookArchived) {
             Toast.makeText(
                     this,
                     R.string.number_book_to_buy_is_over_number_of_archived_book,
@@ -247,7 +243,7 @@ public class HoaDonActivity extends AppCompatActivity {
 
     private boolean isBookIdExists() {
         //test: kiem tra xem ma sach co ton tai khong
-        boolean isBookIdExist=sachDAO.isBookIdExists(bookId);
+        boolean isBookIdExist = sachDAO.isBookIdExists(bookId);
         if (isBookIdExist) {
             return true;
         } else {
@@ -263,15 +259,15 @@ public class HoaDonActivity extends AppCompatActivity {
     public void addBillAndDetailsToDatabase(View view) {
         //lay thong tin hoa don
         //lay thong tin
-        dateString=edNgayMua.getText().toString().trim();
-        if (validateCheckout()==ValidateFunctionLibrary.FAIL) {
+        dateString = edNgayMua.getText().toString().trim();
+        if (validateCheckout() == ValidateFunctionLibrary.FAIL) {
             return;
         }
         //tao doi tuong
-        HoaDon hoaDon=new HoaDon(calendarDate.getTime());
+        HoaDon hoaDon = new HoaDon(calendarDate.getTime());
         //luu hoa don
-        long result=hoaDonDAO.insertHoaDon(hoaDon);
-        if (result>-1) {
+        long result = hoaDonDAO.insertHoaDon(hoaDon);
+        if (result > -1) {
             //luu hoa don chi tiet
             insertBillDetailToDatabase(hoaDonDAO.getHoaDonFromRowId(result));
         } else {
@@ -295,26 +291,27 @@ public class HoaDonActivity extends AppCompatActivity {
      * nếu thất bại thì biến đếm ++
      * Chạy xong vòng for thì kiểm tra xem biến đếm có >0 không,
      * nếu có thì báo là thêm hàng hóa vào bộ nhớ bị lỗi
+     *
      * @param hoaDon doi tuong hoaDon vua tao ra tu form
      */
     private void insertBillDetailToDatabase(HoaDon hoaDon) {
-        int countNumberOfInsertError=0; //biến đếm lỗi
+        int countNumberOfInsertError = 0; //biến đếm lỗi
         //Duyệt một vòng list sách trong giỏ hàng
-        for (int i=0; i<booksInCartList.size(); i++) {
+        for (int i = 0; i < booksInCartList.size(); i++) {
             //Lay ra doi tuong
-            HoaDonChiTiet hdct=booksInCartList.get(i);
+            HoaDonChiTiet hdct = booksInCartList.get(i);
 //          lần lượt thêm thuộc tính hoaDon
             hdct.setHoaDon(hoaDon);
             //insert vao db
-            long resultInsertHdct=hoaDonChiTietDAO.insertHoaDonChiTiet(hdct);
-            if (resultInsertHdct>-1) {
+            long resultInsertHdct = hoaDonChiTietDAO.insertHoaDonChiTiet(hdct);
+            if (resultInsertHdct > -1) {
                 //do nothing
             } else {
                 countNumberOfInsertError++;
             }
         }
         //xem xem tat ca hoa don chi tiet da duoc insert vao db chua
-        if (countNumberOfInsertError>0) {
+        if (countNumberOfInsertError > 0) {
             //thong bao loi
             Toast.makeText(
                     this,
@@ -339,7 +336,7 @@ public class HoaDonActivity extends AppCompatActivity {
             return false;
         }
 
-        if (cartAdapter.getItemCount()==0) {
+        if (cartAdapter.getItemCount() == 0) {
             Toast.makeText(
                     this,
                     R.string.cart_is_empty,
@@ -362,7 +359,7 @@ public class HoaDonActivity extends AppCompatActivity {
         bookForCartAdapter.notifyDataSetChanged();
     }
 
-    ValidateFunctionLibrary validateFunctionLibraryCustom=new ValidateFunctionLibrary(this) {
+    ValidateFunctionLibrary validateFunctionLibraryCustom = new ValidateFunctionLibrary(this) {
         @Override
         public boolean canNotParseToInt(String text, String field) {
             try {
@@ -372,7 +369,7 @@ public class HoaDonActivity extends AppCompatActivity {
                 exc.printStackTrace();
                 Toast.makeText(
                         HoaDonActivity.this,
-                        field+" vượt quá giới hạn",
+                        field + " vượt quá giới hạn",
                         Toast.LENGTH_SHORT
                 ).show();
                 return true;
@@ -380,4 +377,21 @@ public class HoaDonActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * Cập nhật tổng tiền theo giỏ hàng.
+     * duyệt một vòng list
+     * xong cộng tất cả giá*số lượng vào (giá lấy từ thuộc tính sach của một HDCT)
+     * xong set lên text
+     */
+    public static void refreshTotalOfCart() {
+        double totalOfCart = 0;
+        for (int i = 0; i < booksInCartList.size(); i++) {
+            //lay HDCT ra
+            HoaDonChiTiet hdct = booksInCartList.get(i);
+            //thanh tien cua mot hoa don
+            double thanhTienCuaMotHoaDon = hdct.getSach().getGiaBia() * hdct.getSoLuongMua();
+            totalOfCart += thanhTienCuaMotHoaDon;
+        }
+        tvTotalOfCart.setText(String.valueOf(totalOfCart));
+    }
 }
