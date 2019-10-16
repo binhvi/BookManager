@@ -169,18 +169,40 @@ public class HoaDonActivity extends AppCompatActivity {
             return;
         }
 
-        //test
         //lay doi tuong sach tu db theo ma sach
         Sach sach = sachDAO.getSachById(bookId);
 
-//        //tao doi tuong
-        HoaDonChiTiet hdct = new HoaDonChiTiet(
-                sach,
-                numberOfBookToBuy
-        );
+
 
         //them vao list
-        booksInCartList.add(hdct);
+        //Nếu giỏ hàng chưa có sách thì cứ thêm như bình thường
+        //Nếu có sách rồi thì xem sách này đã có trong giỏ hàng chưa, nếu có thì cộng thêm số lượng vào
+        if (booksInCartList.size()==0) {
+            //tao doi tuong
+            HoaDonChiTiet hdct = new HoaDonChiTiet(
+                    sach,
+                    numberOfBookToBuy
+            );
+            booksInCartList.add(hdct);
+        } else {
+            //Duyệt một vòng list
+            //Lấy ra mã sách
+            //Nếu trùng với mã sách đang nhập ở form
+            //Thì cộng thêm số lượng vào
+            for (int i = 0; i<booksInCartList.size(); i++) {
+                HoaDonChiTiet hdctDaCoTrongList = booksInCartList.get(i);
+                String maSachCuaHdctNay = hdctDaCoTrongList.getSach().getMaSach();
+                //lay so luong
+                int soLuongDaMuaTruocDoCuaSachNay = hdctDaCoTrongList.getSoLuongMua();
+                if (bookId.equals(maSachCuaHdctNay)) {
+                    //cong them so luong vao
+                    int tongSoLuongMuaTruocVaHienTai = soLuongDaMuaTruocDoCuaSachNay + numberOfBookToBuy;
+                    //sua lai so luong
+                    hdctDaCoTrongList.setSoLuongMua(tongSoLuongMuaTruocVaHienTai);
+                }
+            }
+        }
+
         //refresh adapter
         cartAdapter.notifyDataSetChanged();
         // refresh tong tien (totalOfCart)
