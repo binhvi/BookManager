@@ -102,6 +102,16 @@ public class NguoiDungActivity extends AppCompatActivity {
             return;
         }
 
+        //validate mat khau vs mat khau nhac lai
+        if (!password.equals(rePass)) {
+            Toast.makeText(
+                    this,
+                    R.string.repassword_must_be_same_as_password,
+                    Toast.LENGTH_SHORT
+            ).show();
+            return;
+        }
+
         //chuyen username thanh lower case
         //de luc so sanh khong bi nham
         username = username.toLowerCase();
