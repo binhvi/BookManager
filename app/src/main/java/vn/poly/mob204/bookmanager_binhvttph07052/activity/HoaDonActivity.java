@@ -176,7 +176,9 @@ public class HoaDonActivity extends AppCompatActivity {
 
         //them vao list
         //Nếu giỏ hàng chưa có sách thì cứ thêm như bình thường
-        //Nếu có sách rồi thì xem sách này đã có trong giỏ hàng chưa, nếu có thì cộng thêm số lượng vào
+        //Nếu có sách rồi thì xem sách này đã có trong giỏ hàng chưa,
+        // nếu có thì cộng thêm số lượng vào
+        //Nếu chưa có thì lại thêm vào như bình thường
         if (booksInCartList.size()==0) {
             //tao doi tuong
             HoaDonChiTiet hdct = new HoaDonChiTiet(
@@ -185,21 +187,31 @@ public class HoaDonActivity extends AppCompatActivity {
             );
             booksInCartList.add(hdct);
         } else {
+            boolean chuaCoSachNayTrongGioHang = true;
             //Duyệt một vòng list
-            //Lấy ra mã sách
-            //Nếu trùng với mã sách đang nhập ở form
-            //Thì cộng thêm số lượng vào
             for (int i = 0; i<booksInCartList.size(); i++) {
                 HoaDonChiTiet hdctDaCoTrongList = booksInCartList.get(i);
+                //Lấy ra mã sách
                 String maSachCuaHdctNay = hdctDaCoTrongList.getSach().getMaSach();
                 //lay so luong
                 int soLuongDaMuaTruocDoCuaSachNay = hdctDaCoTrongList.getSoLuongMua();
-                if (bookId.equals(maSachCuaHdctNay)) {
+                if (bookId.equals(maSachCuaHdctNay)) {//Nếu trùng với mã sách đang nhập ở form
                     //cong them so luong vao
                     int tongSoLuongMuaTruocVaHienTai = soLuongDaMuaTruocDoCuaSachNay + numberOfBookToBuy;
                     //sua lai so luong
                     hdctDaCoTrongList.setSoLuongMua(tongSoLuongMuaTruocVaHienTai);
+                    chuaCoSachNayTrongGioHang = false; //đã có loại sách này trong giỏ hàng
                 }
+            }
+
+            if (chuaCoSachNayTrongGioHang) {
+                //them vao nhu binh thuong
+                //tao doi tuong
+                HoaDonChiTiet hdct = new HoaDonChiTiet(
+                        sach,
+                        numberOfBookToBuy
+                );
+                booksInCartList.add(hdct);
             }
         }
 
