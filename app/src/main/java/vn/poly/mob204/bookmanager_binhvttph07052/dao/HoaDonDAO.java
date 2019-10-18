@@ -118,9 +118,9 @@ public class HoaDonDAO {
         //xin quyen
         SQLiteDatabase database = dbHelper.getReadableDatabase();
         //cau lenh select
-        String selectQuery = "SELECT * FROM "+TABLE_NAME+" WHERE rowid=?";
+        String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE rowid=?";
         //su dung cau lenh rawQuery
-        Cursor cursor = database.rawQuery(selectQuery, new String[] {String.valueOf(rowId)});
+        Cursor cursor = database.rawQuery(selectQuery, new String[]{String.valueOf(rowId)});
         if (cursor.moveToFirst()) {
             hoaDon.setMaHoaDon(cursor.getInt(cursor.getColumnIndex(COLUMN_MA_HOA_DON)));
             try {
@@ -140,7 +140,7 @@ public class HoaDonDAO {
         //xin quyen
         SQLiteDatabase database = dbHelper.getWritableDatabase();
         //xoa
-        int result=database.delete(TABLE_NAME, null, null);
+        int result = database.delete(TABLE_NAME, null, null);
         //dong ket noi db
         return result;
     }

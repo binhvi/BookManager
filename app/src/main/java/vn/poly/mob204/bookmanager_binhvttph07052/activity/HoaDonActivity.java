@@ -173,13 +173,12 @@ public class HoaDonActivity extends AppCompatActivity {
         Sach sach = sachDAO.getSachById(bookId);
 
 
-
         //them vao list
         //Nếu giỏ hàng chưa có sách thì cứ thêm như bình thường
         //Nếu có sách rồi thì xem sách này đã có trong giỏ hàng chưa,
         // nếu có thì cộng thêm số lượng vào
         //Nếu chưa có thì lại thêm vào như bình thường
-        if (booksInCartList.size()==0) {
+        if (booksInCartList.size() == 0) {
             //tao doi tuong
             HoaDonChiTiet hdct = new HoaDonChiTiet(
                     sach,
@@ -189,7 +188,7 @@ public class HoaDonActivity extends AppCompatActivity {
         } else {
             boolean chuaCoSachNayTrongGioHang = true;
             //Duyệt một vòng list
-            for (int i = 0; i<booksInCartList.size(); i++) {
+            for (int i = 0; i < booksInCartList.size(); i++) {
                 HoaDonChiTiet hdctDaCoTrongList = booksInCartList.get(i);
                 //Lấy ra mã sách
                 String maSachCuaHdctNay = hdctDaCoTrongList.getSach().getMaSach();

@@ -207,7 +207,7 @@ public class HoaDonChiTietDAO {
         //xin quyen
         SQLiteDatabase database = dbHelper.getWritableDatabase();
         //xoa
-        int result=database.delete(TABLE_NAME, null, null);
+        int result = database.delete(TABLE_NAME, null, null);
         //dong ket noi db
         return result;
     }
@@ -216,13 +216,13 @@ public class HoaDonChiTietDAO {
     public double getTotalOfCart(int maHoaDon) {
         double totalOfCart = 0.0;
         //xin quyen
-        SQLiteDatabase database=dbHelper.getReadableDatabase();
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
         //cau lenh select
         String selectQuery = "SELECT SUM(HoaDonChiTiet.soLuong*giaBia)" +
                 " FROM HoaDonChiTiet INNER JOIN Sach ON HoaDonChiTiet.maSach=Sach.maSach " +
                 "WHERE maHoaDon=?";
         //su dung cau lenh rawQuery
-        Cursor cursor = database.rawQuery(selectQuery, new String[] {String.valueOf(maHoaDon)});
+        Cursor cursor = database.rawQuery(selectQuery, new String[]{String.valueOf(maHoaDon)});
         if (cursor.moveToFirst()) {
             totalOfCart = cursor.getDouble(0);
         }
@@ -240,11 +240,12 @@ public class HoaDonChiTietDAO {
      * ('tongtien') = giá bìa*số lượng bán được trong 1 hdct
      * -> ra một cột 'tongtien' chứa số tiền bán được trong mỗi hóa đơn chi tiết
      * FROM bảng HoaDon
-     *     inner join với bảng HoaDonChiTiet với mã hóa đơn ở hai bảng khớp với nhau
-     *     inner join với bảng Sach với mã sách của bảng HoaDonChiTiet khớp với mã sách ở trong bảng Sach
+     * inner join với bảng HoaDonChiTiet với mã hóa đơn ở hai bảng khớp với nhau
+     * inner join với bảng Sach với mã sách của bảng HoaDonChiTiet khớp với mã sách ở trong bảng Sach
      * WHERE ngày mua là ngày hiện tại
      * Sau đó cộng tất cả các hàng của cột đó lại (SUM(tongtien)) là ra tổng số
      * tiền bán được trong các hóa đơn chi tiết
+     *
      * @return số tiền bán sách trong ngày
      */
     public double getDoanhThuTrongNgay() {
@@ -278,10 +279,11 @@ public class HoaDonChiTietDAO {
      * ('tongtien') = giá bìa*số lượng bán được trong 1 hdct
      * -> ra một cột 'tongtien' chứa số tiền bán được trong mỗi hóa đơn chi tiết
      * FROM bảng HoaDon
-     *     inner join với bảng HoaDonChiTiet với mã hóa đơn ở hai bảng khớp với nhau
-     *     inner join với bảng Sach với mã sách của bảng HoaDonChiTiet khớp với mã sách ở trong bảng Sach
+     * inner join với bảng HoaDonChiTiet với mã hóa đơn ở hai bảng khớp với nhau
+     * inner join với bảng Sach với mã sách của bảng HoaDonChiTiet khớp với mã sách ở trong bảng Sach
      * WHERE tháng lấy ra trong cột ngayMua của bảng hóa đơn = tháng của thời điểm hiện tại
      * và năm của hóa đơn bằng năm hiện tại (tránh cộng cùng một tháng của tất cả các năm)
+     *
      * @return số tiền bán sách trong tháng
      */
     public double getDoanhThuTrongThang() {
@@ -316,10 +318,11 @@ public class HoaDonChiTietDAO {
      * ('tongtien') = giá bìa*số lượng bán được trong 1 hdct
      * -> ra một cột 'tongtien' chứa số tiền bán được trong mỗi hóa đơn chi tiết
      * FROM bảng HoaDon
-     *     inner join với bảng HoaDonChiTiet với mã hóa đơn ở hai bảng khớp với nhau
-     *     inner join với bảng Sach với mã sách của bảng HoaDonChiTiet khớp với mã sách ở trong bảng Sach
+     * inner join với bảng HoaDonChiTiet với mã hóa đơn ở hai bảng khớp với nhau
+     * inner join với bảng Sach với mã sách của bảng HoaDonChiTiet khớp với mã sách ở trong bảng Sach
      * WHERE năm của ngày mua = năm của thời điểm hiện tại
      * (năm phải là %Y (y hoa) mới được)
+     *
      * @return số tiền bán sách trong năm
      */
     public double getDoanhThuTrongNam() {

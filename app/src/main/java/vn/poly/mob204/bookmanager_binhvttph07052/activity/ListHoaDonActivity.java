@@ -30,7 +30,7 @@ public class ListHoaDonActivity extends AppCompatActivity {
     HoaDonDAO hoaDonDAO;
 
     //debug
-    private static final String TAG="ListHoaDonActivityLog";
+    private static final String TAG = "ListHoaDonActivityLog";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class ListHoaDonActivity extends AppCompatActivity {
         rvHoaDon.setAdapter(adapter);
         LinearLayoutManager vertical = new LinearLayoutManager(this);
         rvHoaDon.setLayoutManager(vertical);
-        hoaDonDAO=new HoaDonDAO(this);
+        hoaDonDAO = new HoaDonDAO(this);
 
         refreshHoaDonAdapter();
     }
@@ -98,6 +98,6 @@ public class ListHoaDonActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-            refreshHoaDonAdapter();
+        refreshHoaDonAdapter();
     }
 }

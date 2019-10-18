@@ -51,6 +51,7 @@
 
     <string name="vnd">VNĐ</string>
     <string name="repassword_must_be_same_as_password">Mật khẩu nhắc lại không khớp với mật khẩu</string>
+    <string name="password_must_have_at_least_six_character">Mật khẩu phải có ít nhất 6 ký tự</string>
 
 
 </resources>

@@ -41,9 +41,9 @@ public class ThongKeDoanhThuActivity extends AppCompatActivity {
         doanhThuTrongNam = hoaDonChiTietDAO.getDoanhThuTrongNam();
 
         //set len text
-        tvThongKeNgay.append(String.format("%.0f "+getResources().getString(R.string.vnd), doanhThuTrongNgay));
-        tvThongKeThang.append(String.format("%.0f "+getResources().getString(R.string.vnd), doanhThuTrongThang));
-        tvThongKeNam.append(String.format("%.0f "+getResources().getString(R.string.vnd), doanhThuTrongNam));
+        tvThongKeNgay.append(String.format("%.0f " + getResources().getString(R.string.vnd), doanhThuTrongNgay));
+        tvThongKeThang.append(String.format("%.0f " + getResources().getString(R.string.vnd), doanhThuTrongThang));
+        tvThongKeNam.append(String.format("%.0f " + getResources().getString(R.string.vnd), doanhThuTrongNam));
     }
 
     private void init() {

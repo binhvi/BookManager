@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         strPass = edPassword.getText().toString().trim();
 
         //chuyen lower case de tim trong db khong bi loi neu db phan biet hoa thuong
-        strUser=strUser.toLowerCase();
+        strUser = strUser.toLowerCase();
         edUserName.setText(strUser);
 
         if (strUser.isEmpty() || strPass.isEmpty()) {

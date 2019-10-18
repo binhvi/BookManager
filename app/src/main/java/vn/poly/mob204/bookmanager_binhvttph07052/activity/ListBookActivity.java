@@ -46,7 +46,7 @@ public class ListBookActivity extends AppCompatActivity {
         rvBook.setAdapter(adapter);
         LinearLayoutManager vertical = new LinearLayoutManager(this);
         rvBook.setLayoutManager(vertical);
-        sachDAO=new SachDAO(this);
+        sachDAO = new SachDAO(this);
     }
 
     private void addControls() {

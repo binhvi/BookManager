@@ -37,7 +37,7 @@ public class LuotSachBanChayActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        
+
         init();
         //thu lay list ra
         listSachBanChayNhatTrongThang.addAll(sachDAO.getSachTop10());

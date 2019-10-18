@@ -45,7 +45,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final int pos=position;
+        final int pos = position;
         Sach sach = arrSach.get(position);
 
         //set thong tin cua doi tuong len view
@@ -57,9 +57,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
             @Override
             public void onClick(View view) {
                 //xoa trong db
-                String idOfDeleteBook=dsSach.get(pos).getMaSach();
-                int result=sachDAO.deleteSachByID(idOfDeleteBook);
-                if (result>0) {
+                String idOfDeleteBook = dsSach.get(pos).getMaSach();
+                int result = sachDAO.deleteSachByID(idOfDeleteBook);
+                if (result > 0) {
                     refreshSachAdapter();
                 } else {
                     Toast.makeText(
@@ -101,9 +101,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
                 @Override
                 public void onClick(View v) {
                     //lay doi tuong
-                    Sach sach=dsSach.get(getAdapterPosition());
+                    Sach sach = dsSach.get(getAdapterPosition());
                     //gui sang ThemSachActivity
-                    Intent intent=new Intent(context, ThemSachActivity.class);
+                    Intent intent = new Intent(context, ThemSachActivity.class);
                     intent.putExtra(KEY_SACH, sach);
                     context.startActivity(intent);
                 }

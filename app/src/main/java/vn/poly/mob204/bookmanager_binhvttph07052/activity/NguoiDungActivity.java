@@ -67,20 +67,6 @@ public class NguoiDungActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validateTrong() {
-        if (validateFunctionLibrary.isTextEmpty(username, getResources().getString(R.string.user_name)))
-            return false;
-        if (validateFunctionLibrary.isTextEmpty(password, getResources().getString(R.string.password)))
-            return false;
-        if (validateFunctionLibrary.isTextEmpty(rePass, getResources().getString(R.string.re_password)))
-            return false;
-        if (validateFunctionLibrary.isTextEmpty(phone, getResources().getString(R.string.phone_number)))
-            return false;
-        if (validateFunctionLibrary.isTextEmpty(hoTen, getResources().getString(R.string.full_name)))
-            return false;
-        return true;
-    }
-
     private void addControls() {
         edUser = (EditText) findViewById(R.id.edUserName);
         edPass = (EditText) findViewById(R.id.edPassword);
@@ -98,17 +84,7 @@ public class NguoiDungActivity extends AppCompatActivity {
         phone = edPhone.getText().toString().trim();
         hoTen = edFullName.getText().toString().trim();
 
-        if (validateTrong() == ValidateFunctionLibrary.FAIL) {
-            return;
-        }
-
-        //validate mat khau vs mat khau nhac lai
-        if (!password.equals(rePass)) {
-            Toast.makeText(
-                    this,
-                    R.string.repassword_must_be_same_as_password,
-                    Toast.LENGTH_SHORT
-            ).show();
+        if (allValidate() == ValidateFunctionLibrary.FAIL) {
             return;
         }
 
@@ -139,6 +115,43 @@ public class NguoiDungActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT
             ).show();
         }
+    }
+
+    private boolean allValidate() {
+        if (validateFunctionLibrary.isTextEmpty(username, getResources().getString(R.string.user_name)))
+            return false;
+        if (validateFunctionLibrary.isTextEmpty(password, getResources().getString(R.string.password)))
+            return false;
+        //validate mat khau phai >= 6 ky tu
+        //Nếu mật khẩu length < 6 ký tự
+        //Thì thông báo
+        //Mật khẩu phải có ít nhất 6 ký tự
+        if (password.length()<6) {
+            Toast.makeText(
+                    this,
+                    R.string.password_must_have_at_least_six_character,
+                    Toast.LENGTH_SHORT
+            ).show();
+            return false;
+        }
+        if (validateFunctionLibrary.isTextEmpty(rePass, getResources().getString(R.string.re_password)))
+            return false;
+
+        //kiem tra xem la repass co trung voi pass khong
+        if (!password.equals(rePass)) {
+            Toast.makeText(
+                    this,
+                    R.string.repassword_must_be_same_as_password,
+                    Toast.LENGTH_SHORT
+            ).show();
+            return false;
+        }
+
+        if (validateFunctionLibrary.isTextEmpty(phone, getResources().getString(R.string.phone_number)))
+            return false;
+        if (validateFunctionLibrary.isTextEmpty(hoTen, getResources().getString(R.string.full_name)))
+            return false;
+        return true;
     }
 
     public void showUsers(View view) {

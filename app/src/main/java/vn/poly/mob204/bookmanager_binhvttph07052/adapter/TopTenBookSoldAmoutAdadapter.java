@@ -47,8 +47,8 @@ public class TopTenBookSoldAmoutAdadapter extends RecyclerView.Adapter<TopTenBoo
         //lay so luong ban ra
         soldAmount = sach.getSoLuong();
         //set len giao dien
-        holder.tvIndexNameSoldAmountBook.setText(String.format("#%d. %s: %d quyển", position+1, bookName, soldAmount));
-        holder.tvBookId.setText(String.format(context.getResources().getString(R.string.ma_sach)+": %s", bookId)); //Ma sach: ...
+        holder.tvIndexNameSoldAmountBook.setText(String.format("#%d. %s: %d quyển", position + 1, bookName, soldAmount));
+        holder.tvBookId.setText(String.format(context.getResources().getString(R.string.ma_sach) + ": %s", bookId)); //Ma sach: ...
     }
 
     @Override

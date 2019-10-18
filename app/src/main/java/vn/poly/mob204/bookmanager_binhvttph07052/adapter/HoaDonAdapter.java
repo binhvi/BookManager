@@ -41,7 +41,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String allDetailsOfThisBill="";
+        String allDetailsOfThisBill = "";
         int maHoaDon;
         String ngayMua;
         double thanhTien;
@@ -49,17 +49,17 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHolder
         final HoaDon hoaDon = arrHoaDon.get(position);
 
         //lay ma hoa don, ngay
-        maHoaDon=hoaDon.getMaHoaDon();
-        ngayMua=sdf.format(hoaDon.getNgayMua());
+        maHoaDon = hoaDon.getMaHoaDon();
+        ngayMua = sdf.format(hoaDon.getNgayMua());
         holder.tvBillIdDate.setText(String.format("%d - %s", maHoaDon, ngayMua));
 
         //lay hoa don chi tiet cua hoa don nay
         try {
             List<HoaDonChiTiet> hdctList = hoaDonChiTietDAO.getAllHoaDonChiTiet(maHoaDon);
-            for (int i=0; i<hdctList.size(); i++) {
+            for (int i = 0; i < hdctList.size(); i++) {
                 //lay thong tin hoa don chi tiet cho vao string
                 //lay hdct
-                HoaDonChiTiet hdct=hdctList.get(i);
+                HoaDonChiTiet hdct = hdctList.get(i);
                 String tenSach = hdct.getSach().getTenSach();
                 double giaBia = hdct.getSach().getGiaBia();
                 int soLuongMua = hdct.getSoLuongMua();
@@ -69,7 +69,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHolder
                         tenSach, giaBia, soLuongMua);
             }
             //Bỏ dấu \n ở dòng cuối
-            allDetailsOfThisBill=allDetailsOfThisBill.substring(0, allDetailsOfThisBill.length()-1);
+            allDetailsOfThisBill = allDetailsOfThisBill.substring(0, allDetailsOfThisBill.length() - 1);
             holder.tvBillDetails.setText(allDetailsOfThisBill);
         } catch (ParseException e) {
             e.printStackTrace();

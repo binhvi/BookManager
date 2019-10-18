@@ -82,15 +82,15 @@ public class ThemSachActivity extends AppCompatActivity {
         refreshSpinner();
 
         //xac dinh xem la insert hay update
-        intent=getIntent();//intent mang doi tuong Sach ben ListBookActivity sang
-        sach=(Sach) intent.getSerializableExtra(KEY_SACH);
-        if (sach!=null) {
-            status=STATUS_UPDATE;
+        intent = getIntent();//intent mang doi tuong Sach ben ListBookActivity sang
+        sach = (Sach) intent.getSerializableExtra(KEY_SACH);
+        if (sach != null) {
+            status = STATUS_UPDATE;
             edMaSach.setEnabled(false); //khong sua ma sach
             setThongTinCuaDoiTuongSachLenView();
 
         } else {
-            status=STATUS_INSERT;
+            status = STATUS_INSERT;
         }
     }
 
@@ -114,11 +114,11 @@ public class ThemSachActivity extends AppCompatActivity {
      * hiển thị lên giao diện khi chưa xổ ra (chọn thể loại đấy là selection)
      */
     private void setTheLoaiToSpinner() {
-        String currentMaTheLoai=sach.getMaTheLoai();
-        for (int i=0; i<adapterTheLoai.getCount(); i++) {
-            TheLoai thisTheLoai=adapterTheLoai.getItem(i);
-            String maTheLoaiOfThisTheLoai=thisTheLoai.getMaTheLoai();
-            boolean isThisMaTheLoaiEqualsMaTheLoaiOfDeliveredSach=
+        String currentMaTheLoai = sach.getMaTheLoai();
+        for (int i = 0; i < adapterTheLoai.getCount(); i++) {
+            TheLoai thisTheLoai = adapterTheLoai.getItem(i);
+            String maTheLoaiOfThisTheLoai = thisTheLoai.getMaTheLoai();
+            boolean isThisMaTheLoaiEqualsMaTheLoaiOfDeliveredSach =
                     maTheLoaiOfThisTheLoai.equals(currentMaTheLoai);
             if (isThisMaTheLoaiEqualsMaTheLoaiOfDeliveredSach) {
                 spnTheLoai.setSelection(i);
@@ -128,9 +128,9 @@ public class ThemSachActivity extends AppCompatActivity {
     }
 
     private void init() {
-        validateFunctionLibrary=new ValidateFunctionLibrary(this);
-        theLoaiDAO=new TheLoaiDAO(this);
-        sachDAO=new SachDAO(this);
+        validateFunctionLibrary = new ValidateFunctionLibrary(this);
+        theLoaiDAO = new TheLoaiDAO(this);
+        sachDAO = new SachDAO(this);
     }
 
     private void addControls() {
@@ -156,17 +156,17 @@ public class ThemSachActivity extends AppCompatActivity {
         }
         layThongTinTrenForm();
         //validate
-        if (allValidate()==ValidateFunctionLibrary.FAIL) {
+        if (allValidate() == ValidateFunctionLibrary.FAIL) {
             return;
         }
 
         //chuyen gia thanh double, so luong thanh int
-        giaBia=Double.parseDouble(giaBiaText);
-        soLuong=Integer.parseInt(soLuongText);
+        giaBia = Double.parseDouble(giaBiaText);
+        soLuong = Integer.parseInt(soLuongText);
 
-        if (status==STATUS_INSERT) {
+        if (status == STATUS_INSERT) {
             addBook();
-        } else if (status==STATUS_UPDATE) {
+        } else if (status == STATUS_UPDATE) {
             updateBook();
         }
     }
@@ -177,8 +177,8 @@ public class ThemSachActivity extends AppCompatActivity {
     private boolean allValidate() {
         //ma sach
         if (validateFunctionLibrary.isTextEmpty(
-                        maSach,
-                        getResources().getString(R.string.ma_sach))) {
+                maSach,
+                getResources().getString(R.string.ma_sach))) {
             return false;
         }
         //ten sach
@@ -233,24 +233,24 @@ public class ThemSachActivity extends AppCompatActivity {
     }
 
     private void layThongTinTrenForm() {
-        maSach=edMaSach.getText().toString().trim();
+        maSach = edMaSach.getText().toString().trim();
         //lay the loai dang chon tren spinner, roi lay ma the loai
-        maTheLoai=((TheLoai) spnTheLoai.getSelectedItem()).getMaTheLoai();
-        tenSach=edTenSach.getText().toString().trim();
-        tacGia=edTacGia.getText().toString().trim();
-        nxb=edNXB.getText().toString().trim();
-        giaBiaText=edGiaBia.getText().toString().trim();
-        soLuongText=edSoLuong.getText().toString().trim();
+        maTheLoai = ((TheLoai) spnTheLoai.getSelectedItem()).getMaTheLoai();
+        tenSach = edTenSach.getText().toString().trim();
+        tacGia = edTacGia.getText().toString().trim();
+        nxb = edNXB.getText().toString().trim();
+        giaBiaText = edGiaBia.getText().toString().trim();
+        soLuongText = edSoLuong.getText().toString().trim();
     }
 
     private boolean isThereAtLeastOneCategory() {
-        if (adapterTheLoai.getCount()>0)
+        if (adapterTheLoai.getCount() > 0)
             return true;
         return false;
     }
 
     private void updateBook() {
-        Sach bookToUpdate=new Sach(
+        Sach bookToUpdate = new Sach(
                 maSach,
                 maTheLoai,
                 tenSach,
@@ -259,8 +259,8 @@ public class ThemSachActivity extends AppCompatActivity {
                 giaBia,
                 soLuong
         );
-        int result=sachDAO.updateSach(bookToUpdate);
-        if (result>0) {
+        int result = sachDAO.updateSach(bookToUpdate);
+        if (result > 0) {
             Toast.makeText(
                     this,
                     R.string.update_successfully,
@@ -277,7 +277,7 @@ public class ThemSachActivity extends AppCompatActivity {
 
     private void addBook() {
         //tao doi tuong
-        Sach sach=new Sach(
+        Sach sach = new Sach(
                 maSach,
                 maTheLoai,
                 tenSach,
@@ -289,8 +289,8 @@ public class ThemSachActivity extends AppCompatActivity {
         Log.d(TAG, sach.toString());
 
         //them vao db, thong bao them thanh cong hay that bai
-        long result=sachDAO.insertSach(sach);
-        if (result>-1) {
+        long result = sachDAO.insertSach(sach);
+        if (result > -1) {
             Toast.makeText(
                     this,
                     R.string.insert_successfully,

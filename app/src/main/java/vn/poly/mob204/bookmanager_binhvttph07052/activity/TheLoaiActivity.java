@@ -39,8 +39,8 @@ public class TheLoaiActivity extends AppCompatActivity {
     //intent from item the loai
     Intent intent;
     Bundle bundle;
-    public static final int STATUS_INSERT=0;
-    public static final int STATUS_UPDATE=1;
+    public static final int STATUS_INSERT = 0;
+    public static final int STATUS_UPDATE = 1;
     private int status;
 
     @Override
@@ -54,18 +54,18 @@ public class TheLoaiActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        intent=getIntent();
-        bundle=intent.getExtras();
+        intent = getIntent();
+        bundle = intent.getExtras();
 //        Kiểm tra xem có dữ liệu nào được gửi tới màn hình này qua Bundle không.
 //        Nếu insert thì bundle==null,
 //        nếu update, tức là có dữ liệu gửi tới màn hình này (để sửa, thì bundle!=null
-        if (bundle!=null) {
-            status=STATUS_UPDATE;
+        if (bundle != null) {
+            status = STATUS_UPDATE;
         } else {
-            status=STATUS_INSERT;
+            status = STATUS_INSERT;
         }
 
-        if (status==STATUS_UPDATE) {
+        if (status == STATUS_UPDATE) {
             //update
 //            set thông tin lên giao diện
             edMaTheLoai.setText(bundle.getString(KEY_MA_THE_LOAI));
@@ -78,8 +78,8 @@ public class TheLoaiActivity extends AppCompatActivity {
     }
 
     private void init() {
-        validateFunctionLibrary=new ValidateFunctionLibrary(this);
-        theLoaiDAO=new TheLoaiDAO(this);
+        validateFunctionLibrary = new ValidateFunctionLibrary(this);
+        theLoaiDAO = new TheLoaiDAO(this);
     }
 
     private void addControls() {
@@ -91,26 +91,26 @@ public class TheLoaiActivity extends AppCompatActivity {
 
     public void addTheLoai(View view) {
         //lay thong tin
-        maTheLoai=edMaTheLoai.getText().toString().trim();
-        tenTheLoai=edTenTheLoai.getText().toString().trim();
-        moTa=edMoTa.getText().toString().trim();
-        viTriText=edViTri.getText().toString().trim();
+        maTheLoai = edMaTheLoai.getText().toString().trim();
+        tenTheLoai = edTenTheLoai.getText().toString().trim();
+        moTa = edMoTa.getText().toString().trim();
+        viTriText = edViTri.getText().toString().trim();
         //validate
-        if (allValidate()==ValidateFunctionLibrary.FAIL)
+        if (allValidate() == ValidateFunctionLibrary.FAIL)
             return;
         //parse viTriText sang int
-        viTri=Integer.parseInt(viTriText);
+        viTri = Integer.parseInt(viTriText);
 
-        if (status==STATUS_INSERT) {
+        if (status == STATUS_INSERT) {
             insertTheLoaiFromUi();
-        } else if (status==STATUS_UPDATE) {
+        } else if (status == STATUS_UPDATE) {
             updateTheLoaiFromUi();
         }
     }
 
     private void updateTheLoaiFromUi() {
-        int result=theLoaiDAO.updateTheLoai(new TheLoai(maTheLoai, tenTheLoai, moTa, viTri));
-        if (result>0) {
+        int result = theLoaiDAO.updateTheLoai(new TheLoai(maTheLoai, tenTheLoai, moTa, viTri));
+        if (result > 0) {
             Toast.makeText(
                     this,
                     R.string.update_successfully,
@@ -127,9 +127,9 @@ public class TheLoaiActivity extends AppCompatActivity {
 
     private void insertTheLoaiFromUi() {
         //tao doi tuong
-        TheLoai theLoai=new TheLoai(maTheLoai, tenTheLoai, moTa, viTri);
+        TheLoai theLoai = new TheLoai(maTheLoai, tenTheLoai, moTa, viTri);
         //kiem tra xem co bi trung ma the loai khong
-        if (theLoaiDAO.checkPrimaryKey(maTheLoai)==true) {
+        if (theLoaiDAO.checkPrimaryKey(maTheLoai) == true) {
             //tuc la ma the loai da ton tai trong db roi
             Toast.makeText(
                     this,
@@ -139,9 +139,9 @@ public class TheLoaiActivity extends AppCompatActivity {
             return;
         }
         //neu khong trung voi ma~ nao, them vao db
-        long result=theLoaiDAO.insertTheLoai(theLoai);
+        long result = theLoaiDAO.insertTheLoai(theLoai);
         //thong bao ket qua
-        if (result>-1) {
+        if (result > -1) {
             Toast.makeText(
                     this,
                     R.string.insert_successfully,
@@ -157,7 +157,8 @@ public class TheLoaiActivity extends AppCompatActivity {
     }
 
     /**
-     *  Kiem tra trong va kiem tra xem viTri co chuyen thanh so nguyen duoc khong
+     * Kiem tra trong va kiem tra xem viTri co chuyen thanh so nguyen duoc khong
+     *
      * @return true neu pass tat ca validate, false neu fail mot trong cac validate
      */
     private boolean allValidate() {

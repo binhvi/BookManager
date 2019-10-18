@@ -50,7 +50,7 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final int pos=position; //de cho tham so position khong bi final khi truyen vao ham bat su kien
+        final int pos = position; //de cho tham so position khong bi final khi truyen vao ham bat su kien
         TheLoai theLoai = arrTheLoai.get(pos);
 
         holder.img.setImageResource(R.drawable.cateicon);
@@ -61,8 +61,8 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHold
             @Override
             public void onClick(View view) {
                 //xoa trong db
-                int result=theLoaiDAO.deleteTheLoaiByID(dsTheLoai.get(pos).getMaTheLoai());
-                if (result>0) {
+                int result = theLoaiDAO.deleteTheLoaiByID(dsTheLoai.get(pos).getMaTheLoai());
+                if (result > 0) {
                     //refresh adapter
                     ListTheLoaiActivity.refreshAdapter();
                 } else {
@@ -104,10 +104,10 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHold
                 @Override
                 public void onClick(View v) {
                     //lay doi tuong
-                    TheLoai theLoai=dsTheLoai.get(getAdapterPosition());
+                    TheLoai theLoai = dsTheLoai.get(getAdapterPosition());
                     Intent intent = new Intent(context, TheLoaiActivity.class);
                     //them vao Bundle
-                    Bundle bundle=new Bundle();
+                    Bundle bundle = new Bundle();
                     bundle.putString(KEY_MA_THE_LOAI, theLoai.getMaTheLoai());
                     bundle.putString(KEY_TEN_THE_LOAI, theLoai.getTenTheLoai());
                     bundle.putInt(KEY_VI_TRI, theLoai.getViTri());

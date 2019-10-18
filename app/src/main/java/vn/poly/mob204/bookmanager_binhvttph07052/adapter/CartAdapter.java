@@ -39,7 +39,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final int pos=position; //de position khong bi final khi su dung trong ham xu ly su kien
+        final int pos = position; //de position khong bi final khi su dung trong ham xu ly su kien
         //lay doi tuong tai vi tri position
         HoaDonChiTiet hoaDonChiTiet = arrHoaDonChiTiet.get(position);
 

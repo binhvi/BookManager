@@ -42,7 +42,7 @@ public class ListTheLoaiActivity extends AppCompatActivity {
         rvTheLoai.setLayoutManager(vertical);
 
         //database
-        theLoaiDAO=new TheLoaiDAO(this);
+        theLoaiDAO = new TheLoaiDAO(this);
     }
 
     @Override

@@ -28,23 +28,21 @@ public class BookForCartAdapter extends ArrayAdapter<Sach> {
     public BookForCartAdapter(@NonNull Activity context, int resource) {
         //khong hieu cai resoure=0 nay la cai gi, tai sao lai la 0
         super(context, resource);
-        this.context=context;
-        this.resource=resource;
+        this.context = context;
+        this.resource = resource;
     }
-
-
 
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater inflater=this.context.getLayoutInflater();
-        View customView=inflater.inflate(resource, null);
+        LayoutInflater inflater = this.context.getLayoutInflater();
+        View customView = inflater.inflate(resource, null);
 
-        TextView tvIdNameBook=customView.findViewById(R.id.tvIdNameBook);
+        TextView tvIdNameBook = customView.findViewById(R.id.tvIdNameBook);
 
         //set book info to text view (id, name)
-        Sach sach=getItem(position);
+        Sach sach = getItem(position);
         tvIdNameBook.setText(sach.toString());
 
         return customView;

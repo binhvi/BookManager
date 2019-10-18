@@ -32,7 +32,7 @@ public class ValidateFunctionLibrary {
             exc.printStackTrace();
             Toast.makeText(
                     context,
-                    field+" phải là số nguyên",
+                    field + " phải là số nguyên",
                     Toast.LENGTH_SHORT
             ).show();
             return true;
@@ -47,7 +47,7 @@ public class ValidateFunctionLibrary {
             exc.printStackTrace();
             Toast.makeText(
                     context,
-                    field+ " phải là một số",
+                    field + " phải là một số",
                     Toast.LENGTH_SHORT
             ).show();
             return true;
