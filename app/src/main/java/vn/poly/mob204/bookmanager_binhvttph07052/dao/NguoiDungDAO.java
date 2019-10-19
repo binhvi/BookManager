@@ -28,8 +28,6 @@ public class NguoiDungDAO {
     public static final String COLUMN_NGUOI_DUNG_PHONE = "phone";
     public static final String COLUMN_NGUOI_DUNG_HO_TEN = "hoten";
 
-    //error id
-
     public NguoiDungDAO(Context context) {
         dbHelper = new DatabaseHelper(context);
     }
@@ -83,29 +81,6 @@ public class NguoiDungDAO {
         cursor.close();
         database.close();
         return dsNguoiDung;
-    }
-
-    //update dua vao username
-    public int updateNguoiDung(NguoiDung nd) {
-        int result;
-        //xin quyen
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        //content values
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_NGUOI_DUNG_USERNAME, nd.getUserName());
-        values.put(COLUMN_NGUOI_DUNG_PASSWORD, nd.getPassword());
-        values.put(COLUMN_NGUOI_DUNG_PHONE, nd.getPhone());
-        values.put(COLUMN_NGUOI_DUNG_HO_TEN, nd.getHoTen());
-        //cau lenh update
-        result = db.update(
-                TABLE_NAME,
-                values,
-                COLUMN_NGUOI_DUNG_USERNAME + "=?",
-                new String[]{nd.getUserName()}
-        );
-        //dong ket noi db
-        db.close();
-        return result;
     }
 
     /**
@@ -204,6 +179,35 @@ public class NguoiDungDAO {
         //dong ket noi db
         database.close();
         if (result > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Kiểm tra xem một username đã tồn tại trong db hay chưa.
+     * Nếu có trả về true, nếu chưa có trả về false.
+     * Truy vấn số bản ghi có username trùng với username truyền vào.
+     * Nếu số bản ghi trùng >0 tức là username này đã tồn tại trong db,
+     * ngược lại username này chưa từng tồn tại trong db.
+     * @param username
+     * @return
+     */
+    public boolean isUsernameDuplicate(String username) {
+        //so luong ban ghi co username nay
+        int numberOfRecordsHaveThisUsername;
+        //xin quyen
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        //cau lenh select
+        String selectQuery = "SELECT COUNT("+COLUMN_NGUOI_DUNG_USERNAME+") FROM "+TABLE_NAME+" WHERE "+COLUMN_NGUOI_DUNG_USERNAME+"=?";
+        //rawQuery
+        Cursor cursor = database.rawQuery(selectQuery, new String[] {username});
+        cursor.moveToFirst();
+        numberOfRecordsHaveThisUsername = cursor.getInt(0);
+        //dong ket noi con tro va db
+        cursor.close();
+        database.close();
+        if (numberOfRecordsHaveThisUsername>0) {
             return true;
         }
         return false;

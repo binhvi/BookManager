@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.text.Normalizer;
+import java.util.regex.Pattern;
 
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
 import vn.poly.mob204.bookmanager_binhvttph07052.ValidateFunctionLibrary;
@@ -16,6 +20,7 @@ import vn.poly.mob204.bookmanager_binhvttph07052.dao.NguoiDungDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.NguoiDung;
 
 public class NguoiDungActivity extends AppCompatActivity {
+    private static final String TAG = "NguoiDungActivityLog";
     //view
     private EditText edUser;
     private EditText edPass;
@@ -32,6 +37,8 @@ public class NguoiDungActivity extends AppCompatActivity {
 
     //validate
     ValidateFunctionLibrary validateFunctionLibrary;
+    String regexPhone = "\\d{10,11}";
+    String regexHoTen = "\\D+";
 
 
     @Override
@@ -118,10 +125,24 @@ public class NguoiDungActivity extends AppCompatActivity {
     }
 
     private boolean allValidate() {
-        if (validateFunctionLibrary.isTextEmpty(username, getResources().getString(R.string.user_name)))
+        if (validateFunctionLibrary.isTextEmpty(username, getResources().getString(R.string.user_name))) {
             return false;
-        if (validateFunctionLibrary.isTextEmpty(password, getResources().getString(R.string.password)))
+        }
+
+        //Tên đăng nhập không được trùng
+        if (nguoiDungDAO.isUsernameDuplicate(username)) {
+            Toast.makeText(
+                    this,
+                    R.string.user_name_duplicate,
+                    Toast.LENGTH_SHORT
+            ).show();
             return false;
+        }
+
+        if (validateFunctionLibrary.isTextEmpty(password, getResources().getString(R.string.password))) {
+            return false;
+        }
+
         //validate mat khau phai >= 6 ky tu
         //Nếu mật khẩu length < 6 ký tự
         //Thì thông báo
@@ -134,8 +155,9 @@ public class NguoiDungActivity extends AppCompatActivity {
             ).show();
             return false;
         }
-        if (validateFunctionLibrary.isTextEmpty(rePass, getResources().getString(R.string.re_password)))
+        if (validateFunctionLibrary.isTextEmpty(rePass, getResources().getString(R.string.re_password))) {
             return false;
+        }
 
         //kiem tra xem la repass co trung voi pass khong
         if (!password.equals(rePass)) {
@@ -147,10 +169,35 @@ public class NguoiDungActivity extends AppCompatActivity {
             return false;
         }
 
-        if (validateFunctionLibrary.isTextEmpty(phone, getResources().getString(R.string.phone_number)))
+        if (validateFunctionLibrary.isTextEmpty(phone, getResources().getString(R.string.phone_number))) {
             return false;
-        if (validateFunctionLibrary.isTextEmpty(hoTen, getResources().getString(R.string.full_name)))
+        }
+
+        //phone: phải chứa 10 hoặc 11 kí tự chữ số
+        //test: kiem tra xem da khop voi regex chua
+        if (!phone.matches(regexPhone)) {
+            Toast.makeText(
+                    this,
+                    R.string.phone_must_be_number_characters_length_ten_or_elevent,
+                    Toast.LENGTH_SHORT
+            ).show();
             return false;
+        }
+
+        if (validateFunctionLibrary.isTextEmpty(hoTen, getResources().getString(R.string.full_name))) {
+            return false;
+        }
+
+
+        //Chỉ bắt được lỗi trong họ tên có số thôi
+       if (!hoTen.matches(regexHoTen)) {
+            Toast.makeText(
+                    this,
+                    R.string.full_name_must_not_have_number_character,
+                    Toast.LENGTH_SHORT
+            ).show();
+            return false;
+       }
         return true;
     }
 

@@ -3,6 +3,7 @@ package vn.poly.mob204.bookmanager_binhvttph07052.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import static vn.poly.mob204.bookmanager_binhvttph07052.activity.ListNguoiDungAc
 import static vn.poly.mob204.bookmanager_binhvttph07052.activity.LoginActivity.username;
 
 public class NguoiDungAdapter extends RecyclerView.Adapter<NguoiDungAdapter.ViewHolder> {
+    private static final String TAG = "NguoiDungAdapterLog";
     List<NguoiDung> arrNguoiDung;
     public Activity context;
     NguoiDungDAO nguoiDungDAO;
@@ -68,7 +70,8 @@ public class NguoiDungAdapter extends RecyclerView.Adapter<NguoiDungAdapter.View
 
         //An user cannot delete his own account while he is logging in
         if (nguoiDung.getUserName().equals(username)) {
-            holder.imgDelete.setVisibility(View.INVISIBLE); // 	INVISIBLE: This view is invisible, but it still takes up space for layout purposes.
+            //View.GONE: //This view is invisible, and it doesn't take any space for layout
+            holder.imgDelete.setVisibility(View.GONE);
         }
 
         //xoa
@@ -81,13 +84,13 @@ public class NguoiDungAdapter extends RecyclerView.Adapter<NguoiDungAdapter.View
                 if (result > 0) {
                     refreshAdapter();
                 } else {
+                    //neu khong thanh cong thi bao xoa loi
                     Toast.makeText(
                             context,
                             R.string.delete_failed,
                             Toast.LENGTH_SHORT
                     ).show();
                 }
-                //neu khong thanh cong thi bao xoa loi
             }
         });
     }
