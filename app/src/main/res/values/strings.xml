@@ -55,6 +55,7 @@
     <string name="user_name_duplicate">Trùng tên đăng nhập</string>
     <string name="phone_must_be_number_characters_length_ten_or_elevent">Số điện thoại phải chứa 10 hoặc 11 kí tự chữ số</string>
     <string name="full_name_must_not_have_number_character">Họ tên không được chứa chữ số</string>
+    <string name="can_not_change_password_because_account_dont_exists_in_database">Không thể thay đổi mật khẩu vì tài khoản này không có trong cơ sở dữ liệu</string>
 
 
 </resources>

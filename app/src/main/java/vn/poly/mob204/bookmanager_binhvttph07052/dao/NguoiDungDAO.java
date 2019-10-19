@@ -193,7 +193,7 @@ public class NguoiDungDAO {
      * @param username
      * @return
      */
-    public boolean isUsernameDuplicate(String username) {
+    public boolean isUsernameAlreadyExists(String username) {
         //so luong ban ghi co username nay
         int numberOfRecordsHaveThisUsername;
         //xin quyen

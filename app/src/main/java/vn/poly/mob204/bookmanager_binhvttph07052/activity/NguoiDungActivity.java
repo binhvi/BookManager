@@ -5,14 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.text.Normalizer;
-import java.util.regex.Pattern;
 
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
 import vn.poly.mob204.bookmanager_binhvttph07052.ValidateFunctionLibrary;
@@ -130,7 +126,7 @@ public class NguoiDungActivity extends AppCompatActivity {
         }
 
         //Tên đăng nhập không được trùng
-        if (nguoiDungDAO.isUsernameDuplicate(username)) {
+        if (nguoiDungDAO.isUsernameAlreadyExists(username)) {
             Toast.makeText(
                     this,
                     R.string.user_name_duplicate,

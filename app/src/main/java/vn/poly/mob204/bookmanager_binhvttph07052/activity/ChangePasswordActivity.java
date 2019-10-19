@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
+import vn.poly.mob204.bookmanager_binhvttph07052.ValidateFunctionLibrary;
 import vn.poly.mob204.bookmanager_binhvttph07052.dao.NguoiDungDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.NguoiDung;
 
@@ -20,6 +21,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
     NguoiDungDAO nguoiDungDAO;
     String password, rePassword;
 
+    //validate
+    ValidateFunctionLibrary validateFunctionLibrary;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +31,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         edPass = (EditText) findViewById(R.id.edPassword);
         edRePass = (EditText) findViewById(R.id.edRePassword);
         nguoiDungDAO = new NguoiDungDAO(this);
+        validateFunctionLibrary = new ValidateFunctionLibrary(this);
     }
 
     /**
@@ -71,24 +76,42 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     public boolean validateForm() {
-        if (password.isEmpty() || rePassword.isEmpty()) {
+        // Tài khoản phải tồn tại trong csdl
+        if (!nguoiDungDAO.isUsernameAlreadyExists(username)) {
+            //tai khoan khong ton tai trong db
             Toast.makeText(
-                    getApplicationContext(),
-                    "Bạn phải nhập đầy đủ thông tin",
+                    this,
+                    R.string.can_not_change_password_because_account_dont_exists_in_database,
                     Toast.LENGTH_SHORT
             ).show();
             return false;
-        } else {
-            String pass = edPass.getText().toString().trim();
-            String rePass = edRePass.getText().toString().trim();
-            if (!pass.equals(rePass)) {
-                Toast.makeText(
-                        getApplicationContext(),
-                        "Mật khẩu không trùng khớp",
-                        Toast.LENGTH_SHORT
-                ).show();
-                return false;
-            }
+        }
+
+        if (validateFunctionLibrary.isTextEmpty(password, getResources().getString(R.string.password))) {
+            return false;
+        }
+
+        if (password.length() < 6) {
+            Toast.makeText(
+                    this,
+                    R.string.password_must_have_at_least_six_character,
+                    Toast.LENGTH_SHORT
+            ).show();
+            return false;
+        }
+
+        //bat loi repass trong
+        if (validateFunctionLibrary.isTextEmpty(rePassword, getResources().getString(R.string.re_password))) {
+            return false;
+        }
+
+        if (!password.equals(rePassword)) {
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Mật khẩu không trùng khớp",
+                    Toast.LENGTH_SHORT
+            ).show();
+            return false;
         }
         return true;
     }
