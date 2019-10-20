@@ -207,6 +207,7 @@ public class SachDAO {
      * Câu lệnh select: select mã sách, tên sách, tổng tất cả số lượng bán được của một mã sách trong tháng này của năm này
      * Sắp xếp giảm dần
      * Lấy 10 bản ghi đầu tiên
+     *
      * @return list 10 sach ban chay cua thang nay (nam nay)
      */
     public List<Sach> getSachTop10() {
@@ -216,12 +217,12 @@ public class SachDAO {
         //cau lenh select
         String selectQuery =
                 "SELECT HoaDonChiTiet.maSach, tensach, SUM(HoaDonChiTiet.soLuong) AS TONG_SO_LUONG_SACH_BAN_DUOC_TRONG_THANG_X " +
-                "FROM HoaDonChiTiet INNER JOIN Sach ON HoaDonChiTiet.maSach = Sach.maSach " +
-                "                   INNER JOIN HoaDon ON HoaDonChiTiet.maHoaDon = HoaDon.mahoadon " +
-                "WHERE strftime('%m', HoaDon.ngaymua) = (SELECT strftime('%m','now')) " +
-                "GROUP BY HoaDonChiTiet.maSach " +
-                "ORDER BY SUM(HoaDonChiTiet.soLuong) DESC " +
-                "LIMIT 10;";
+                        "FROM HoaDonChiTiet INNER JOIN Sach ON HoaDonChiTiet.maSach = Sach.maSach " +
+                        "                   INNER JOIN HoaDon ON HoaDonChiTiet.maHoaDon = HoaDon.mahoadon " +
+                        "WHERE strftime('%m', HoaDon.ngaymua) = (SELECT strftime('%m','now')) " +
+                        "GROUP BY HoaDonChiTiet.maSach " +
+                        "ORDER BY SUM(HoaDonChiTiet.soLuong) DESC " +
+                        "LIMIT 10;";
         //su dung cau lenh rawQuery
         Cursor cursor = database.rawQuery(selectQuery, null);
         //0: ma sach

@@ -143,7 +143,7 @@ public class NguoiDungActivity extends AppCompatActivity {
         //Nếu mật khẩu length < 6 ký tự
         //Thì thông báo
         //Mật khẩu phải có ít nhất 6 ký tự
-        if (password.length()<6) {
+        if (password.length() < 6) {
             Toast.makeText(
                     this,
                     R.string.password_must_have_at_least_six_character,
@@ -185,14 +185,14 @@ public class NguoiDungActivity extends AppCompatActivity {
 
 
         //Chỉ bắt được lỗi trong họ tên có số thôi
-       if (!hoTen.matches(regexHoTen)) {
+        if (!hoTen.matches(regexHoTen)) {
             Toast.makeText(
                     this,
                     R.string.full_name_must_not_have_number_character,
                     Toast.LENGTH_SHORT
             ).show();
             return false;
-       }
+        }
         return true;
     }
 

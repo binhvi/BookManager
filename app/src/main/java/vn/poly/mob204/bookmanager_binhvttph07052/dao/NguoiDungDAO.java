@@ -190,6 +190,7 @@ public class NguoiDungDAO {
      * Truy vấn số bản ghi có username trùng với username truyền vào.
      * Nếu số bản ghi trùng >0 tức là username này đã tồn tại trong db,
      * ngược lại username này chưa từng tồn tại trong db.
+     *
      * @param username
      * @return
      */
@@ -199,15 +200,15 @@ public class NguoiDungDAO {
         //xin quyen
         SQLiteDatabase database = dbHelper.getReadableDatabase();
         //cau lenh select
-        String selectQuery = "SELECT COUNT("+COLUMN_NGUOI_DUNG_USERNAME+") FROM "+TABLE_NAME+" WHERE "+COLUMN_NGUOI_DUNG_USERNAME+"=?";
+        String selectQuery = "SELECT COUNT(" + COLUMN_NGUOI_DUNG_USERNAME + ") FROM " + TABLE_NAME + " WHERE " + COLUMN_NGUOI_DUNG_USERNAME + "=?";
         //rawQuery
-        Cursor cursor = database.rawQuery(selectQuery, new String[] {username});
+        Cursor cursor = database.rawQuery(selectQuery, new String[]{username});
         cursor.moveToFirst();
         numberOfRecordsHaveThisUsername = cursor.getInt(0);
         //dong ket noi con tro va db
         cursor.close();
         database.close();
-        if (numberOfRecordsHaveThisUsername>0) {
+        if (numberOfRecordsHaveThisUsername > 0) {
             return true;
         }
         return false;
