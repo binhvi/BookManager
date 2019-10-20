@@ -7,7 +7,14 @@
     <string name="re_password">Mật khẩu nhắc lại</string>
     <string name="phone_number">Số điện thoại</string>
     <string name="full_name">Họ và tên</string>
+
+    <!--NguoiDungActivity-->
+    <string name="repassword_must_be_same_as_password">Mật khẩu nhắc lại không khớp với mật khẩu</string>
+    <string name="password_must_have_at_least_six_character">Mật khẩu phải có ít nhất 6 ký tự</string>
     <string name="error_duplicate_user_name">Trùng tên đăng nhập</string>
+    <string name="phone_must_be_number_characters_length_ten_or_elevent">Số điện thoại phải chứa 10 hoặc 11 kí tự chữ số</string>
+    <string name="full_name_must_not_have_number_character">Họ tên không được chứa chữ số</string>
+    <string name="can_not_change_password_because_account_dont_exists_in_database">Không thể thay đổi mật khẩu vì tài khoản này không có trong cơ sở dữ liệu</string>
 
     <!--Them sua xoa-->
     <string name="insert_successfully">Thêm thành công</string>
@@ -32,7 +39,8 @@
     <string name="nha_xuat_ban">Nhà xuất bản</string>
     <string name="gia_bia">Giá bìa</string>
     <string name="so_luong">Số lượng</string>
-    <string name="pls_pick_date">Bạn chưa chọn ngày tạo hóa đơn</string>
+    <string name="book_id_must_be_exactly_five_characters">Mã sách phải có đúng 5 ký tự</string>
+    <string name="error_duplicate_book_id">Trùng mã sách</string>
 
     <!--HoaDonActivity-->
     <string name="products">Hàng hóa</string>
@@ -50,12 +58,9 @@
     <string name="insert_book_to_bill_detail_fail">Thêm hàng hóa vào bộ nhớ bị lỗi</string>
 
     <string name="vnd">VNĐ</string>
-    <string name="repassword_must_be_same_as_password">Mật khẩu nhắc lại không khớp với mật khẩu</string>
-    <string name="password_must_have_at_least_six_character">Mật khẩu phải có ít nhất 6 ký tự</string>
-    <string name="user_name_duplicate">Trùng tên đăng nhập</string>
-    <string name="phone_must_be_number_characters_length_ten_or_elevent">Số điện thoại phải chứa 10 hoặc 11 kí tự chữ số</string>
-    <string name="full_name_must_not_have_number_character">Họ tên không được chứa chữ số</string>
-    <string name="can_not_change_password_because_account_dont_exists_in_database">Không thể thay đổi mật khẩu vì tài khoản này không có trong cơ sở dữ liệu</string>
+    <string name="book_price_must_be_greater_than_zero">Giá bìa phải lớn hơn 0</string>
+    <string name="book_quantity_must_be_greater_than_zero">Số lượng sách phải lớn hơn 0</string>
+    <string name="number_book_to_buy_must_be_greater_than_zero">Số lượng sách cần mua phải lớn hơn 0</string>
 
 
 </resources>

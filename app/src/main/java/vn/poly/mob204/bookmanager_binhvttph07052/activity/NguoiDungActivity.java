@@ -33,8 +33,8 @@ public class NguoiDungActivity extends AppCompatActivity {
 
     //validate
     ValidateFunctionLibrary validateFunctionLibrary;
-    String regexPhone = "\\d{10,11}";
-    String regexHoTen = "\\D+";
+    public static String regexPhone = "\\d{10,11}";
+    public static String regexHoTen = "\\D+";
 
 
     @Override
@@ -129,7 +129,7 @@ public class NguoiDungActivity extends AppCompatActivity {
         if (nguoiDungDAO.isUsernameAlreadyExists(username)) {
             Toast.makeText(
                     this,
-                    R.string.user_name_duplicate,
+                    R.string.error_duplicate_user_name,
                     Toast.LENGTH_SHORT
             ).show();
             return false;
@@ -170,7 +170,6 @@ public class NguoiDungActivity extends AppCompatActivity {
         }
 
         //phone: phải chứa 10 hoặc 11 kí tự chữ số
-        //test: kiem tra xem da khop voi regex chua
         if (!phone.matches(regexPhone)) {
             Toast.makeText(
                     this,

@@ -248,6 +248,19 @@ public class HoaDonActivity extends AppCompatActivity {
             return false;
         }
 
+        numberOfBookToBuy = Integer.parseInt(numberOfBookToBuyText);
+        //Số lượng phải > 0
+        if (numberOfBookToBuy <= 0) {
+            Toast.makeText(
+                    this,
+                    R.string.number_book_to_buy_must_be_greater_than_zero,
+                    Toast.LENGTH_SHORT
+            ).show();
+            return false;
+        }
+
+
+        //Số lượng cần mua vượt quá số lượng sách trong cửa hàng
         if (isNumberOfBookWantToBuyOverNumberArchived(bookId)) {
             return false;
         }
@@ -267,7 +280,6 @@ public class HoaDonActivity extends AppCompatActivity {
      */
     private boolean isNumberOfBookWantToBuyOverNumberArchived(String bookId) {
         int numberBookArchived;
-        numberOfBookToBuy = Integer.parseInt(numberOfBookToBuyText);
         numberBookArchived = sachDAO.getNumberOfArchivedBook(bookId);
         if (numberOfBookToBuy > numberBookArchived) {
             Toast.makeText(

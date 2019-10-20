@@ -160,10 +160,6 @@ public class ThemSachActivity extends AppCompatActivity {
             return;
         }
 
-        //chuyen gia thanh double, so luong thanh int
-        giaBia = Double.parseDouble(giaBiaText);
-        soLuong = Integer.parseInt(soLuongText);
-
         if (status == STATUS_INSERT) {
             addBook();
         } else if (status == STATUS_UPDATE) {
@@ -172,6 +168,7 @@ public class ThemSachActivity extends AppCompatActivity {
     }
 
     //validate trong,
+    //ma sach phai co 5 ky tu, ma sach khong trung,
     // gia sach phai la so,
     // so luong phai la so nguyen
     private boolean allValidate() {
@@ -181,6 +178,27 @@ public class ThemSachActivity extends AppCompatActivity {
                 getResources().getString(R.string.ma_sach))) {
             return false;
         }
+
+        //Mã sách đúng 5 ký tự
+        if (maSach.length() != 5) {
+            Toast.makeText(
+                    this,
+                    R.string.book_id_must_be_exactly_five_characters,
+                    Toast.LENGTH_SHORT
+            ).show();
+            return false;
+        }
+
+        //Bắt lỗi trùng mã sách
+        if (sachDAO.isBookIdExists(maSach)) {
+            Toast.makeText(
+                    this,
+                    R.string.error_duplicate_book_id,
+                    Toast.LENGTH_SHORT
+            ).show();
+            return false;
+        }
+
         //ten sach
         if (validateFunctionLibrary.isTextEmpty(
                 tenSach,
@@ -216,6 +234,19 @@ public class ThemSachActivity extends AppCompatActivity {
             return false;
         }
 
+        //chuyen gia thanh double, so luong thanh int
+        giaBia = Double.parseDouble(giaBiaText);
+
+        //Giá bìa phai > 0
+        if (giaBia <= 0) {
+            Toast.makeText(
+                    this,
+                    R.string.book_price_must_be_greater_than_zero,
+                    Toast.LENGTH_SHORT
+            ).show();
+            return false;
+        }
+
         //so luong - empty
         if (validateFunctionLibrary.isTextEmpty(
                 soLuongText,
@@ -227,6 +258,19 @@ public class ThemSachActivity extends AppCompatActivity {
         if (validateFunctionLibrary.canNotParseToInt(
                 soLuongText,
                 getResources().getString(R.string.so_luong))) {
+            return false;
+        }
+
+        //chuyen so luong thanh int
+        soLuong = Integer.parseInt(soLuongText);
+
+        //bat loi so luong <= 0
+        if (soLuong <= 0) {
+            Toast.makeText(
+                    this,
+                    R.string.book_quantity_must_be_greater_than_zero,
+                    Toast.LENGTH_SHORT
+            ).show();
             return false;
         }
         return true;
