@@ -135,6 +135,7 @@ public class HoaDonDAO {
         return hoaDon;
     }
 
+    //khong duoc xoa
     //delete all records
     public int deleteAllHoaDon() {
         //xin quyen
@@ -142,6 +143,31 @@ public class HoaDonDAO {
         //xoa
         int result = database.delete(TABLE_NAME, null, null);
         //dong ket noi db
+        return result;
+    }
+
+    /**
+     * Xóa những hóa đơn không có hóa đơn chi tiết (xóa hóa đơn không có hàng nào)
+     * Vì khi xóa sách --> xóa sang hóa đơn chi tiết có mã sách đó, khi mà tất cả
+     * hóa đơn chi tiết trong một hóa đơn bị xóa thì khi tạo list,
+     * hóa đơn sẽ truy vấn ra hóa đơn chi tiết, nếu không có sẽ bị lỗi,
+     * nên khi hóa đơn không còn hàng hóa nào nữa thì xóa luôn
+     * @return Số hóa đơn bị xóa
+     */
+    public int deleteHoaDonKhongCoHdct() {
+        //xin quyen
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
+        //cau lenh delete
+        //DELETE FROM HoaDon
+        //WHERE mahoadon NOT IN
+        //      (SELECT DISTINCT maHoaDon
+        //      FROM HoaDonChiTiet)
+        int result = database.delete(
+                TABLE_NAME,
+                "mahoadon NOT IN" +
+                        " (SELECT DISTINCT maHoaDon" +
+                        " FROM HoaDonChiTiet)", null);
+        database.close();
         return result;
     }
 }

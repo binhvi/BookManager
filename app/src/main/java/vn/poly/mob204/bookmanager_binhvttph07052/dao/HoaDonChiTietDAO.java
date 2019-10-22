@@ -31,7 +31,7 @@ public class HoaDonChiTietDAO {
     public static final String TABLE_NAME = "HoaDonChiTiet";
     public static final String SQL_HOA_DON_CHI_TIET = "CREATE TABLE HoaDonChiTiet(maHDCT INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "maHoaDon text NOT NULL, maSach text NOT NULL, soLuong INTEGER);";
-    public static final String TAG = "HoaDonChiTiet";
+    public static final String TAG = "HoaDonChiTietLog";
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     //column
@@ -40,9 +40,11 @@ public class HoaDonChiTietDAO {
     public static final String COLUMN_SO_LUONG = "soLuong";
     public static final String COLUMN_MA_HDCT = "maHDCT";
 
+    HoaDonDAO hoaDonDAO;
 
     public HoaDonChiTietDAO(Context context) {
         dbHelper = new DatabaseHelper(context);
+        hoaDonDAO = new HoaDonDAO(context);
     }
 
     //insert
@@ -347,5 +349,33 @@ public class HoaDonChiTietDAO {
         cursor.close();
         database.close();
         return doanhThu;
+    }
+
+    /**
+     * Xóa tất cả hóa đơn chi tiết có mã sách truyền vào.
+     * @param bookId Mã sách: xóa những hóa đơn chi tiết có mã sách này
+     * @return Số lượng bản ghi hóa đơn chi tiết bị xóa
+     */
+    public int deleteAllBillDetailHaveThisBookId(String bookId) {
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
+        //cau lenh delete
+        String deleteScript = "DELETE FROM "+TABLE_NAME+
+                " WHERE "+COLUMN_MA_SACH+" = ?";
+        //delete
+        int result = database.delete(
+                TABLE_NAME,
+                COLUMN_MA_SACH+" = ?",
+                new String[] {bookId});
+        //dong ket noi db
+        database.close();
+
+        /*
+        Xóa những hóa đơn không có hóa đơn chi tiết (xóa hóa đơn không có hàng nào).
+        Vì khi xóa sách --> xóa sang hóa đơn chi tiết có mã sách đó, khi mà tất cả hóa đơn chi tiết
+         trong một hóa đơn bị xóa thì khi tạo list, hóa đơn sẽ truy vấn ra hóa đơn chi tiết,
+         nếu không có sẽ bị lỗi, nên khi hóa đơn không còn hàng hóa nào nữa thì xóa luôn.
+         */
+        hoaDonDAO.deleteHoaDonKhongCoHdct();
+        return result;
     }
 }

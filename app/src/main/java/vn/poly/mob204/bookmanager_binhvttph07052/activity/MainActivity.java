@@ -3,6 +3,7 @@ package vn.poly.mob204.bookmanager_binhvttph07052.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.View;
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
 import vn.poly.mob204.bookmanager_binhvttph07052.dao.HoaDonChiTietDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.dao.HoaDonDAO;
+import vn.poly.mob204.bookmanager_binhvttph07052.database.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
 

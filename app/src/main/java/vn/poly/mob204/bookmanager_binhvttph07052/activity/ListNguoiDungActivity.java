@@ -11,21 +11,27 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
-import vn.poly.mob204.bookmanager_binhvttph07052.adapter.NguoiDungAdapter;
+import vn.poly.mob204.bookmanager_binhvttph07052.adapter.NguoiDungAdapterListView;
 import vn.poly.mob204.bookmanager_binhvttph07052.dao.NguoiDungDAO;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.NguoiDung;
 
 import static vn.poly.mob204.bookmanager_binhvttph07052.activity.LoginActivity.username;
+import static vn.poly.mob204.bookmanager_binhvttph07052.adapter.NguoiDungAdapterListView.FULLNAME;
+import static vn.poly.mob204.bookmanager_binhvttph07052.adapter.NguoiDungAdapterListView.PHONE;
+import static vn.poly.mob204.bookmanager_binhvttph07052.adapter.NguoiDungAdapterListView.USERNAME;
 
 public class ListNguoiDungActivity extends AppCompatActivity {
-    private RecyclerView rvNguoiDung;
-    NguoiDungAdapter nguoiDungAdapter;
+    private ListView lvNguoiDung;
+    NguoiDungAdapterListView nguoiDungAdapterListView;
     public static List<NguoiDung> nguoiDungList;
     NguoiDungDAO nguoiDungDAO;
 
@@ -38,13 +44,13 @@ public class ListNguoiDungActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        rvNguoiDung = (RecyclerView) findViewById(R.id.rvNguoiDung);
+        lvNguoiDung = findViewById(R.id.lvNguoiDung);
         nguoiDungList = new ArrayList<>();
-        nguoiDungAdapter = new NguoiDungAdapter(nguoiDungList, this);
-        rvNguoiDung.setAdapter(nguoiDungAdapter);
-        //layout theo chieu doc
-        LinearLayoutManager vertical = new LinearLayoutManager(this);
-        rvNguoiDung.setLayoutManager(vertical);
+        nguoiDungAdapterListView = new NguoiDungAdapterListView(
+                this,
+                R.layout.item_nguoi_dung,
+                nguoiDungList);
+        lvNguoiDung.setAdapter(nguoiDungAdapterListView);
 
         //Lay du lieu tu db ra
         nguoiDungDAO = new NguoiDungDAO(this);
@@ -55,12 +61,29 @@ public class ListNguoiDungActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+        lvNguoiDung.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NguoiDung nguoiDung = nguoiDungList.get(position);
+                //lay ten, phone
+                String username = nguoiDung.getUserName();
+                String fullName = nguoiDung.getHoTen();
+                String phone = nguoiDung.getPhone();
+                //gui thong tin nguoi dung sang NguoiDungDetailActivity
+                Intent intent = new Intent(ListNguoiDungActivity.this, NguoiDungDetailActivity.class);
+                intent.putExtra(USERNAME, username);
+                intent.putExtra(PHONE, phone);
+                intent.putExtra(FULLNAME, fullName);
+
+                startActivity(intent);
+            }
+        });
     }
 
     private void refreshAdapter() {
         nguoiDungList.clear();
         nguoiDungList.addAll(nguoiDungDAO.getAllNguoiDung());
-        nguoiDungAdapter.notifyDataSetChanged();
+        nguoiDungAdapterListView.notifyDataSetChanged();
     }
 
     @Override

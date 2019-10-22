@@ -69,9 +69,12 @@ public class NguoiDungAdapter extends RecyclerView.Adapter<NguoiDungAdapter.View
         holder.txtPhone.setText(nguoiDung.getPhone());
 
         //An user cannot delete his own account while he is logging in
+        Log.i(TAG, "username hien tai: "+nguoiDung.getUserName());
+        Log.i(TAG, "username dang nhap: "+username);
         if (nguoiDung.getUserName().equals(username)) {
             //View.GONE: //This view is invisible, and it doesn't take any space for layout
             holder.imgDelete.setVisibility(View.GONE);
+            Log.i(TAG, "img da bi xoa");
         }
 
         //xoa

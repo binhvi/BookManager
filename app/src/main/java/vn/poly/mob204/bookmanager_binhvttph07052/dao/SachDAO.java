@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.poly.mob204.bookmanager_binhvttph07052.database.DatabaseHelper;
+import vn.poly.mob204.bookmanager_binhvttph07052.model.HoaDonChiTiet;
 import vn.poly.mob204.bookmanager_binhvttph07052.model.Sach;
 
 public class SachDAO {
@@ -29,8 +30,12 @@ public class SachDAO {
     public static final String COLUMN_GIA_BIA = "giaBia";
     public static final String COLUMN_SO_LUONG = "soLuong";
 
+    //Để xóa hóa đơn chi tiết liên quan khi xóa sách
+    HoaDonChiTietDAO hoaDonChiTietDAO;
+
     public SachDAO(Context context) {
         dbHelper = new DatabaseHelper(context);
+        hoaDonChiTietDAO = new HoaDonChiTietDAO(context);
     }
 
     //insert
@@ -113,6 +118,11 @@ public class SachDAO {
 
     //delete
     public int deleteSachByID(String maSach) {
+        //Xóa tất cả các hóa đơn chi tiết có mã sách này
+        //Vì khi xóa sách mà không xóa hóa đơn chi tiết, bên hóa đơn list vẫn sẽ truy vấn những
+        // hóa đơn chi tiết có sách này để lấy giá tiền, không tìm thấy sách sẽ bị lỗi
+        hoaDonChiTietDAO.deleteAllBillDetailHaveThisBookId(maSach);
+
         //xin quyen
         SQLiteDatabase database = dbHelper.getWritableDatabase();
         //xoa
