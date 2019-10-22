@@ -12,9 +12,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import vn.poly.mob204.bookmanager_binhvttph07052.R;
 import vn.poly.mob204.bookmanager_binhvttph07052.ValidateFunctionLibrary;
 import vn.poly.mob204.bookmanager_binhvttph07052.dao.SachDAO;
@@ -27,6 +24,7 @@ import static vn.poly.mob204.bookmanager_binhvttph07052.activity.TheLoaiActivity
 
 public class ThemSachActivity extends AppCompatActivity {
     private static final String TAG = "ThemSachActivityLog";
+
     public static final String KEY_SACH = "Sach";
     private EditText edMaSach;
     private Spinner spnTheLoai;
@@ -155,23 +153,45 @@ public class ThemSachActivity extends AppCompatActivity {
             return;
         }
         layThongTinTrenForm();
+
         //validate
-        if (allValidate() == ValidateFunctionLibrary.FAIL) {
+        if (doGeneralValidate() == ValidateFunctionLibrary.FAIL) {
             return;
         }
 
         if (status == STATUS_INSERT) {
+            //Kiểm tra xem mã sách đang nhập có trùng với mã sách có trong db rồi không,
+            // nếu có thì return, nếu không thì cho insert sách vào db
+            if (isDuplicateBookId()) {
+                return;
+            }
             addBook();
         } else if (status == STATUS_UPDATE) {
             updateBook();
         }
     }
 
+    /**
+     * Kiểm tra xem mã sách đang nhập vào có trùng với mã sách đã có trong db không.
+     * @return nếu có return true, nếu không return false
+     */
+    private boolean isDuplicateBookId() {
+        if (sachDAO.isBookIdExists(maSach)) {
+            Toast.makeText(
+                    this,
+                    R.string.error_duplicate_book_id,
+                    Toast.LENGTH_SHORT
+            ).show();
+            return true;
+        }
+        return false;
+    }
+
     //validate trong,
     //ma sach phai co 5 ky tu, ma sach khong trung,
     // gia sach phai la so,
     // so luong phai la so nguyen
-    private boolean allValidate() {
+    private boolean doGeneralValidate() {
         //ma sach
         if (validateFunctionLibrary.isTextEmpty(
                 maSach,
@@ -184,16 +204,6 @@ public class ThemSachActivity extends AppCompatActivity {
             Toast.makeText(
                     this,
                     R.string.book_id_must_be_exactly_five_characters,
-                    Toast.LENGTH_SHORT
-            ).show();
-            return false;
-        }
-
-        //Bắt lỗi trùng mã sách
-        if (sachDAO.isBookIdExists(maSach)) {
-            Toast.makeText(
-                    this,
-                    R.string.error_duplicate_book_id,
                     Toast.LENGTH_SHORT
             ).show();
             return false;
